@@ -1,0 +1,185 @@
+@media (max-width: 1200px) {
+
+    .navbar-inverse .navbar-nav>li>a {padding-left: 10px; padding-right: 10px;}
+
+	
+
+	.video-box {min-height: 200px;}
+
+	
+
+	.week-days span, .months span {display: block;margin-bottom:20px;}
+
+	.week-days a, .months a {line-height: 50px; font-size: 13px;}
+
+	
+
+	.bottom-btns .save-btn {width: 160px;}
+
+	.bottom-btns a {width: auto !important;padding: 0px 15px;}
+
+	
+
+	.logo-overlay-video-btns a {width: 80px !important;}
+
+	
+
+}
+
+
+
+@media (max-width: 991px) {
+
+	.navbar-brand {padding-right:0px; margin-top: 20px}
+
+    .navbar-brand img {width: 100px;}
+
+	.navbar-inverse .navbar-nav>li>a {padding-left: 5px; padding-right: 5px; font-size: 13px;}
+
+	.navbar-inverse .navbar-nav>li>a.user-button img {margin-right: 10px;}
+
+	.navbar-inverse .navbar-nav>li>a.user-button {padding: 0px 15px 0px 2px;}
+
+	
+
+	.videoScaleWrap {overflow-x: hidden; overflow-y: auto; overflow: scroll;}
+
+	
+
+	.week-days a, .months a {margin: 0px 6px; line-height: 40px; font-size: 12px;}
+
+	.select-box a span:before {left: -5px;}
+
+	.select-box a span {font-size:13px;padding-left: 35px;}
+
+	
+
+	.bottom-btns a {padding: 0px 10px;}
+
+	.bottom-btns a span {padding-left: 25px;font-size: 14px;}
+
+	.bottom-btns a span:before { width: 30px; height: 30px; background-size: contain !important; top: -5px;}
+
+	
+
+}
+
+@media (max-width:768px) {
+
+
+
+}
+
+ 
+
+@media (max-width: 767px) {
+
+    .navbar-brand {margin-top: 10px}
+
+	.navbar-toggle {margin-top: 25px;}
+
+	.header-bg {min-height: 80px;}
+
+	.navbar-nav {margin-top: 20px;}
+
+	.navbar-collapse {background:rgba(0,0,0,0.9) !important; padding:0px 35px 15px;}
+
+	.navbar-inverse .navbar-nav>li>a {padding-left: 0px; padding-right: 0px; font-size: 14px;}
+
+	.navbar-right li .nav-submenu {position: relative; top: 0px; left: 0px; padding: 0px 0px 0px 25px; background: none; width: 100%;}
+
+	.navbar-inverse .navbar-nav>li>a.user-button {margin-top: 15px;}
+
+	
+
+	.video-scale {margin: 40px auto 40px; display: flex;}
+
+	
+
+	.edit-playlist-options span {width: 90px;}
+
+	.edit-playlist-options input {margin-bottom: 20px;}
+
+	
+
+	.table-section tbody tr td {line-height: 40px;}
+
+	
+
+	.create-playlist .col-xs-12 {margin-top: 15px;}
+
+	
+
+	.logo-overlay-bottom a { width:100% !important;}
+
+	.myVideo-box .add-logo-img {left: 30px; width: 110px;}
+
+}
+
+
+
+@media (max-width: 640px) {
+
+    .select-box a span:before {top: 0px; left: 0px; width: 25px; height: 25px; background-size: contain !important;}
+
+	.select-box a span {font-size:15px;padding-left: 35px;}
+
+	.tab-content {padding: 15px 0px 10px;}
+
+	.video-box {min-height: auto;}
+
+	.video-box:before {width: 40px; height: 40px; left: 50%; top: 50%; margin-left: -20px;margin-top: -20px; background-size: contain;}
+
+	.video-box:hover.video-box:before {background-size: contain;}
+
+	.project-input input {padding-left: 50px; background-position: left -5px center; padding-right: 15px;}
+
+	
+
+	.contaneSection {padding: 50px 0px 0px;}
+
+	
+
+	.edit-playlist-options input {width: 40%;}
+
+	
+
+	.week-days a, .months a {margin: 0px 6px 15px; width: 11%;}
+
+	
+
+	.bottom-btns a {padding: 0px 15px;margin-top: 15px;}
+
+	.titleh1 {font-size: 30px;}
+
+	.myVideo-box .add-logo-img {left: 30px; width: 90px;}
+
+}
+
+
+
+@media (max-width: 480px) {
+
+	.select-box .col-xs-6,.select-box .col-xs-7,.select-box .col-xs-5 {width:100%;}
+
+	.edit-playlist-options input {width: 60%;}
+
+	.edit-playlist-section .activate-playlist-button, .edit-playlist-section .stop-playlist-button {margin-top: 15px;}
+
+	.bottom-btns a , .project-list-btns .ic-save{width: 100% !important;margin-top: 15px; margin-right: 0px; margin-left: 0px; }
+
+	.create-playlist .col-xs-12 {margin-top:15px;}
+
+	
+
+	.logo-overlay-video-btns a {width: 80px !important;}
+
+	.logo-overlay-bottom .span-title {width:100%;text-align: left;}
+
+	.logo-overlay-bottom .select-box {width:100%;}
+
+	.myVideo-box .add-logo-img {left: 30px; width: 60px;}
+
+	
+
+}

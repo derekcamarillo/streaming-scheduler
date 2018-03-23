@@ -1,0 +1,37 @@
+#logo_overlay_image_container {
+	position: absolute;
+    visibility: visible;
+    border: 0px;
+}
+#logo_overlay_image_container.TR {
+    top: 0px;
+    right: 0px;
+}
+#logo_overlay_image_container.TL {
+    top: 0px;
+    left: 0px;
+}
+#logo_overlay_image_container.BR {
+    bottom: 0px;
+    right: 0px;
+}
+#logo_overlay_image_container.BL {
+    bottom: 0px;
+    left: 0px;
+}
+#logo_overlay_image {
+    border: 0px;
+}
+.vjs-user-inactive #logo_overlay_image_container.user-active {
+	visibility: hidden;
+}
+.vjs-user-active.vjs-paused #logo_overlay_image_container.user-active,
+.vjs-user-inactive.vjs-paused #logo_overlay_image_container.user-active {
+	visibility: visible;
+}
+.vjs-user-inactive.vjs-has-started.vjs-paused #logo_overlay_image_container.user-active {
+    visibility: hidden;
+}
+.vjs-ad-playing #logo_overlay_image_container {
+	display: none;
+}

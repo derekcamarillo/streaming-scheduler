@@ -1,0 +1,13 @@
+/* .vjs-emre-marquee {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    z-index: 9998;
+    position: absolute;
+    font-size: 20px;
+    bottom: 0px
+} */
+
+.vjs-control {
+    z-index: 9999;
+}
