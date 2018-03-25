@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('pages.home');
+
+Route::get('/project', 'ProjectController@index');
+Route::get('/project/create', 'ProjectController@create');
+Route::get('/project/edit/{id}', 'ProjectController@edit');
+
+Route::get('/create-videoclip', 'VideoclipController@create');
+Route::get('/edit-videoclip', 'VideoclipController@edit');
+Route::post('/create-videoclip-action', 'VideoclipController@doCreate');

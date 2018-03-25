@@ -14,15 +14,36 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
-                            <li><a href="editplaylist">Edit Playlist</a>
+                            <li><a href="project">Project</a>
                                 <ul class="nav-submenu">
-                                    <li><a href="createplaylist">Create Playlist</a></li>
-                                    <li><a href="editplaylist">Edit Playlist</a></li>
-                                </ul><!--nav-submenu-->
+                                    <li><a href="create-project">New Project</a></li>
+                                    <li><a href="edit-project">Edit Project</a></li>
+                                </ul>
                             </li>
-                            <li><a href="projectlist">Project List</a></li>
-                            <li><a href="logooverlay">Logo Overlay</a></li>
-                            <li><a href="playlistmsg">Messages</a></li>
+                            <li><a href="javascript:void(0);">Playlist</a>
+                                <ul class="nav-submenu">
+                                    <li><a href="create-playlist">New Playlist</a></li>
+                                    <li><a href="edit-playlist">Edit Playlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:void(0);">Video Clip</a>
+                                <ul class="nav-submenu">
+                                    <li><a href="create-videoclip">New Video</a></li>
+                                    <li><a href="edit-videoclip">Edit Video</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:void(0);">Logo Overlay</a>
+                                <ul class="nav-submenu">
+                                    <li><a href="create-logo">New Logo</a></li>
+                                    <li><a href="edit-logo">Edit Logo</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:void(0);">Message</a>
+                                <ul class="nav-submenu">
+                                    <li><a href="create-message">New Message</a></li>
+                                    <li><a href="edit-message">Edit Message</a></li>
+                                </ul>
+                            </li>
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="user-button">

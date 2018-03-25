@@ -1,68 +1,83 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suisse View</title>
+    <meta name="keywords" content="Suisse View" />
+    <!-- Bootstrap -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <!--    <link href="css/logincss/jquery.simplyscroll.css" rel="stylesheet">-->
+    <link href="css/logincss/animate.css" rel="stylesheet">
+    <!--    <link href="css/logincss/flaticon.css" rel="stylesheet">-->
+    <link href="css/logincss/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="css/logincss/ic-style.css" rel="stylesheet">
+    <!--    <link href="css/logincss/scrollbar-style.css" rel="stylesheet">-->
+    <link href="css/logincss/main-style.css" rel="stylesheet">
+    <link href="css/logincss/responsive.css" rel="stylesheet">
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+<section class="contaneSection">
+    <div class="container">
+        <div class="row">
+            <h1 class="titleh1 loginTitle">Welcome to iStream</h1>
+            <div class="col-lg-4 emptyDiv">&nbsp;</div>
+            <div class="col-lg-4 col-xs-12">
+                <div class="row">
+                    <form role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
+                        <div class="col-lg-12 inputRow">
+                            <input id="email" type="email" name="email" placeholder="Email Address" class="input" value="{{ old('email') }}" required autofocus>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                            @if ($errors->has('email'))
+                                <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
+                            @endif
                         </div>
+                        <div class="col-lg-12 inputRow">
+                            <input id="password" type="password" name="password" placeholder="Password" class="input" required>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+                            @if ($errors->has('password'))
+                                <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
+                            @endif
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="col-lg-12 inputRow">
+                            <a href="{{ route('register') }}" class="forgot">Sign Up</a>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
+                        <div class="col-lg-12 bottom-btns">
+                            <button type="submit" style="height: 60px; color: #fff; font-size: 16px; border-radius: 4px; font-weight: 600; outline: none; display: inline-block;" class="btn add-video-btn"> Login </button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-@endsection
+            <div class="col-lg-4 emptyDiv">&nbsp;</div>
+        </div><!--row-->
+    </div><!--container-fluid-->
+</section><!--sectionhome-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/filterable.pack.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/jquery.simplyscroll.js"></script> -->
+<script src="js/wow.min.js"></script>
+<script src="js/scrollbar.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!--
+    <script>
+        new WOW().init();
+        $("#scroller").simplyScroll();
+    </script>
+-->
+</body>
+</html>
