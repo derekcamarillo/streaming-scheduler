@@ -12,14 +12,17 @@ class VideoclipController extends Controller
     //
 
     public function index() {
+        $user = Auth::user();
+        $videoclips = $user->videoclips;
 
+        return view('pages.videoclip.index', compact('videoclips'));
     }
 
-    public function create() {
-        return view('pages.create-videoclip');
+    public function create(Request $request) {
+        return view('pages.videoclip.create');
     }
 
-    public function edit() {
+    public function edit(Request $request, $id) {
         $user = Auth::user();
         $result = $user->videoclips;
         //$ressult = User::videoclips();

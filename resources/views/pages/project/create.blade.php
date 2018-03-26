@@ -1,10 +1,12 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Project List</h1>
+        <h1 class="titleh1">Create Project</h1>
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <div class="col-sm-5 col-md-5">
+
+                    <!--
                     <select class="form-control" id="#">
                         <option>New Project</option>
                         <option>New Project 1</option>
@@ -14,6 +16,7 @@
                         <option>New Project 5</option>
                         <option>New Project 6</option>
                     </select>
+                    -->
                 </div><!--col-5-->
                 <div class="col-sm-3 col-md-3 project-save-btn">
                     <a class="activate-playlist-button" href="#">

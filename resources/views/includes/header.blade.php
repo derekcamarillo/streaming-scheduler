@@ -26,7 +26,7 @@
                                     <li><a href="edit-playlist">Edit Playlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0);">Video Clip</a>
+                            <li><a href="videoclip">Video Clip</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-videoclip">New Video</a></li>
                                     <li><a href="edit-videoclip">Edit Video</a></li>
@@ -47,7 +47,7 @@
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="user-button">
-                                        <img src="images/user-top-ic.png">{{ Auth::user()->name }}
+                                        <img src="{{ asset('images/user-top-ic.png') }}">{{ Auth::user()->name }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}

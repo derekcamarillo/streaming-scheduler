@@ -5,23 +5,21 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th style="width: 35px;">ID</th>
-                        <th>Video Clip</th>
-                        <th>Message Type</th>
-                        <th>Message</th>
-                    </tr>
+                        <tr>
+                            <th style="width: 35px;">ID</th>
+                            <th>Title</th>
+                            <th>Project URL</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <!-- class="active-tr" -->
-                    @foreach($videoclips as $item)
-                        <tr class="tbl_row">
-                            <td style="text-align: center;">{{ $item->id }}</td>
-                            <td>{{ $item->title }}</td>
-                            <td>{{ $item->message->effect }}</td>
-                            <td>{{ $item->message->text }}</td>
-                        </tr>
-                    @endforeach
+                        <!-- class="active-tr" -->
+                        @foreach($projects as $item)
+                            <tr class="tbl_row">
+                                <td style="text-align: center;">{{ $item->id }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->url }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div><!--table-responsive-->
@@ -29,9 +27,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="videoclip/create" class="save-btn ic-save"><span>Add Video Clip</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Video Clip</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Video Clip</span></a>
+        <a href="project/create" class="save-btn ic-save"><span>Add Project</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Project</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Project</span></a>
     </div>
 
     <script>

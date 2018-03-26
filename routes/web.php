@@ -23,6 +23,10 @@ Route::get('/project', 'ProjectController@index');
 Route::get('/project/create', 'ProjectController@create');
 Route::get('/project/edit/{id}', 'ProjectController@edit');
 
-Route::get('/create-videoclip', 'VideoclipController@create');
-Route::get('/edit-videoclip', 'VideoclipController@edit');
-Route::post('/create-videoclip-action', 'VideoclipController@doCreate');
+Route::get('/playlist', 'PlaylistController@index');
+Route::get('/playlist/create', 'PlaylistController@create');
+Route::get('/playlist/edit', 'PlaylistController@edit');
+
+Route::get('/videoclip', 'VideoclipController@index');
+Route::get('/videoclip/create', 'VideoclipController@create');
+Route::get('/videoclip/edit/{id}', 'VideoclipController@edit');
