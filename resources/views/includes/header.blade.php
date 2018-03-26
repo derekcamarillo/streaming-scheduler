@@ -14,7 +14,7 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
-                            <li><a href="project">Project</a>
+                            <li><a href="{{ url('/project') }}">Project</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-project">New Project</a></li>
                                     <li><a href="edit-project">Edit Project</a></li>
@@ -26,7 +26,7 @@
                                     <li><a href="edit-playlist">Edit Playlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="videoclip">Video Clip</a>
+                            <li><a href="{{ url('/videoclip') }}">Video Clip</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-videoclip">New Video</a></li>
                                     <li><a href="edit-videoclip">Edit Video</a></li>

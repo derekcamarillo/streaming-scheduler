@@ -25,7 +25,7 @@ Route::get('/project/edit/{id}', 'ProjectController@edit');
 
 Route::get('/playlist', 'PlaylistController@index');
 Route::get('/playlist/create', 'PlaylistController@create');
-Route::get('/playlist/edit', 'PlaylistController@edit');
+Route::get('/playlist/edit/{id}', 'PlaylistController@edit');
 
 Route::get('/videoclip', 'VideoclipController@index');
 Route::get('/videoclip/create', 'VideoclipController@create');
