@@ -9,14 +9,13 @@
     <!-- Bootstrap -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <!--    <link href="css/logincss/jquery.simplyscroll.css" rel="stylesheet">-->
-    <link href="css/logincss/animate.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
     <!--    <link href="css/logincss/flaticon.css" rel="stylesheet">-->
-    <link href="css/logincss/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <link href="css/logincss/ic-style.css" rel="stylesheet">
     <!--    <link href="css/logincss/scrollbar-style.css" rel="stylesheet">-->
-    <link href="css/logincss/main-style.css" rel="stylesheet">
-    <link href="css/logincss/responsive.css" rel="stylesheet">
+    <link href="css/main-style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

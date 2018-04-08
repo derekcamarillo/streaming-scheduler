@@ -30,3 +30,9 @@ Route::get('/playlist/edit/{id}', 'PlaylistController@edit');
 Route::get('/videoclip', 'VideoclipController@index');
 Route::get('/videoclip/create', 'VideoclipController@create');
 Route::get('/videoclip/edit/{id}', 'VideoclipController@edit');
+Route::post('/videoclip/store', 'VideoclipController@store');
+
+Route::get('/message', 'VideoclipController@index');
+Route::get('/message/create', 'VideoclipController@create');
+Route::get('/message/edit/{id}', 'VideoclipController@edit');
+Route::post('/message/store', 'VideoclipController@store');

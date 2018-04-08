@@ -1073,6 +1073,7 @@ header {
 .myVideo-box {
 	position: relative;
 	padding: 0;
+	border: 2px #fff solid;
 }
 
 .myVideo-box .add-logo-img {
@@ -1089,6 +1090,7 @@ header {
 
 .logo-overlay-video-btns {
 	margin-top: 35px;
+	margin-bottom: 25px;
 }
 
 .logo-overlay-video-btns a {

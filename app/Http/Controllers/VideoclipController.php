@@ -34,7 +34,7 @@ class VideoclipController extends Controller
         //return view('pages.edit-videoclip');
     }
 
-    public function doCreate(Request $request) {
+    public function store(Request $request) {
         $videoclip = new Videoclip();
 
         $this->validate($request, [
@@ -46,9 +46,14 @@ class VideoclipController extends Controller
 
         try{
             if($videoclip->save())
-                return view('pages.create-videoclip');
+                return response()->json([
+                    "result" => "success",
+                    "id" => $videoclip->id
+                ]);
             else
-                return $this->response->error('could_not_create_order', 500);
+                return response()->json([
+                    "result" => "error"
+                ]);
         }
         catch(Exception $e){
             return $this->response->error('could_not_create_order', 500);

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="col-sm-12 col-md-12">
-        <div class="table-section">
+        <div class="table-section playlist-m">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -36,7 +36,7 @@
 
     <script>
         $(function() {
-            $('.tbl_row').click(function(){
+            $('.tbl_row').click(function() {
                 $('.tbl_row').removeClass('active-tr');
                 $(this).addClass('active-tr');
             });
