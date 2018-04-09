@@ -43,6 +43,7 @@ class VideoclipController extends Controller
         ]);
 
         $videoclip->fill($request->all());
+        $videoclip->user_id = Auth::user()->id;
 
         try{
             if($videoclip->save())

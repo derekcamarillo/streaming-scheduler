@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Color</span>
-                        <input type="text" class="text-center colorFeild">
+                        <input type="color" id="font_color" class="text-center colorFeild">
                     </div>
                 </div>
             </div>
@@ -142,6 +142,9 @@
             });
             $('.save-btn').click(function () {
                 $('#form_video').submit();
+            });
+            $('#font_color').on('change', function(e) {
+                $(this).css('background', $(this).val());
             });
         });
     </script>
