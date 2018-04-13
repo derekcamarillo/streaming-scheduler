@@ -31,7 +31,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Project');
     }
 
+    public function playlists() {
+        return $this->hasMany('App\Playlist');
+    }
+
     public function videoclips() {
         return $this->hasMany('App\Videoclip');
+    }
+
+    public function messages() {
+        return $this->hasMany('App\Message');
+    }
+
+    public function logos() {
+        return $this->hasMany('App\Logo');
     }
 }

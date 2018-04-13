@@ -38,7 +38,7 @@
                                     <li><a href="edit-logo">Edit Logo</a></li>
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0);">Message</a>
+                            <li><a href="{{ url('/message') }}">Message</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-message">New Message</a></li>
                                     <li><a href="edit-message">Edit Message</a></li>

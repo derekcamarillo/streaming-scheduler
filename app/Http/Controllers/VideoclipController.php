@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
 use App\Videoclip;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +14,11 @@ class VideoclipController extends Controller
         $user = Auth::user();
         $videoclips = $user->videoclips;
 
+        foreach ($videoclips as $videoclip) {
+            $message = $videoclip->message;
+            $i = 0;
+        }
+
         return view('pages.videoclip.index', compact('videoclips'));
     }
 
@@ -22,16 +26,14 @@ class VideoclipController extends Controller
         return view('pages.videoclip.create');
     }
 
-    public function edit(Request $request, $id) {
-        $user = Auth::user();
-        $result = $user->videoclips;
-        //$ressult = User::videoclips();
-        return response()->json([
-            "result" => $result,
-            "message" => "update order successfully"
-        ]);
+    public function edit($id) {
+        $videoclip = Videoclip::find($id);
 
-        //return view('pages.edit-videoclip');
+        return view('pages.videoclip.edit', compact('videoclip'));
+    }
+
+    public function update($id, Request $request) {
+
     }
 
     public function store(Request $request) {

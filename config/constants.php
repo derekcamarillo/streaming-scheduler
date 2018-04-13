@@ -9,9 +9,21 @@
 
 return [
     'message_type' => [
-        'left_right' => 'scroll left to right',
-        'right_left' => 'scroll right to left',
-        'top_bottom' => 'scroll top to bottom',
-        'bottom_top' => 'scroll bottom to top'
-    ]
+        'right' => 'scroll left to right',
+        'left' => 'scroll right to left',
+        'down' => 'scroll top to bottom',
+        'up' => 'scroll bottom to top'
+    ],
+    'logo_type' => [
+        'left_top' => 'Left Top',
+        'left_bottom' => 'Left Bottom',
+        'right_top' => 'Right Top',
+        'right_bottom' => 'Right Bottom'
+    ],
+    'font_type' => [
+        'arial' => 'Arial',
+        'poppines' => 'Poppines',
+        'opensans' => 'Open Sans',
+        'roboto' => 'Roboto'
+    ],
 ];
