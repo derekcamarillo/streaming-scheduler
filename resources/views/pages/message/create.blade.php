@@ -101,7 +101,9 @@
             </div>
         </div><!--col-12-->
     </div><!--row-->
+@stop
 
+@section('script')
     <script>
         var videoclipId = 0;
 
