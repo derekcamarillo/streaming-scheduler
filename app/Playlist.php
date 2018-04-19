@@ -8,11 +8,11 @@ class Playlist extends Model
 {
     //
     public function message() {
-        return $this->hasOne('App\Message');
+        return $this->belongsTo('App\Message');
     }
 
     public function schedule() {
-        return $this->belongsToMany('App\Schedule');
+        return $this->hasOne('App\Schedule');
     }
 
     public function videoclips() {

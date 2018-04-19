@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Videoclip;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VideoclipController extends Controller
@@ -13,11 +13,6 @@ class VideoclipController extends Controller
     public function index() {
         $user = Auth::user();
         $videoclips = $user->videoclips;
-
-        foreach ($videoclips as $videoclip) {
-            $message = $videoclip->message;
-            $i = 0;
-        }
 
         return view('pages.videoclip.index', compact('videoclips'));
     }

@@ -26,4 +26,6 @@ return [
         'opensans' => 'Open Sans',
         'roboto' => 'Roboto'
     ],
+    'weekdays' => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 ];

@@ -12,6 +12,6 @@ class Project extends Model
     }
 
     public function logo() {
-        return $this->hasOne('App\Logo');
+        return $this->belongsTo('App\Logo');
     }
 }

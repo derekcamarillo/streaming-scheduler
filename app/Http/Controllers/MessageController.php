@@ -18,4 +18,10 @@ class MessageController extends Controller
     public function create(Request $request) {
         return view('pages.message.create');
     }
+
+    public function edit($id) {
+        $message = Message::find($id);
+
+        return view('pages.message.edit', compact('message'));
+    }
 }

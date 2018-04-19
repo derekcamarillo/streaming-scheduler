@@ -20,7 +20,7 @@
                                     <li><a href="edit-project">Edit Project</a></li>
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0);">Playlist</a>
+                            <li><a href="{{ url('/playlist') }}">Playlist</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-playlist">New Playlist</a></li>
                                     <li><a href="edit-playlist">Edit Playlist</a></li>
@@ -32,7 +32,7 @@
                                     <li><a href="edit-videoclip">Edit Video</a></li>
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0);">Logo Overlay</a>
+                            <li><a href="{{ url('/logo') }}">Logo Overlay</a>
                                 <ul class="nav-submenu">
                                     <li><a href="create-logo">New Logo</a></li>
                                     <li><a href="edit-logo">Edit Logo</a></li>

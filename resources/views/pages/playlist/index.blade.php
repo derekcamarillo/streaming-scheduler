@@ -8,16 +8,46 @@
                         <tr>
                             <th style="width: 35px;">ID</th>
                             <th>Title</th>
-                            <th>Project URL</th>
+                            <th>Month</th>
+                            <th>WeekDay</th>
+                            <th>Start</th>
+                            <th>Message</th>
+                            <th>Loop</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- class="active-tr" -->
-                        @foreach($projects as $item)
+                        @foreach($playlists as $item)
+                            @php
+                                if(isset($item->schedule)) {
+                                    $months = explode(',', $item->schedule->months);
+                                    $weekdays = explode(',', $item->schedule->days);
+                                }
+                            @endphp
                             <tr class="tbl_row">
                                 <td style="text-align: center;">{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->url }}</td>
+                                <td><span>{{ $item->title }}</span></td>
+                                <td>
+                                    @foreach($months as $month)
+                                        {{ Config::get('constants.months')[$month - 1] }},
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($weekdays as $weekday)
+                                        {{ Config::get('constants.weekdays')[$weekday - 1] }},
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @if(isset($item->schedule))
+                                        {{ $item->schedule->start_time }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(isset($item->message))
+                                        {{ $item->message->text }}
+                                    @endif
+                                </td>
+                                <td>1</td>
                             </tr>
                         @endforeach
                     </tbody>

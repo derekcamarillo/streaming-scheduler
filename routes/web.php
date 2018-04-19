@@ -36,3 +36,8 @@ Route::get('/message', 'MessageController@index');
 Route::get('/message/create', 'MessageController@create');
 Route::get('/message/edit/{id}', 'MessageController@edit');
 Route::post('/message/store', 'MessageController@store');
+
+Route::get('/logo', 'LogoController@index');
+Route::get('/logo/create', 'LogoController@create');
+Route::get('/logo/edit/{id}', 'LogoController@edit');
+Route::post('/logo/store', 'LogoController@store');

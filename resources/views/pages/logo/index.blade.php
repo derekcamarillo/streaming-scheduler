@@ -7,19 +7,21 @@
                     <thead>
                     <tr>
                         <th style="width: 35px;">ID</th>
-                        <th>Video Clip</th>
-                        <th>Message Type</th>
-                        <th>Message</th>
+                        <th>Logo Url</th>
+                        <th>Position</th>
+                        <th>X Offset</th>
+                        <th>Y Offset</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- class="active-tr" -->
-                    @foreach($videoclips as $item)
+                    @foreach($logos as $item)
                         <tr class="tbl_row">
                             <td style="text-align: center;">{{ $item->id }}</td>
-                            <td>{{ $item->title }}</td>
-                            <td>@if(isset($item->message)) {{ Config::get('constants.message_type.'.$item->message->effect) }} @endif</td>
-                            <td>@if(isset($item->message)) {{ $item->message->text }} @endif</td>
+                            <td>{{ $item->url }}</td>
+                            <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
+                            <td>{{ $item->xPosition }}</td>
+                            <td>{{ $item->yPosition }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -29,9 +31,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="videoclip/create" class="save-btn ic-save"><span>Add Video Clip</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Video Clip</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Video Clip</span></a>
+        <a href="logo/create" class="save-btn ic-save"><span>Add Message</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Message</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Message</span></a>
     </div>
 
     <script>
@@ -44,7 +46,7 @@
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/videoclip/edit') }}/" + value.children[0].innerText;
+                        window.location.href = "{{ url('/logo/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
                     swal("Please select video clip to edit",{
