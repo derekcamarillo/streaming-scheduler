@@ -24,4 +24,32 @@ class MessageController extends Controller
 
         return view('pages.message.edit', compact('message'));
     }
+
+    public function store(Request $request) {
+        $message = new Message();
+
+        $this->validate($request, [
+            'text'  => 'required',
+            'effect' => 'required'
+        ]);
+
+        try{
+            $message->fill($request->all());
+            $message->user_id = Auth::user()->id;
+
+            if($message->save())
+
+                return response()->json([
+                    "result" => "success",
+                    "id" => $message->id
+                ]);
+            else
+                return response()->json([
+                    "result" => "error"
+                ]);
+        }
+        catch(Exception $e){
+            return $this->response->error('could_not_create_message', 500);
+        }
+    }
 }

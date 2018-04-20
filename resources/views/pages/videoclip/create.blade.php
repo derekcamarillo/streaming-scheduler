@@ -78,6 +78,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="videoclip_id">
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -105,8 +106,6 @@
 
 @section('script')
     <script>
-        var videoclipId = 0;
-
         new WOW().init();
         $('#ScrollSpeed').slider({
             formatter: function (value) {
@@ -115,18 +114,7 @@
         });
 
         function saveMessage() {
-            $('#form_message').submit(function (event){
-                event.preventDefault();
-
-                $.post('/message/store', $(this).serializeArray(), function (response) {
-                    if (response.result == 'success') {
-                        videoclipId = response.id;
-                        swal("Video Clip", "New video clip successfully saved", "success");
-                    } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
-                    }
-                });
-            });
+            $('#form_message').submit();
         }
 
         $(function() {
@@ -135,16 +123,35 @@
 
                 $.post('/videoclip/store', $(this).serializeArray(), function (response) {
                     if (response.result == 'success') {
-                        videoclipId = response.id;
+                        $('#videoclip_id').val(response.id);
                         swal("Video Clip", "New video clip successfully saved", "success");
                     } else {
                         swal("Video Clip", "Saving video clip failed", "error");
                     }
                 });
             });
+
+            $('#form_message').submit(function (event){
+                event.preventDefault();
+
+                if ($('#videoclip_id').val() == null) {
+                    swal("Message", "Please create video clip first", "error");
+                    return;
+                }
+
+                $.post('/message/store', $(this).serializeArray(), function (response) {
+                    if (response.result == 'success') {
+                        swal("Video Clip", "New video clip successfully saved", "success");
+                    } else {
+                        swal("Video Clip", "Saving video clip failed", "error");
+                    }
+                });
+            });
+
             $('.save-btn').click(function () {
                 $('#form_video').submit();
             });
+
             $('#font_color').on('change', function(e) {
                 $(this).css('background', $(this).val());
             });

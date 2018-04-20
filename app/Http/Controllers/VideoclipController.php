@@ -54,7 +54,7 @@ class VideoclipController extends Controller
                 ]);
         }
         catch(Exception $e){
-            return $this->response->error('could_not_create_order', 500);
+            return $this->response->error('could_not_create_videoclip', 500);
         }
     }
 }
