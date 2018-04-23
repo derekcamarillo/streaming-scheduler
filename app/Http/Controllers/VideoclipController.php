@@ -27,10 +27,6 @@ class VideoclipController extends Controller
         return view('pages.videoclip.edit', compact('videoclip'));
     }
 
-    public function update($id, Request $request) {
-
-    }
-
     public function store(Request $request) {
         $videoclip = new Videoclip();
 
@@ -55,6 +51,43 @@ class VideoclipController extends Controller
         }
         catch(Exception $e){
             return $this->response->error('could_not_create_videoclip', 500);
+        }
+    }
+
+    public function update($id, Request $request) {
+        $videoclip = Videoclip::findOrFail($id);
+        $videoclip->update($request->all());
+
+        try{
+            if($videoclip->save()) {
+                return response()->json([
+                    "result" => "success",
+                    "id" => $videoclip->id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => "error"
+                ]);
+            }
+        }catch(Exception $e){
+            return $this->response->error('could_not_update_videoclip', 500);
+        }
+    }
+
+    public function destroy($id) {
+        try{
+            if(Videoclip::destroy($id)) {
+                return response()->json([
+                    "result" => "success",
+                    "id" => $id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => "error"
+                ]);
+            }
+        }catch(Exception $e){
+            return $this->response->error('could_not_delete_videoclip', 500);
         }
     }
 }

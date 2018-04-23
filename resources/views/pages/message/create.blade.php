@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3 scrollspeed">
                         <!--<span>Scroll Speed</span>-->
-                        <input id="ScrollSpeed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="1" />
+                        <input id="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="1" />
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Duration in sec</span>

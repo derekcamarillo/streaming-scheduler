@@ -85,7 +85,7 @@
             </div>
             <div class="col-sm-12 select-box">
                 <input type="text" id="message" name="message" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
-            </div><!--col-4-->
+            </div>
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -137,7 +137,7 @@
             $('#form_video').submit(function (event){
                 event.preventDefault();
 
-                $.post('/videoclip/update', $(this).serializeArray(), function (response) {
+                $.put('/videoclip/update', $(this).serializeArray(), function (response) {
                     if (response.result == 'success') {
                         videoclipId = response.id;
                         swal("Video Clip", "New video clip successfully saved", "success");

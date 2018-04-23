@@ -31,6 +31,8 @@ Route::get('/videoclip', 'VideoclipController@index');
 Route::get('/videoclip/create', 'VideoclipController@create');
 Route::get('/videoclip/edit/{id}', 'VideoclipController@edit');
 Route::post('/videoclip/store', 'VideoclipController@store');
+Route::put('/videoclip/update/{id}', 'VideoclipController@update');
+Route::delete('/videoclip/destroy/{id}', 'VideoclipController@destroy');
 
 Route::get('/message', 'MessageController@index');
 Route::get('/message/create', 'MessageController@create');

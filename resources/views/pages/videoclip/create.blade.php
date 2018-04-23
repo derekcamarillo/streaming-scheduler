@@ -7,7 +7,6 @@
             <div class="row edit-playlist-section">
                 <form id="form_video">
                     {{ csrf_field() }}
-
                     <div class="col-xs-7 col-sm-4 col-md-4">
                         <input type="text" id="title" name="title" placeholder="Video Clip Title" class="input">
                     </div><!--col-4-->
@@ -30,7 +29,7 @@
             <div class="col-sm-12 select-box create-playlist">
                 <div class="row edit-playlist-section edit-playlist-options optionsRight">
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <select class="form-control" id="effect">
+                        <select class="form-control" id="effect" name="effect">
                             <option value="" disabled="disabled" selected="selected">Select Effect</option>
                             @foreach(Config::get('constants.message_type') as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
@@ -39,15 +38,17 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3 scrollspeed">
                         <!--<span>Scroll Speed</span>-->
-                        <input id="ScrollSpeed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="1" />
+                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@else 1 @endif" />
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Duration in sec</span>
-                        <input type="text" placeholder="10" class="text-center">
-                    </div>
+
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Player X-Position</span>
-                        <input type="text" placeholder="10" class="text-center">
+                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                    </div>
+
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <span>Player Y-Position</span>
+                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
             </div>
@@ -55,30 +56,27 @@
                 <div class="row edit-playlist-options">
                     <!--col-3-->
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player Y-Position</span>
-                        <input type="text" placeholder="10" class="text-center">
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Type</span>
-                        <select class="form-control fontInput" id="#">
-                            <option value="" disabled="disabled" selected="selected">Select Font</option>
-                            <option>Arial</option>
-                            <option>Poppines</option>
-                            <option>Open Sanse</option>
-                            <option>Roboto</option>
+                        <select class="form-control fontInput" id="fonttype" name="fonttype">
+                            @foreach(Config::get('constants.font_type') as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Size</span>
-                        <input type="text" placeholder="10" class="text-center">
+                        <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Color</span>
-                        <input type="color" id="font_color" class="text-center colorFeild">
+                        <input type="color" id="fontcolor" name="fontcolor" class="text-center colorFeild" value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="videoclip_id">
+            <div class="col-sm-12 select-box">
+                <input type="text" id="text" name="text" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
+            </div>
+            <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -107,7 +105,7 @@
 @section('script')
     <script>
         new WOW().init();
-        $('#ScrollSpeed').slider({
+        $('#speed').slider({
             formatter: function (value) {
                 return 'Scroll Speed' + value;
             }
@@ -134,7 +132,7 @@
             $('#form_message').submit(function (event){
                 event.preventDefault();
 
-                if ($('#videoclip_id').val() == null) {
+                if ($('#videoclip_id').val() == 0) {
                     swal("Message", "Please create video clip first", "error");
                     return;
                 }

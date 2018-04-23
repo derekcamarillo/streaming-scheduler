@@ -28,6 +28,11 @@
         </div><!--table-section-->
     </div><!--col-12-->
 
+    <form id="delete_videoclip" action="post">
+        {{ csrf_field() }}
+        <input type="hidden" id="id" name="id" value="0">
+    </form>
+
     <div class="bottom-btns project-list-btns">
         <a href="videoclip/create" class="save-btn ic-save"><span>Add Video Clip</span></a>
         <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Video Clip</span></a>
@@ -54,7 +59,33 @@
             });
 
             $('.ic-delete-video').click(function () {
+                if ($('tbody>tr').hasClass('active-tr')) {
+                    $('.active-tr').each(function(index, value) {
+                        swal({
+                            title: "Video Clip",
+                            text: "Do you really want to delete this?",
+                            type: "error",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-danger",
+                            confirmButtonText: "Yes, delete it!",
+                            closeOnConfirm: false
+                        }).then(function(result){
+                            $('#id').val(value.children[0].innerText);
 
+                            $.delete('/videoclip/destroy/' + value.children[0].innerText, $('#delete_videoclip').serializeArray(),  function (response) {
+                                if (response.result == 'success') {
+                                    swal("Video Clip", "Video clip successfully deleted", "success");
+                                } else {
+                                    swal("Video Clip", "Deleting video clip failed", "error");
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    swal("Please select video clip to delete",{
+                        icon:"error",
+                    });
+                }
             });
         });
     </script>
