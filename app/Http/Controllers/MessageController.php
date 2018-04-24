@@ -6,6 +6,8 @@ use App\Message;
 use App\Videoclip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Config;
 
 class MessageController extends Controller
 {
@@ -29,10 +31,18 @@ class MessageController extends Controller
     public function store(Request $request) {
         $message = new Message();
 
-        $this->validate($request, [
-            'text'  => 'required',
-            'effect' => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'text'  => 'required',
+                'effect' => 'required'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
 
         try {
             $message->fill($request->all());
@@ -47,17 +57,20 @@ class MessageController extends Controller
                 }
 
                 return response()->json([
-                    "result" => "success",
+                    "result" => Config::get('constants.status.success'),
                     "id" => $message->id
                 ]);
             } else {
                 return response()->json([
-                    "result" => "error"
+                    "result" => Config::get('constants.status.error'),
                 ]);
             }
         }
         catch(Exception $e){
-            return $this->response->error('could_not_create_message', 500);
+            return response()->json([
+                "result" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
 

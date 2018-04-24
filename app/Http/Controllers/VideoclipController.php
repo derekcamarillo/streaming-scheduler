@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Videoclip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class VideoclipController extends Controller
 {

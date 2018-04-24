@@ -138,10 +138,12 @@
                 }
 
                 $.post('/message/store', $(this).serializeArray(), function (response) {
-                    if (response.result == 'success') {
-                        swal("Video Clip", "New video clip successfully saved", "success");
-                    } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                        swal("Message", "New message successfully saved", "success");
+                    } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
+                        swal("Video Clip", "Saving message failed", "error");
+                    } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                        swal("Video Clip", "Validation error", "error");
                     }
                 });
             });

@@ -137,12 +137,11 @@
             $('#form_video').submit(function (event){
                 event.preventDefault();
 
-                $.put('/videoclip/update', $(this).serializeArray(), function (response) {
+                $.post('/videoclip/update/' + videoclipId, $(this).serializeArray(), function (response) {
                     if (response.result == 'success') {
-                        videoclipId = response.id;
-                        swal("Video Clip", "New video clip successfully saved", "success");
+                        swal("Video Clip", "Video clip successfully updated", "success");
                     } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                        swal("Video Clip", "Updating video clip failed", "error");
                     }
                 });
             });

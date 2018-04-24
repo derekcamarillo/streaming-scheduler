@@ -16,7 +16,7 @@
                     <!-- class="active-tr" -->
                     @foreach($videoclips as $item)
                         <tr class="tbl_row">
-                            <td style="text-align: center;">{{ $item->id }}</td>
+                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
                             <td>{{ $item->title }}</td>
                             <td>@if(isset($item->message)) {{ Config::get('constants.message_type.'.$item->message->effect) }} @endif</td>
                             <td>@if(isset($item->message)) {{ $item->message->text }} @endif</td>
@@ -28,7 +28,7 @@
         </div><!--table-section-->
     </div><!--col-12-->
 
-    <form id="delete_videoclip" action="post">
+    <form id="delete_videoclip" method="post" action="videoclip/destroy">
         {{ csrf_field() }}
         <input type="hidden" id="id" name="id" value="0">
     </form>
@@ -69,11 +69,12 @@
                             confirmButtonClass: "btn-danger",
                             confirmButtonText: "Yes, delete it!",
                             closeOnConfirm: false
-                        }).then(function(result){
+                        }).then(function(result) {
                             $('#id').val(value.children[0].innerText);
 
-                            $.delete('/videoclip/destroy/' + value.children[0].innerText, $('#delete_videoclip').serializeArray(),  function (response) {
+                            $.get('/videoclip/destroy/' + value.children[0].innerText,  function (response) {
                                 if (response.result == 'success') {
+                                    $('td[data-id="' + response.id + '"]').parent().remove();
                                     swal("Video Clip", "Video clip successfully deleted", "success");
                                 } else {
                                     swal("Video Clip", "Deleting video clip failed", "error");

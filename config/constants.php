@@ -8,6 +8,11 @@
 
 
 return [
+    'status' => [
+        'success' => 'success',
+        'error' => 'error',
+        'validation' => 'validation'
+    ],
     'message_type' => [
         'right' => 'scroll left to right',
         'left' => 'scroll right to left',
