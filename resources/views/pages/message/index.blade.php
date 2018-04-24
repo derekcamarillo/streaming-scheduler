@@ -52,7 +52,34 @@
             });
 
             $('.ic-delete-video').click(function () {
+                if ($('tbody>tr').hasClass('active-tr')) {
+                    $('.active-tr').each(function(index, value) {
+                        swal({
+                            title: "Message",
+                            text: "Do you really want to delete this?",
+                            icon: "error",
+                            buttons: true,
+                            dangerMode: true
+                        }).then(function(result) {
+                            if (result) {
+                                $('#id').val(value.children[0].innerText);
 
+                                $.get('/message/destroy/' + value.children[0].innerText,  function (response) {
+                                    if (response.result == 'success') {
+                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        swal("Message", "Message successfully deleted", "success");
+                                    } else {
+                                        swal("Message", "Deleting Message failed", "error");
+                                    }
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    swal("Please select video clip to delete",{
+                        icon:"error",
+                    });
+                }
             });
         });
     </script>

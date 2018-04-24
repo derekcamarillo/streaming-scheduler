@@ -38,6 +38,8 @@ Route::get('/message', 'MessageController@index');
 Route::get('/message/create', 'MessageController@create');
 Route::get('/message/edit/{id}', 'MessageController@edit');
 Route::post('/message/store', 'MessageController@store');
+Route::post('/message/update/{id}', 'MessageController@update');
+Route::get('/message/destroy/{id}', 'MessageController@destroy');
 
 Route::get('/logo', 'LogoController@index');
 Route::get('/logo/create', 'LogoController@create');
