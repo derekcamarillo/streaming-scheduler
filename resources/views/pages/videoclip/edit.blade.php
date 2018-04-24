@@ -30,7 +30,7 @@
             <div class="col-sm-12 select-box create-playlist">
                 <div class="row edit-playlist-section edit-playlist-options optionsRight">
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <select class="form-control" id="effect">
+                        <select class="form-control" id="effect" name="effect">
                             <option value="" disabled="disabled" selected="selected">Select Effect</option>
                             @foreach(Config::get('constants.message_type') as $key => $item)
                                 @if(isset($videoclip->message) and $videoclip->message->effect == $key)
@@ -43,27 +43,26 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3 scrollspeed">
                         <!--<span>Scroll Speed</span>-->
-                        <input id="ScrollSpeed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@else 1 @endif" />
+                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@else 1 @endif" />
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Player X-Position</span>
-                        <input type="text" id="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Player Y-Position</span>
-                        <input type="text" id="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
+                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box optionsRight">
                 <div class="row edit-playlist-options">
                     <!--col-3-->
-
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Type</span>
-                        <select class="form-control fontInput" id="font_type">
+                        <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $key => $item)
                                 @if(isset($videoclip->message) and $videoclip->message->fonttype == $key)
                                     <option value="{{ $key }}" selected>{{ $item }}</option>
@@ -75,17 +74,18 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Size</span>
-                        <input type="text" id="font_size" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
+                        <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Color</span>
-                        <input type="color" id="font_color" class="text-center colorFeild" value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
+                        <input type="color" id="fontcolor" name="fontcolor" class="text-center colorFeild" value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
-                <input type="text" id="message" name="message" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
+                <input type="text" id="text" name="text" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
             </div>
+            <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -123,11 +123,12 @@
     </div><!--row-->
 
     <script>
+        var messageId = "{{ $videoclip->message->id  }}";
         var videoclipId = "{{ $videoclip->id  }}";
         var videoclipUrl = "{{ $videoclip->url  }}";
 
         new WOW().init();
-        $('#ScrollSpeed').slider({
+        $('#speed').slider({
             formatter: function (value) {
                 return 'Scroll Speed' + value;
             }
@@ -138,18 +139,7 @@
         }
 
         function saveMessage() {
-            $('#form_message').submit(function (event){
-                event.preventDefault();
-
-                $.post('/message/store', $(this).serializeArray(), function (response) {
-                    if (response.result == 'success') {
-                        videoclipId = response.id;
-                        swal("Video Clip", "New video clip successfully saved", "success");
-                    } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
-                    }
-                });
-            });
+            $('#form_message').submit();
         }
 
         $(function() {
@@ -157,10 +147,23 @@
                 event.preventDefault();
 
                 $.post('/videoclip/update/' + videoclipId, $(this).serializeArray(), function (response) {
-                    if (response.result == 'success') {
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Video Clip", "Video clip successfully updated", "success");
                     } else {
                         swal("Video Clip", "Updating video clip failed", "error");
+                    }
+                });
+            });
+            $('#form_message').submit(function (event){
+                event.preventDefault();
+
+                $.post('/message/update/' + messageId, $(this).serializeArray(), function (response) {
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                        swal("Message", "New message successfully updated", "success");
+                    } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
+                        swal("Message", "Updating message failed", "error");
+                    } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                        swal("Message", "Validation error", "error");
                     }
                 });
             });

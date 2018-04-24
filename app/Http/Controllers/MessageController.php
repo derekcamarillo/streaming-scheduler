@@ -34,7 +34,10 @@ class MessageController extends Controller
         try {
             $this->validate($request, [
                 'text'  => 'required',
-                'effect' => 'required'
+                'effect' => 'required',
+                'xpos' => 'required|integer|between:0,500',
+                'ypos' => 'required|integer|between:0,500',
+                'fontsize' => 'required|integer|between:8,72'
             ]);
         }catch (ValidationException $e) {
             $data = $e->getResponse()->getOriginalContent();

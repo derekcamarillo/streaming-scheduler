@@ -17,7 +17,7 @@
 
                     <div class="col-xs-5 col-sm-2 col-md-2 bottom-btns">
                         <a class="save-btn ic-save" href="javascript:void(0)">
-                            <span>Add Video</span>
+                            <span>Save</span>
                         </a>
                     </div><!--col-2-->
                 </form>
@@ -120,7 +120,7 @@
                 event.preventDefault();
 
                 $.post('/videoclip/store', $(this).serializeArray(), function (response) {
-                    if (response.result == 'success') {
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         $('#videoclip_id').val(response.id);
                         swal("Video Clip", "New video clip successfully saved", "success");
                     } else {
