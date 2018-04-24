@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Videoclip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Config;
 use Session;
 
 class VideoclipController extends Controller
@@ -31,10 +33,19 @@ class VideoclipController extends Controller
     public function store(Request $request) {
         $videoclip = new Videoclip();
 
-        $this->validate($request, [
-            'title'  => 'required',
-            'url' => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'title'  => 'required',
+                'url' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
+
 
         $videoclip->fill($request->all());
         $videoclip->user_id = Auth::user()->id;
@@ -42,16 +53,18 @@ class VideoclipController extends Controller
         try{
             if($videoclip->save())
                 return response()->json([
-                    "result" => "success",
+                    "result" => Config::get('constants.status.success'),
                     "id" => $videoclip->id
                 ]);
             else
                 return response()->json([
-                    "result" => "error"
+                    "result" => Config::get('constants.status.error')
                 ]);
         }
         catch(Exception $e){
-            return $this->response->error('could_not_create_videoclip', 500);
+            return response()->json([
+                "result" => Config::get('constants.status.error')
+            ]);
         }
     }
 
@@ -62,16 +75,18 @@ class VideoclipController extends Controller
         try{
             if($videoclip->save()) {
                 return response()->json([
-                    "result" => "success",
+                    "result" => Config::get('constants.status.success'),
                     "id" => $videoclip->id
                 ]);
             } else {
                 return response()->json([
-                    "result" => "error"
+                    "result" => Config::get('constants.status.error')
                 ]);
             }
         }catch(Exception $e){
-            return $this->response->error('could_not_update_videoclip', 500);
+            return response()->json([
+                "result" => Config::get('constants.status.error')
+            ]);
         }
     }
 

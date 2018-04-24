@@ -64,22 +64,22 @@
                         swal({
                             title: "Video Clip",
                             text: "Do you really want to delete this?",
-                            type: "error",
-                            showCancelButton: true,
-                            confirmButtonClass: "btn-danger",
-                            confirmButtonText: "Yes, delete it!",
-                            closeOnConfirm: false
+                            icon: "error",
+                            buttons: true,
+                            dangerMode: true
                         }).then(function(result) {
-                            $('#id').val(value.children[0].innerText);
+                            if (result) {
+                                $('#id').val(value.children[0].innerText);
 
-                            $.get('/videoclip/destroy/' + value.children[0].innerText,  function (response) {
-                                if (response.result == 'success') {
-                                    $('td[data-id="' + response.id + '"]').parent().remove();
-                                    swal("Video Clip", "Video clip successfully deleted", "success");
-                                } else {
-                                    swal("Video Clip", "Deleting video clip failed", "error");
-                                }
-                            });
+                                $.get('/videoclip/destroy/' + value.children[0].innerText,  function (response) {
+                                    if (response.result == 'success') {
+                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        swal("Video Clip", "Video clip successfully deleted", "success");
+                                    } else {
+                                        swal("Video Clip", "Deleting video clip failed", "error");
+                                    }
+                                });
+                            }
                         });
                     });
                 } else {

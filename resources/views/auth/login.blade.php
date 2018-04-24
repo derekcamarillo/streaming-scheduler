@@ -29,37 +29,33 @@
         <div class="row">
             <h1 class="titleh1 loginTitle">Welcome to iStream</h1>
             <div class="col-lg-4 emptyDiv">&nbsp;</div>
-            <div class="col-lg-4 col-xs-12">
-                <div class="row">
-                    <form role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-                        <div class="col-lg-12 inputRow">
-                            <input id="email" type="email" name="email" placeholder="Email Address" class="input" value="{{ old('email') }}" required autofocus>
+            <form role="form" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
+                <div class="col-lg-12 inputRow">
+                    <input id="email" type="email" name="email" placeholder="Email Address" class="input" value="{{ old('email') }}" required autofocus>
 
-                            @if ($errors->has('email'))
-                                <span class="help-block">
+                    @if ($errors->has('email'))
+                        <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                            @endif
-                        </div>
-                        <div class="col-lg-12 inputRow">
-                            <input id="password" type="password" name="password" placeholder="Password" class="input" required>
+                    @endif
+                </div>
+                <div class="col-lg-12 inputRow">
+                    <input id="password" type="password" name="password" placeholder="Password" class="input" required>
 
-                            @if ($errors->has('password'))
-                                <span class="help-block">
+                    @if ($errors->has('password'))
+                        <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                            @endif
-                        </div>
-                        <div class="col-lg-12 inputRow">
-                            <a href="{{ route('register') }}" class="forgot">Sign Up</a>
-                        </div>
-                        <div class="col-lg-12 bottom-btns">
-                            <button type="submit" style="height: 60px; color: #fff; font-size: 16px; border-radius: 4px; font-weight: 600; outline: none; display: inline-block;" class="btn add-video-btn"> Login </button>
-                        </div>
-                    </form>
+                    @endif
                 </div>
-            </div>
+                <div class="col-lg-12 inputRow">
+                    <a href="{{ route('register') }}" class="forgot">Sign Up</a>
+                </div>
+                <div class="col-lg-12 bottom-btns">
+                    <button type="submit" style="height: 60px; color: #fff; font-size: 16px; border-radius: 4px; font-weight: 600; outline: none; display: inline-block;" class="btn add-video-btn"> Login </button>
+                </div>
+            </form>
             <div class="col-lg-4 emptyDiv">&nbsp;</div>
         </div><!--row-->
     </div><!--container-fluid-->
