@@ -45,3 +45,5 @@ Route::get('/logo', 'LogoController@index');
 Route::get('/logo/create', 'LogoController@create');
 Route::get('/logo/edit/{id}', 'LogoController@edit');
 Route::post('/logo/store', 'LogoController@store');
+Route::post('/logo/update/{id}', 'LogoController@update');
+Route::get('/logo/destroy/{id}', 'LogoController@destroy');

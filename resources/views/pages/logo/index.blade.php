@@ -17,7 +17,7 @@
                     <!-- class="active-tr" -->
                     @foreach($logos as $item)
                         <tr class="tbl_row">
-                            <td style="text-align: center;">{{ $item->id }}</td>
+                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
                             <td>{{ $item->url }}</td>
                             <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
                             <td>{{ $item->xPosition }}</td>
@@ -31,9 +31,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="logo/create" class="save-btn ic-save"><span>Add Message</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Message</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Message</span></a>
+        <a href="logo/create" class="save-btn ic-save"><span>Add Logo</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Logo</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Logo</span></a>
     </div>
 
     <script>
@@ -56,7 +56,34 @@
             });
 
             $('.ic-delete-video').click(function () {
+                if ($('tbody>tr').hasClass('active-tr')) {
+                    $('.active-tr').each(function(index, value) {
+                        swal({
+                            title: "Logo",
+                            text: "Do you really want to delete this?",
+                            icon: "error",
+                            buttons: true,
+                            dangerMode: true
+                        }).then(function(result) {
+                            if (result) {
+                                $('#id').val(value.children[0].innerText);
 
+                                $.get('/logo/destroy/' + value.children[0].innerText,  function (response) {
+                                    if (response.result == 'success') {
+                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        swal("Logo", "Logo successfully deleted", "success");
+                                    } else {
+                                        swal("Logo", "Deleting logo failed", "error");
+                                    }
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    swal("Please select video clip to delete",{
+                        icon:"error",
+                    });
+                }
             });
         });
     </script>

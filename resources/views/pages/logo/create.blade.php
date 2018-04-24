@@ -6,32 +6,27 @@
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <div class="col-xs-7 col-sm-5 col-md-5">
-                    <select class="form-control" id="#">
-                        <option>Select Project</option>
-                        <option>Select Project 1</option>
-                        <option>Select Project 2</option>
-                        <option>Select Project 3</option>
-                        <option>Select Project 4</option>
-                        <option>Select Project 5</option>
-                        <option>Select Project 6</option>
+                    <select class="form-control" id="project_id" name="project_id">
+                        <option value="" disabled="disabled" selected="selected">Select Project</option>
+                        @foreach($projects as $item)
+                            <option value="{{ $item->id }}">{{ $item->title }}</option>
+                        @endforeach
                     </select>
                 </div><!--col-5-->
 
                 <div class="col-xs-5 col-sm-3 col-md-3 upload-logo-btn">
-                    <a class="activate-playlist-button" href="#">
+                    <a class="activate-playlist-button" onclick="uploadLogo();">
                         <span>Upload Logo</span>
                     </a>
+                    <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/png">
                 </div><!--col-3-->
 
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <select class="form-control" id="#2">
-                        <option>Select Position</option>
-                        <option>Select Position 1</option>
-                        <option>Select Position 2</option>
-                        <option>Select Position 3</option>
-                        <option>Select Position 4</option>
-                        <option>Select Position 5</option>
-                        <option>Select Position 6</option>
+                    <select class="form-control" id="position" name="position">
+                        <option value="" disabled="disabled" selected="selected">Select position</option>
+                        @foreach(Config::get('constants.logo_type') as $key => $item)
+                            <option value="{{ $key }}">{{ $item }}</option>
+                        @endforeach
                     </select>
                 </div><!--col-5-->
             </div><!--row | edit-playlist-section-->
@@ -41,12 +36,12 @@
             <div class="row edit-playlist-options">
                 <div class="col-xs-6 col-sm-3 col-md-3">
                     <span>Ofset X-Position</span>
-                    <input type="text" placeholder="10" class="text-center" >
+                    <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" >
                 </div><!--col-3-->
 
                 <div class="col-xs-6 col-sm-3 col-md-3">
                     <span>Ofset Y-Position</span>
-                    <input type="text" placeholder="10" class="text-center" >
+                    <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" >
                 </div><!--col-3-->
             </div><!--row | edit-playlist-options-->
         </div><!--col-12-->
@@ -57,8 +52,8 @@
             <img src="images/add-logo-img.png">
         </div>
         <video id="myVideo">
-            <source src="mov_bbb.mp4" type="video/mp4">
-            <source src="mov_bbb.ogg" type="video/ogg">
+            <!--source src="mov_bbb.mp4" type="video/mp4">
+            <source src="mov_bbb.ogg" type="video/ogg"-->
         </video>
     </div>
 
@@ -92,4 +87,18 @@
             </div>
         </div><!--row-->
     </div><!--col-12-->
+@stop
+
+@section('script')
+    <script>
+        function uploadLogo() {
+            $('#logo').click();
+        }
+
+        $(function() {
+            $("#logo").change(function(){
+                alert($(this).val());
+            });
+        });
+    </script>
 @stop
