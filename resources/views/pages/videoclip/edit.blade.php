@@ -98,7 +98,26 @@
 
         <div class="col-sm-12 select-box optionsRight">
             <div class="row edit-playlist-options">
-                <!--col-3-->
+                <video
+                    id="vid1"
+                    class="video-js vjs-default-skin"
+                    controls
+                    autoplay
+                    width="640" height="264"
+                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "iv_load_policy": 1 } }'>
+                </video>
+            </div>
+        </div><!--col-12-->
+
+        <div class="col-sm-12 select-box optionsRight">
+            <div class="row edit-playlist-options">
+                <video
+                    id="vid2"
+                    class="video-js"
+                    width="640" height="264"
+                    data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "https://vimeo.com/99275308"}], "vimeo": { "color": "#fbc51b"} }'
+                >
+                </video>
             </div>
         </div><!--col-12-->
     </div><!--row-->
@@ -160,6 +179,8 @@
     <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
 
     <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
     <script src="{{ asset('js/videoclip.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
