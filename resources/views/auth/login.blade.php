@@ -29,7 +29,7 @@
         <div class="row">
             <h1 class="titleh1 loginTitle">Welcome to iStream</h1>
             <div class="col-lg-4 emptyDiv">&nbsp;</div>
-            <div class="col-lg-12 col-md-12">
+            <div class="col-md-4 emptyDiv">
                 <form role="form" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
                     <div class="col-lg-12 inputRow">
