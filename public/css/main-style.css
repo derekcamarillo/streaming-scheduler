@@ -780,12 +780,22 @@ header {
 	line-height: 60px;
 }
 
+.week-days .active {
+	background: linear-gradient(to right, #fb505f, #fb9f4e);
+	border: none;
+}
+
 .week-days a:hover {
 	background: linear-gradient(to right, #fb505f, #fb9f4e);
 	border: none;
 }
 
 .months a:hover {
+	background: linear-gradient(to right, #e646b7, #9933fe);
+	border: none;
+}
+
+.months .active {
 	background: linear-gradient(to right, #e646b7, #9933fe);
 	border: none;
 }
@@ -1195,9 +1205,27 @@ header {
 .edit-playlist-options .colorFeild {
 	padding: 0px;
 	background: rgba(251, 80, 94, 1);
-	 
-	 
-	 
 }
+
 .slider.slider-horizontal{ width: 100%;}
+
 .optionsRight{ text-align: right;}
+
+.modal {
+	text-align: center;
+	padding: 0!important;
+}
+
+.modal:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin-right: -4px;
+}
+
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+}
