@@ -31,7 +31,7 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="logo/create" class="save-btn ic-save"><span>Add Logo</span></a>
+        <a href="{{ url('/logo/create') }}" class="save-btn ic-save"><span>Add Logo</span></a>
         <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Logo</span></a>
         <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Logo</span></a>
     </div>

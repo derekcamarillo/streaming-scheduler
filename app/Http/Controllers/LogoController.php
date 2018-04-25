@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Config;
+use Storage;
 
 class LogoController extends Controller
 {
@@ -115,5 +116,14 @@ class LogoController extends Controller
         }catch(Exception $e){
             return $this->response->error('could_not_delete_logo', 500);
         }
+    }
+
+    public function upload(Request $request) {
+        $path = Storage::disk('public_uploads')->put('logos', $request->file('logo'));
+
+        return response()->json([
+            "result" => Config::get('constants.status.success'),
+            "path" => Storage::disk('public_uploads')->url($path)
+        ]);
     }
 }

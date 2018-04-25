@@ -18,7 +18,6 @@
                     <a class="activate-playlist-button" onclick="uploadLogo();">
                         <span>Upload Logo</span>
                     </a>
-                    <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/png">
                 </div><!--col-3-->
 
                 <div class="col-xs-12 col-sm-4 col-md-4">
@@ -46,6 +45,11 @@
             </div><!--row | edit-playlist-options-->
         </div><!--col-12-->
     </div><!--row-->
+
+    <form id="form_image" action="{{ url('/logo/upload') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/png">
+    </form>
 
     <div class="col-sm-12 col-md-12 myVideo-box">
         <div class="add-logo-img">
@@ -95,9 +99,23 @@
             $('#logo').click();
         }
 
+        $('#form_image').submit(function (event){
+            event.preventDefault();
+
+            $.post('/logo/upload', $(this).serializeArray(), function (response) {
+                if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                    swal("Logo", "Logo successfully uploaded", "success");
+                } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
+                    swal("Logo", "Logo uploading failed", "error");
+                } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                    swal("Logo", "Validation error", "error");
+                }
+            });
+        });
+
         $(function() {
             $("#logo").change(function(){
-                alert($(this).val());
+                $('#form_image').submit();
             });
         });
     </script>
