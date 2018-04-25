@@ -24,4 +24,12 @@ class PlaylistController extends Controller
 
         return view('pages.playlist.index', compact('playlists'));
     }
+
+    public function create() {
+        $user = Auth::user();
+        $messages = $user->messages;
+        $videoclips = $user->messages;
+
+        return view('pages.playlist.create', compact(['messages', 'videoclips']));
+    }
 }
