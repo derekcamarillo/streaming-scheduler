@@ -137,13 +137,9 @@
 
             $('.remove-playlist').click(function(){
                 if ($('#tbl_playlist1>tbody>tr').hasClass('active-tr')) {
-                    var pos = $('#tbl_playlist1 .tbl-row.active-tr').index();
-                    if (pos == $('#tbl_playlist1 .tbl-row').length - 1)
-                        return;
-
                     $('#tbl_playlist1 .tbl-row.active-tr').each(function(index, value) {
+                        $('#tbl_playlist2>tbody').append($(this).clone());
                         $(this).remove();
-                        $("#tbl_playlist1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
                     });
                 } else {
                     swal("Please select playlist to remove",{
