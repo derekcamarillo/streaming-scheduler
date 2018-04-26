@@ -8,7 +8,7 @@
                     <input type="text" id="title" name="title" placeholder="Project title" class="input" value="">
                 </div><!--col-5-->
                 <div class="col-sm-3 col-md-3 project-save-btn">
-                    <a class="activate-playlist-button" href="#">
+                    <a class="activate-playlist-button" onclick="saveProject()">
                         <span>Save</span>
                     </a>
                 </div><!--col-3-->
@@ -130,6 +130,26 @@
 
 @section('script')
     <script>
+        function saveProject() {
+            $.post('/project/store', {
+                '_token' : '{{ csrf_token() }}',
+                'title' : $('#title').val(),
+                'message_id' : $('#message_id').val(),
+                'start_time' : $('#start_time').val(),
+                'end_time' : $('#end_time').val(),
+                'days' : days,
+                'months' : months,
+                'endless' : $("#endless").is(":checked") ? 1 : 0,
+                'videoclips' : videoclips,
+            }, function (response) {
+                if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                    swal("Video Clip", "New video clip successfully saved", "success");
+                } else {
+                    swal("Video Clip", "Saving video clip failed", "error");
+                }
+            });
+        }
+
         $(function() {
             $('.remove-playlist').click(function() {
                 if ($('#tbl_playlist1>tbody>tr').hasClass('active-tr')) {
