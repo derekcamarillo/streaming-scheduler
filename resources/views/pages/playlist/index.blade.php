@@ -79,11 +79,13 @@
 
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
-                    $('.active-tr').each(function(index, value){
-                        alert(value.children[0].innerText);
+                    $('.active-tr').each(function(index, value) {
+                        window.location.href = "{{ url('/playlist/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    alert('error');
+                    swal("Please select playlist to edit",{
+                        icon:"error",
+                    });
                 }
             });
 

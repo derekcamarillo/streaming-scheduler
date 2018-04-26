@@ -1,9 +1,9 @@
 @extends('layouts.default')
 @section('content')
-    <h1 class="titleh1">Create Playlist</h1>
+    <h1 class="titleh1">Edit Playlist</h1>
 
     <div class="col-sm-12 select-box">
-        <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="">
+        <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="{{ $playlist->title }}">
     </div>
 
     <div class="col-sm-12 select-box">
@@ -11,35 +11,54 @@
             <div class="col-xs-12 col-sm-12 col-md-4">
                 <select class="form-control" id="message_id">
                     @foreach($messages as $item)
-                        <option value="{{ $item->id }}">{{ $item->text }}</option>
+                        @if(isset($playlist->message) && $item->id == $playlist->message->id)
+                            <option value="{{ $item->id }}" selected>{{ $item->text }}</option>
+                        @else
+                            <option value="{{ $item->id }}">{{ $item->text }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <span>Start Time</span>
-                <input type="text" id="start_time" name="start_time" placeholder="hh:mm" >
+                <input type="text" id="start_time" name="start_time" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->start_time }} @endif" >
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <span>End Time</span>
-                <input type="text" id="end_time" name="end_time" placeholder="hh:mm" >
+                <input type="text" id="end_time" name="end_time" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->end_time }} @endif">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-2 endles-loop">
                 <div class="round">
-                    <input type="checkbox" id="endless" name="endless" />
+                    @if(isset($playlist->schedule) and $playlist->schedule->endless == 1)
+                        <input type="checkbox" id="endless" name="endless" checked/>
+                    @else
+                        <input type="checkbox" id="endless" name="endless" />
+                    @endif
                     <label for="endless"><span >Endles Loop</span></label>
                 </div>
             </div><!--col-2-->
         </div><!--row | edit-playlist-options-->
     </div><!--col-12-->
 
+    @php
+        if(isset($playlist->schedule)) {
+            $months = explode(',', $playlist->schedule->months);
+            $weekdays = explode(',', $playlist->schedule->days);
+        }
+    @endphp
+
     <div class="col-sm-12">
         <div class="week-days">
             <span>Week Days</span>
             @for($i = 0; $i < sizeof(Config::get('constants.weekdays')); $i++)
-                <a class="c_days" data-day="{{ $i }}">{{ Config::get('constants.weekdays')[$i] }}</a>
+                @if(in_array($i, $weekdays))
+                    <a class="c_days active" data-day="{{ $i }}">{{ Config::get('constants.weekdays')[$i] }}</a>
+                @else
+                    <a class="c_days" data-day="{{ $i }}">{{ Config::get('constants.weekdays')[$i] }}</a>
+                @endif
             @endfor
         </div>
     </div><!--col-12-->
@@ -48,7 +67,11 @@
         <div class="week-days months">
             <span>Months</span>
             @for($i = 0; $i < sizeof(Config::get('constants.months')); $i++)
-                <a class="c_months" data-month="{{ $i }}">{{ Config::get('constants.months')[$i] }}</a>
+                @if(in_array($i, $months))
+                    <a class="c_months active" data-month="{{ $i }}">{{ Config::get('constants.months')[$i] }}</a>
+                @else
+                    <a class="c_months" data-month="{{ $i }}">{{ Config::get('constants.months')[$i] }}</a>
+                @endif
             @endfor
         </div>
     </div><!--col-12-->
@@ -58,11 +81,11 @@
             <div class="table-responsive">
                 <table id="tbl_videoclip1" class="table">
                     <thead>
-                        <tr>
-                            <th style="width: 35px;">ID</th>
-                            <th>Video Clip Title</th>
-                            <th>Video Clip Url</th>
-                        </tr>
+                    <tr>
+                        <th style="width: 35px;">ID</th>
+                        <th>Video Clip Title</th>
+                        <th>Video Clip Url</th>
+                    </tr>
                     </thead>
                     <tbody>
 
@@ -150,7 +173,7 @@
                     videoclips.push($(this).data().id);
                 });
 
-                $.post('/playlist/store', {
+                $.post('/playlist/update', {
                     '_token' : '{{ csrf_token() }}',
                     'title' : $('#title').val(),
                     'message_id' : $('#message_id').val(),
@@ -158,7 +181,7 @@
                     'end_time' : $('#end_time').val(),
                     'days' : days,
                     'months' : months,
-                    'endless' : $('#endless').val(),
+                    'endless' : $("#endless").is(":checked") ? 1 : 0,
                     'videoclips' : videoclips,
                 }, function (response) {
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {

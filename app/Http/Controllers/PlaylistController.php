@@ -28,6 +28,16 @@ class PlaylistController extends Controller
         return view('pages.playlist.create', compact(['messages', 'videoclips']));
     }
 
+    public function edit($id) {
+        $user = Auth::user();
+
+        $playlist = Playlist::find($id);
+        $messages = $user->messages;
+        $videoclips = $user->videoclips;
+
+        return view('pages.playlist.edit', compact(['playlist', 'messages', 'videoclips']));
+    }
+
     public function store(Request $request) {
         $playlist = new Playlist();
 
@@ -76,9 +86,51 @@ class PlaylistController extends Controller
         }
     }
 
-    public function edit($id) {
-        $playlist = Playlist::find($id);
+    public function update($id, Request $request) {
+        $playlist = Playlist::findOrFail($id);
 
-        return view('pages.playlist.edit', compact('playlist'));
+        try {
+            $this->validate($request, [
+                'title'  => 'required'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
+
+        try {
+            $playlist->fill($request->all());
+
+            if($playlist->save()) {
+                Videoclip::deleteAll();
+                foreach ($request->input('videoclips') as $videoclip_id) {
+                    $videoclip = Videoclip::find($videoclip_id);
+                    $playlist->videoclips()->save($videoclip);
+                }
+
+                $schedule = new Schedule();
+                $schedule->fill($request->all());
+                $schedule->playlist_id = $playlist->id;
+                $schedule->save();
+
+                return response()->json([
+                    "result" => Config::get('constants.status.success'),
+                    "id" => $playlist->id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => Config::get('constants.status.error'),
+                ]);
+            }
+        }
+        catch(Exception $e){
+            return response()->json([
+                "result" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
     }
 }
