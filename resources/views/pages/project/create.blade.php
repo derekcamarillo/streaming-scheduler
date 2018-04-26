@@ -91,7 +91,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(isset($weekday))
+                                        @if(isset($weekdays))
                                             @foreach($weekdays as $weekday)
                                                 @if(is_numeric($weekday))
                                                     {{ Config::get('constants.weekdays')[$weekday] }},
@@ -131,11 +131,7 @@
 @section('script')
     <script>
         $(function() {
-            $('.add-playlist').click(function(){
-
-            });
-
-            $('.remove-playlist').click(function(){
+            $('.remove-playlist').click(function() {
                 if ($('#tbl_playlist1>tbody>tr').hasClass('active-tr')) {
                     $('#tbl_playlist1 .tbl-row.active-tr').each(function(index, value) {
                         $('#tbl_playlist2>tbody').append($(this).clone());
