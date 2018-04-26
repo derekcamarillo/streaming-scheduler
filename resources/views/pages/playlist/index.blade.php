@@ -28,14 +28,22 @@
                                 <td style="text-align: center;">{{ $item->id }}</td>
                                 <td><span>{{ $item->title }}</span></td>
                                 <td>
-                                    @foreach($months as $month)
-                                        {{ Config::get('constants.months')[$month - 1] }},
-                                    @endforeach
+                                    @if(isset($months))
+                                        @foreach($months as $month)
+                                            @if(is_numeric($month))
+                                                {{ Config::get('constants.months')[$month] }},
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td>
-                                    @foreach($weekdays as $weekday)
-                                        {{ Config::get('constants.weekdays')[$weekday - 1] }},
-                                    @endforeach
+                                    @if(isset($months))
+                                        @foreach($weekdays as $weekday)
+                                            @if(is_numeric($weekday))
+                                                {{ Config::get('constants.weekdays')[$weekday] }},
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td>
                                     @if(isset($item->schedule))

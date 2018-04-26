@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Playlist;
 use App\Videoclip;
+use App\Schedule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,11 @@ class PlaylistController extends Controller
                     $playlist->videoclips()->save($videoclip);
                 }
 
+                $schedule = new Schedule();
+                $schedule->fill($request->all());
+                $schedule->playlist_id = $playlist->id;
+                $schedule->save();
+
                 return response()->json([
                     "result" => Config::get('constants.status.success'),
                     "id" => $playlist->id
@@ -68,5 +74,11 @@ class PlaylistController extends Controller
                 "message" => $e->getMessage()
             ]);
         }
+    }
+
+    public function edit($id) {
+        $playlist = Playlist::find($id);
+
+        return view('pages.playlist.edit', compact('playlist'));
     }
 }

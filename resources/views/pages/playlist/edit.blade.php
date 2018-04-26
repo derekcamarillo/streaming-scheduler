@@ -158,7 +158,7 @@
                     'end_time' : $('#end_time').val(),
                     'days' : days,
                     'months' : months,
-                    'endless' : $("#endless").is(":checked") ? 1 : 0,
+                    'endless' : $('#endless').val(),
                     'videoclips' : videoclips,
                 }, function (response) {
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
