@@ -88,7 +88,13 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                        @foreach($playlist->videoclips as $item)
+                            <tr class="tbl-row" data-id="{{ $item->id }}">
+                                <td style="text-align: center;">{{ $item->id }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->url }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div><!--table-responsive-->
@@ -122,11 +128,13 @@
                         </thead>
                         <tbody>
                         @foreach($videoclips as $item)
-                            <tr class="tbl-row" data-id="{{ $item->id }}">
-                                <td style="text-align: center;">{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->url }}</td>
-                            </tr>
+                            @if($playlist->videoclips->contains('id', $item->id) != true)
+                                <tr class="tbl-row" data-id="{{ $item->id }}">
+                                    <td style="text-align: center;">{{ $item->id }}</td>
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ $item->url }}</td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
@@ -173,7 +181,7 @@
                     videoclips.push($(this).data().id);
                 });
 
-                $.post('/playlist/update', {
+                $.post('/playlist/update/{{ $playlist->id }}', {
                     '_token' : '{{ csrf_token() }}',
                     'title' : $('#title').val(),
                     'message_id' : $('#message_id').val(),
@@ -185,9 +193,9 @@
                     'videoclips' : videoclips,
                 }, function (response) {
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Video Clip", "New video clip successfully saved", "success");
+                        swal("Playlist", "Playlist successfully saved", "success");
                     } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                        swal("Playlist", "Saving playlist failed", "error");
                     }
                 });
             });
@@ -238,6 +246,11 @@
                     $(this).removeClass('active');
                 else
                     $(this).addClass('active');
+            });
+
+            $('#tbl_videoclip1 .tbl-row').click(function() {
+                $('.tbl-row').removeClass('active-tr');
+                $(this).addClass('active-tr');
             });
 
             $('#tbl_videoclip2 .tbl-row').click(function() {

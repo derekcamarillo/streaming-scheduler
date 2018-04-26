@@ -105,13 +105,16 @@ class PlaylistController extends Controller
             $playlist->fill($request->all());
 
             if($playlist->save()) {
-                Videoclip::deleteAll();
-                foreach ($request->input('videoclips') as $videoclip_id) {
-                    $videoclip = Videoclip::find($videoclip_id);
-                    $playlist->videoclips()->save($videoclip);
+                $videoclipIds = $request->input('videoclips');
+                if(isset($videoclipIds)) {
+                    $playlist->videoclips()->detach();
+                    foreach ($videoclipIds as $videoclipId) {
+                        $videoclip = Videoclip::find($videoclipId);
+                        $playlist->videoclips()->attach($videoclip);
+                    }
                 }
 
-                $schedule = new Schedule();
+                $schedule = $playlist->schedule;
                 $schedule->fill($request->all());
                 $schedule->playlist_id = $playlist->id;
                 $schedule->save();
@@ -131,6 +134,23 @@ class PlaylistController extends Controller
                 "result" => "error",
                 "message" => $e->getMessage()
             ]);
+        }
+    }
+
+    public function destroy($id) {
+        try{
+            if(Playlist::destroy($id)) {
+                return response()->json([
+                    "result" => "success",
+                    "id" => $id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => "error"
+                ]);
+            }
+        }catch(Exception $e){
+            return $this->response->error('could_not_delete_playlist', 500);
         }
     }
 }
