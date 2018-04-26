@@ -2,10 +2,6 @@
 @section('content')
     <h1 class="titleh1">Create Playlist</h1>
 
-    <form id="form_playlist" class="video-scale">
-        {{ csrf_field() }}
-    </form>
-
     <div class="col-sm-12 select-box">
         <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="">
     </div>
@@ -42,18 +38,18 @@
     <div class="col-sm-12">
         <div class="week-days">
             <span>Week Days</span>
-            @foreach(Config::get('constants.weekdays') as $item)
-                <a class="c_days">{{ $item }}</a>
-            @endforeach
+            @for($i = 0; $i < sizeof(Config::get('constants.weekdays')); $i++)
+                <a class="c_days" data-day="{{ $i }}">{{ Config::get('constants.weekdays')[$i] }}</a>
+            @endfor
         </div>
     </div><!--col-12-->
 
     <div class="col-sm-12">
         <div class="week-days months">
             <span>Months</span>
-            @foreach(Config::get('constants.months') as $item)
-                <a class="c_months">{{ $item }}</a>
-            @endforeach
+            @for($i = 0; $i < sizeof(Config::get('constants.months')); $i++)
+                <a class="c_months" data-month="{{ $i }}">{{ Config::get('constants.months')[$i] }}</a>
+            @endfor
         </div>
     </div><!--col-12-->
 
@@ -62,11 +58,11 @@
             <div class="table-responsive">
                 <table id="tbl_videoclip1" class="table">
                     <thead>
-                    <tr>
-                        <th style="width: 35px;">ID</th>
-                        <th>Video Clip Title</th>
-                        <th>Video Clip Url</th>
-                    </tr>
+                        <tr>
+                            <th style="width: 35px;">ID</th>
+                            <th>Video Clip Title</th>
+                            <th>Video Clip Url</th>
+                        </tr>
                     </thead>
                     <tbody>
 
@@ -103,8 +99,8 @@
                         </thead>
                         <tbody>
                         @foreach($videoclips as $item)
-                            <tr class="tbl_row">
-                                <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
+                            <tr class="tbl-row" data-id="{{ $item->id }}">
+                                <td style="text-align: center;">{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->url }}</td>
                             </tr>
@@ -123,44 +119,114 @@
 
 @section('script')
     <script>
+        var days, months;
+        var videoclips = [];
+
         $(function () {
             $('.ic-delete-video').click(function(event){
-
+                if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
+                    $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
+                        $('#tbl_videoclip2>tbody').append($(this).clone());
+                        $(this).remove();
+                    });
+                } else {
+                    swal("Please select video clip to remove",{
+                        icon:"error",
+                    });
+                }
             });
 
             $('.ic-save').click(function(event){
+                days = months = "";
+                $('.c_days.active').each(function(index, value) {
+                    days += $(this).data().day + ",";
+                });
 
+                $('.c_months.active').each(function(index, value) {
+                    months += $(this).data().month + ",";
+                });
+
+                $('#tbl_videoclip1 .tbl-row').each(function(index, value) {
+                    videoclips.push($(this).data().id);
+                });
+
+                $.post('/playlist/store', {
+                    '_token' : '{{ csrf_token() }}',
+                    'title' : $('#title').val(),
+                    'message_id' : $('#message_id').val(),
+                    'start_time' : $('#start_time').val(),
+                    'end_time' : $('#end_time').val(),
+                    'days' : days,
+                    'months' : months,
+                    'endless' : $('#endless').val(),
+                    'videoclips' : videoclips,
+                }, function (response) {
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                        swal("Video Clip", "New video clip successfully saved", "success");
+                    } else {
+                        swal("Video Clip", "Saving video clip failed", "error");
+                    }
+                });
             });
 
-            $('.ic-move-up').click(function(event){
+            $('.ic-move-up').click(function(event) {
+                if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
+                    var pos = $('#tbl_videoclip1 .tbl-row.active-tr').index();
+                    if (pos == 0)
+                        return;
 
+                    $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
+                        $(this).remove();
+                        $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos - 1) + ")").before($(this).clone());
+                    });
+                } else {
+                    swal("Please select video clip to remove",{
+                        icon:"error",
+                    });
+                }
             });
 
-            $('.ic-move-down').click(function(event){
+            $('.ic-move-down').click(function(event) {
+                if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
+                    var pos = $('#tbl_videoclip1 .tbl-row.active-tr').index();
+                    if (pos == $('#tbl_videoclip1 .tbl-row').length - 1)
+                        return;
 
+                    $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
+                        $(this).remove();
+                        $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
+                    });
+                } else {
+                    swal("Please select video clip to remove",{
+                        icon:"error",
+                    });
+                }
             });
 
-            $('.c_days').click(function(event){
+            $('.c_days').click(function(event) {
                 if ($(this).hasClass('active'))
                     $(this).removeClass('active');
                 else
                     $(this).addClass('active');
             });
 
-            $('.c_months').click(function(event){
+            $('.c_months').click(function(event) {
                 if ($(this).hasClass('active'))
                     $(this).removeClass('active');
                 else
                     $(this).addClass('active');
             });
 
-            $('#tbl_videoclip1 .tbl_row').click(function() {
-                $('.tbl_row').removeClass('active-tr');
-                $(this).addClass('active-tr');
-            });
+            $('#tbl_videoclip2 .tbl-row').click(function() {
+                $('#tbl_videoclip1>tbody').append($(this).clone());
+                $(this).remove();
 
-            $('#tbl_videoclip2 .tbl_row').click(function() {
-                $('#tbl_videoclip1>tbody').append('<tr class="tbl-row">' + $(this).html() + '</tr>');
+                $('#tbl_videoclip1 .tbl-row').click(function() {
+                    $('.tbl-row').removeClass('active-tr');
+                    $(this).addClass('active-tr');
+                });
+
+                $('#modal_videoclip').modal('hide');
             });
         });
     </script>

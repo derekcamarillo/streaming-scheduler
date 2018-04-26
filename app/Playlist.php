@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Playlist extends Model
 {
+    protected $fillable = [
+        'title'
+    ];
+
     //
     public function message() {
         return $this->belongsTo('App\Message');

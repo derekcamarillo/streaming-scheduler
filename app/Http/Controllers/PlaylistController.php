@@ -16,15 +16,6 @@ class PlaylistController extends Controller
         $user = Auth::user();
         $playlists = $user->playlists;
 
-        foreach ($playlists as $playlist) {
-            $weekdays = explode(',', $playlist->schedule->days);
-            $months = explode(',', $playlist->schedule->months);
-
-            foreach($weekdays as $weekday) {
-                $week = Config::get('constants.weekdays')[$weekday];
-            }
-        }
-
         return view('pages.playlist.index', compact('playlists'));
     }
 
@@ -56,8 +47,10 @@ class PlaylistController extends Controller
             $playlist->user_id = Auth::user()->id;
 
             if($playlist->save()) {
-                $videoclip = Videoclip::find(1);
-                $playlist->videoclips()->save($videoclip);
+                foreach ($request->input('videoclips') as $videoclip_id) {
+                    $videoclip = Videoclip::find($videoclip_id);
+                    $playlist->videoclips()->save($videoclip);
+                }
 
                 return response()->json([
                     "result" => Config::get('constants.status.success'),
