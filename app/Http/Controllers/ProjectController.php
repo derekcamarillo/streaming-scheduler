@@ -15,7 +15,10 @@ class ProjectController extends Controller
     }
 
     public function create() {
-        return view('pages.project.create');
+        $user = Auth::user();
+        $playlists = $user->projects;
+
+        return view('pages.project.create', compact('playlists'));
     }
 
     public function edit($id) {

@@ -37,7 +37,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(isset($months))
+                                    @if(isset($weekday))
                                         @foreach($weekdays as $weekday)
                                             @if(is_numeric($weekday))
                                                 {{ Config::get('constants.weekdays')[$weekday] }},

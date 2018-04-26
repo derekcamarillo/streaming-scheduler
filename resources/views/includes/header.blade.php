@@ -15,35 +15,17 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
                             <li><a href="{{ url('/project') }}">Project</a>
+                                <!--
                                 <ul class="nav-submenu">
                                     <li><a href="create-project">New Project</a></li>
                                     <li><a href="edit-project">Edit Project</a></li>
                                 </ul>
+                                -->
                             </li>
-                            <li><a href="{{ url('/playlist') }}">Playlist</a>
-                                <ul class="nav-submenu">
-                                    <li><a href="create-playlist">New Playlist</a></li>
-                                    <li><a href="edit-playlist">Edit Playlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url('/videoclip') }}">Video Clip</a>
-                                <ul class="nav-submenu">
-                                    <li><a href="create-videoclip">New Video</a></li>
-                                    <li><a href="edit-videoclip">Edit Video</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url('/logo') }}">Logo Overlay</a>
-                                <ul class="nav-submenu">
-                                    <li><a href="create-logo">New Logo</a></li>
-                                    <li><a href="edit-logo">Edit Logo</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ url('/message') }}">Message</a>
-                                <ul class="nav-submenu">
-                                    <li><a href="create-message">New Message</a></li>
-                                    <li><a href="edit-message">Edit Message</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ url('/playlist') }}">Playlist</a></li>
+                            <li><a href="{{ url('/videoclip') }}">Video Clip</a></li>
+                            <li><a href="{{ url('/logo') }}">Logo Overlay</a></li>
+                            <li><a href="{{ url('/message') }}">Message</a></li>
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="user-button">

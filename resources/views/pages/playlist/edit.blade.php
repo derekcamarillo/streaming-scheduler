@@ -2,7 +2,7 @@
 @section('content')
     <h1 class="titleh1">Edit Playlist</h1>
 
-    <div class="col-sm-12 select-box">
+    <div class="col-sm-12 select-box create-playlist">
         <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="{{ $playlist->title }}">
     </div>
 

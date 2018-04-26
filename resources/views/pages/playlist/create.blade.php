@@ -2,7 +2,7 @@
 @section('content')
     <h1 class="titleh1">Create Playlist</h1>
 
-    <div class="col-sm-12 select-box">
+    <div class="col-sm-12 select-box create-playlist">
         <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="">
     </div>
 
@@ -197,7 +197,7 @@
                         $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("Please select video clip to remove", {
                         icon:"error",
                     });
                 }

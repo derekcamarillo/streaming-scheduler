@@ -87,10 +87,6 @@
 
         <div class="col-sm-12 col-md-12 myVideo-box">
             <video id="myVideo">
-                <!--
-                <source src="mov_bbb.mp4" type="video/mp4">
-                <source src="mov_bbb.ogg" type="video/ogg">
-                -->
             </video>
         </div>
 
