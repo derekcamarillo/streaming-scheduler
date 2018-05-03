@@ -12,6 +12,10 @@ class Playlist extends Model
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
+    public function project() {
+
+    }
+
     //
     public function message() {
         return $this->belongsTo('App\Message');

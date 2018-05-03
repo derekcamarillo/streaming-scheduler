@@ -31,6 +31,6 @@ return [
         'opensans' => 'Open Sans',
         'roboto' => 'Roboto'
     ],
-    'weekdays' => ['Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam', 'Son'],
+    'weekdays' => ['Mon', 'Tue', 'Wed', 'Thi', 'Fri', 'Sat', 'Sun'],
     'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 ];

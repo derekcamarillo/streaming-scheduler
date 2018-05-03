@@ -10,7 +10,7 @@ class Project extends Model
 
     //
     public function playlists() {
-        return $this->belongsToMany('App\Playlist');
+        return $this->belongsToMany('App\Playlist', 'project_playlist');
     }
 
     public function logo() {

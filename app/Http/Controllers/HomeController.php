@@ -11,6 +11,8 @@ use App\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use League\Flysystem\Exception;
+use Config;
 
 class HomeController extends Controller
 {
@@ -32,11 +34,46 @@ class HomeController extends Controller
 
         $projects = $user->projects;
         $playlists = $user->playlists;
-        $videoclips = $user->videoclips;
-        $messages = $user->messages;
-        $logos = $user->logos;
 
+        return view('pages.home', compact(['projects', 'playlists']));
+    }
 
-        return view('pages.home');
+    public function getProjectPlaylist($id)
+    {
+        $project = Project::find($id);
+        $playlists = $project->playlists;
+
+        foreach ($playlists as $playlist) {
+            $playlist->videoclips;
+        }
+
+        if (isset($project)) {
+            return response()->json([
+                "result" => Config::get('constants.status.success'),
+                "data" => $playlists
+            ]);
+        } else {
+            return response()->json([
+                "result" => Config::get('constants.status.error')
+            ]);
+        }
+    }
+
+    public function getPlaylistVideoclip($id)
+    {
+        $playlist = Playlist::find($id);
+        $playlist->videoclips;
+        $playlist->message;
+
+        if (isset($playlist)) {
+            return response()->json([
+                "result" => Config::get('constants.status.success'),
+                "data" => $playlist
+            ]);
+        } else {
+            return response()->json([
+                "result" => Config::get('constants.status.error')
+            ]);
+        }
     }
 }
