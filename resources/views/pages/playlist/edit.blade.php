@@ -160,20 +160,20 @@
             });
             $('#end_time').timepicker();
 
-            $('.ic-delete-video').click(function(event){
+            $('.ic-delete-video').click(function(event) {
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
                     $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
                         $('#tbl_videoclip2>tbody').append($(this).clone());
                         $(this).remove();
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("Please select video clip to remove", {
                         icon:"error",
                     });
                 }
             });
 
-            $('.ic-save').click(function(event){
+            $('.ic-save').click(function(event) {
                 days = months = "";
                 $('.c_days.active').each(function(index, value) {
                     days += $(this).data().day + ",";
