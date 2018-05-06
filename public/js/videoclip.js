@@ -6,6 +6,7 @@ function playVideo() {
     if (window.videojs.getPlayers()["videojs-marquee-overlay-player"]) {
         delete window.videojs.getPlayers()["videojs-marquee-overlay-player"];
     }
+    videoclipUrl = "http://localhost/movie1.mp4";
     //draw video tag
     video_content = '<video id="videojs-marquee-overlay-player" class="video-js vjs-default-skin" controls width="848" height="480" data-setup=\'{"playbackRates": [1, 1.5, 2] }\'>' + '<source src="' +  videoclipUrl +'" type="application/x-mpegurl">' + '</video>';
 

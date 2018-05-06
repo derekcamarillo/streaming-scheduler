@@ -20,10 +20,10 @@ return [
         'up' => 'scroll bottom to top'
     ],
     'logo_type' => [
-        'left_top' => 'Left Top',
-        'left_bottom' => 'Left Bottom',
-        'right_top' => 'Right Top',
-        'right_bottom' => 'Right Bottom'
+        'TL' => 'Left Top',
+        'BL' => 'Left Bottom',
+        'TR' => 'Right Top',
+        'BR' => 'Right Bottom'
     ],
     'font_type' => [
         'arial' => 'Arial',

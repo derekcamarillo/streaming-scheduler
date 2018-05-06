@@ -24,8 +24,9 @@ class LogoController extends Controller
     public function create(Request $request) {
         $user = Auth::user();
         $projects = $user->projects;
+        $messages = $user->messages;
 
-        return view('pages.logo.create', compact('projects'));
+        return view('pages.logo.create', compact('projects', 'messages'));
     }
 
     public function edit($id) {
