@@ -4,8 +4,8 @@
         <h1 class="titleh1">Video Player Scheduler</h1>
         <div class="col-sm-12 col-md-12">
             <div class="date-time">
-                <span><i class="fa fa-calendar-alt"></i><span id="timer_date"></span></span>
-                <span><i class="fa fa-clock"></i><span id="timer_time"></span></span>
+                <span id="timer_date"><i class="fa fa-calendar-alt"></i>17 / 12 / 2018</span>
+                <span id="timer_time"><i class="fa fa-clock"></i>11:30 AM</span>
             </div><!--date-time-->
         </div>
         <div class="col-sm-12 col-md-12 video-scale">
@@ -200,30 +200,58 @@
             <div id="menu1" class="tab-pane fade in active">
                 <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
                     <div class="video-box">
-                            <video
-                                    id="vid1"
-                                    class="video-js vjs-default-skin vjs-4-3"
-                                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "iv_load_policy": 1 } }'>
-                            </video>
+                        <a href="{{action('HomeController@index', ['id'=>1])}}">
+                            <img src="{{ asset('images/video-1.jpg') }}">
+                        </a>
                     </div>
                 </div><!--col-3-->
                 <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
                     <div class="video-box">
-                            <video
-                                    id="vid1"
-                                    class="video-js vjs-default-skin vjs-4-3"
-                                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=jnF1Zbbjx5E"}], "youtube": { "iv_load_policy": 1 } }'>
-                            </video>
+                        <a href="{{action('HomeController@index', ['id'=>2])}}">
+                            <img src="{{ asset('images/video-2.jpg') }}">
+                        </a>
                     </div>
                 </div><!--col-3-->
                 <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
                     <div class="video-box">
-                            <video
-                                    id="vid2"
-                                    class="video-js vjs-4-3"
-                                    data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "https://vimeo.com/99275308"}], "vimeo": { "color": "#fbc51b"} }'
-                            >
-                            </video>
+                        <a href="{{action('HomeController@index', ['id'=>3])}}">
+                            <img src="{{ asset('images/video-3.jpg') }}">
+                        </a>
+                    </div>
+                </div><!--col-3-->
+                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
+                    <div class="video-box">
+                        <a href="{{action('HomeController@index', ['id'=>4])}}">
+                            <img src="{{ asset('images/video-4.jpg') }}">
+                        </a>
+                    </div>
+                </div><!--col-3-->
+                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
+                    <div class="video-box">
+                        <a href="{{action('HomeController@index', ['id'=>5])}}">
+                            <img src="{{ asset('images/video-5.jpg') }}">
+                        </a>
+                    </div>
+                </div><!--col-3-->
+                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
+                    <div class="video-box">
+                        <a href="{{action('HomeController@index', ['id'=>6])}}">
+                            <img src="{{ asset('images/video-6.jpg') }}">
+                        </a>
+                    </div>
+                </div><!--col-3-->
+                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
+                    <div class="video-box">
+                        <a href="{{action('HomeController@index', ['id'=>7])}}">
+                            <img src="{{ asset('images/video-7.jpg') }}">
+                        </a>
+                    </div>
+                </div><!--col-3-->
+                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
+                    <div class="video-box">
+                        <a href="{{action('HomeController@index', ['id'=>8])}}">
+                            <img src="{{ asset('images/video-8.jpg') }}">
+                        </a>
                     </div>
                 </div><!--col-3-->
             </div><!--menu1-->
@@ -294,52 +322,7 @@
     <script src="{{ asset('js/classes.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
 
-    <link href="{{ asset('css/videojs/video-js.css') }}" rel="stylesheet">
-
-    <script src="{{ asset('js/videojs/video.js') }}"></script>
-    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
-
     <script>
-        videojs.options.children.loadingSpinner = false;
-    </script>
-
-    <script>
-        var projects = [];
-        var selProject;
-
-        @foreach($projects as $project)
-            var playlists = [];
-            @if(isset($project->playlists))
-                @foreach($project->playlists as $playlist)
-                    var videoclips = [];
-                    @if(isset($playlist->videoclips))
-                        @foreach($playlist->videoclips as $videoclip)
-                            var message = null;
-                            @if(isset($videoclip->message))
-                                message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
-                                    '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}', '{{ $videoclip->message->xpos }}',
-                                    '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
-                                    '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
-                            @endif
-                            videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
-                        @endforeach
-                    @endif
-                    var message = null;
-                    @if(isset($playlist->message))
-                        message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
-                            '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}', '{{ $playlist->message->xpos }}',
-                            '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
-                            '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
-                    @endif
-                    playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message));
-                @endforeach
-            @endif
-            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ $project->url }}', playlists));
-        @endforeach
-
         function activatePlaylist() {
 
         }
@@ -348,33 +331,7 @@
 
         }
 
-        function checkTime(i) {
-            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-            return i;
-        }
-
-        function startTimer() {
-            var today = new Date();
-
-            var year = today.getFullYear();
-            var month = today.getMonth() + 1;
-            var day = today.getDate();
-
-            var hours = today.getHours();
-            var minutes = today.getMinutes();
-            var ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0'+minutes : minutes;
-
-            $('#timer_date').html(year + ' / ' + month + ' / ' + day);
-            $('#timer_time').html(hours + ' : ' + minutes + ' ' + ampm);
-            var t = setTimeout(startTimer, 1000);
-        }
-
         $(function() {
-            startTimer();
-
             @if(isset($project))
                 $('#project_url').val('{{ $project->url }}');
             @endif
@@ -405,95 +362,46 @@
                 @endforeach
             @endif
 
-            $('#project').change(function() {
-                for (var i = 0; i < projects.length; i++) {
-                    if (projects[i].id == $('#project').val()) {
-                        selProject = projects[i];
-                        break;
+            $('#project').change(function () {
+                $.get('/home/getProjectPlaylist/' + $('#project').val(), function (response) {
+                    $('#playlist').empty();
+
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                        response.data.forEach(function(item, index) {
+                            $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
+                        });
                     }
-                }
-                $('#project_url').val(selProject.url);
-                $('#playlist').empty();
-                selProject.playlists.forEach(function(item, index){
-                    $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
                 });
             });
 
             $('#playlist').change(function() {
-                var selPlaylist;
-                for (var i = 0; i < selProject.playlists.length; i++) {
-                    if (selProject.playlists[i].id == $('#playlist').val()) {
-                        selPlaylist = selProject.playlists[i];
-                        break;
+                $.get('/home/getPlaylistVideoclip/' + $('#playlist').val(), function (response) {
+                    $('#videoclips').empty();
+
+                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                        response.data.videoclips.forEach(function(item, index) {
+                            switch (index % 6) {
+                                case 0:
+                                    $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                                case 1:
+                                    $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                                case 2:
+                                    $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                                case 3:
+                                    $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                                case 4:
+                                    $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                                case 5:
+                                    $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
+                                    break;
+                            }
+                        });
                     }
-                }
-
-                $('#videoclips').empty();
-                selPlaylist.videoclips.forEach(function(item, index) {
-                    switch (index % 6) {
-                        case 0:
-                            $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 1:
-                            $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 2:
-                            $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 3:
-                            $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 4:
-                            $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 5:
-                            $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                    }
-                });
-
-                $('#menu1').empty();
-                selPlaylist.videoclips.forEach(function(item, index) {
-                    var videoclipHtml =
-                            '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
-                            '<div class="video-box">' +
-                            '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
-                            '</div>' +
-                            '</div><!--col-3-->';
-
-                    var data = {};
-                    data.techOrder = [];
-                    data.sources = [];
-
-                    if (item.url.indexOf("youtube") !== -1) {
-                        var source = {};
-                        source.type = "video/youtube";
-                        source.src = item.url;
-
-                        data.techOrder.push("youtube");
-                        data.sources.push(source);
-                    } else if (item.url.indexOf("vimeo") !== -1) {
-                        var source = {};
-                        source.type = "video/vimeo";
-                        source.src = item.url;
-
-                        var option = {};
-                        option.color = "#fbc51b";
-                        option.controls = false;
-
-                        data.techOrder.push("vimeo");
-                        data.sources.push(source);
-                        //data.vimeo = option;
-                    }
-                    videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
-                    $('#menu1').append(videoclipHtml);
-
-                    videojs('video' + item.id);
-
-                    $('#video' + item.id).click(function () {
-                        var player = videojs.getPlayers()['video' + item.id];
-                        player.play();
-                    });
                 });
             });
         });

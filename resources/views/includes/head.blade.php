@@ -25,4 +25,5 @@
 <script src="{{ asset('js/wow.min.js') }}"></script>
 <script src="{{ asset('js/scrollbar.js') }}"></script>
 <script src="{{ asset('js/bootstrap-slider.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/bootstrap-timepicker.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/sweetalert.js') }}" type="text/javascript"></script>

@@ -8,9 +8,10 @@ function Project(id, title, url, playlists) {
     this.playlists = playlists;
 }
 
-function Playlist(id, title, message) {
+function Playlist(id, title, videoclips, message) {
     this.id = id;
     this.title = title;
+    this.videoclips = videoclips;
     this.message = message;
 }
 
