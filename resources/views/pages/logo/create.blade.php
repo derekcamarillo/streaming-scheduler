@@ -48,12 +48,12 @@
 
     <form id="form_image" action="{{ url('/logo/upload') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/png">
+        <input type="file" id="logo" name="logo" style="display: none;"> <!--accept="image/jpeg,image/jpg,image/png"-->
     </form>
 
     <div class="col-sm-12 col-md-12 myVideo-box">
         <div class="add-logo-img">
-            <img src="images/add-logo-img.png">
+            <img id="logo_img" src="images/add-logo-img.png">
         </div>
         <video id="myVideo">
             <!--source src="mov_bbb.mp4" type="video/mp4">
@@ -62,9 +62,9 @@
     </div>
 
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-        <a href="#" class="add-video-btn"><i class="fa fa-download"></i></a>
-        <a onclick="playVid()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
-        <a onclick="pauseVid()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
+        <a href="#" class="add-video-btn"><i class="fa fa-save"></i></a>
+        <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
+        <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
     </div><!--col-12-->
 
     <div class="col-sm-12 col-md-12 bottom-btns logo-overlay-bottom">
@@ -75,10 +75,7 @@
 
             <div class="col-xs-8 col-sm-3 col-md-3 select-box">
                 <select class="form-control" id="#3">
-                    <option>No Messages</option>
-                    <option>No Messages 1</option>
-                    <option>No Messages 2</option>
-                    <option>No Messages 3</option>
+
                 </select>
             </div><!--col-3-->
 
@@ -95,23 +92,24 @@
 
 @section('script')
     <script>
-        function uploadLogo() {
+        @if ($errors->has('logo'))
+            swal("Logo", "{{ $errors->first('logo') }}", "error");
+        @elseif(Session::has('logo_path'))
+            swal("Logo", "Logo successfully uploaded", "success");
+            $("#logo_img").attr("src","{{ Session::get('logo_path') }}");
+        @endif
+
+        function playVideo() {
             $('#logo').click();
         }
 
-        $('#form_image').submit(function (event){
-            event.preventDefault();
+        function stopVideo() {
+            $('#logo').click();
+        }
 
-            $.post('/logo/upload', $(this).serializeArray(), function (response) {
-                if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Logo", "Logo successfully uploaded", "success");
-                } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
-                    swal("Logo", "Logo uploading failed", "error");
-                } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Logo", "Validation error", "error");
-                }
-            });
-        });
+        function uploadLogo() {
+            $('#logo').click();
+        }
 
         $(function() {
             $("#logo").change(function(){

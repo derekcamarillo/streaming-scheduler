@@ -6,6 +6,7 @@ use App\Logo;
 use App\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Config;
 use Storage;
@@ -119,11 +120,14 @@ class LogoController extends Controller
     }
 
     public function upload(Request $request) {
+        $this->validate($request, [
+            'logo' => 'required|image|mimes:jpeg,png,jpg,bmp|max:2048',
+        ]);
+
         $path = Storage::disk('public_uploads')->put('logos', $request->file('logo'));
 
-        return response()->json([
-            "result" => Config::get('constants.status.success'),
-            "path" => Storage::disk('public_uploads')->url($path)
-        ]);
+        $request->session()->flash('logo_path', Storage::disk('public_uploads')->url($path));
+
+        return redirect('logo/create');
     }
 }

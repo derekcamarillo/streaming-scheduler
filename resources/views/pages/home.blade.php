@@ -358,13 +358,16 @@
 
             var year = today.getFullYear();
             var month = today.getMonth() + 1;
+            month = month < 10 ? '0' + month : month;
             var day = today.getDate();
+            day = day < 10 ? '0' + day : day;
 
             var hours = today.getHours();
             var minutes = today.getMinutes();
             var ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12;
+            hours = hours < 10 ? '0' + hours : hours;
             minutes = minutes < 10 ? '0'+minutes : minutes;
 
             $('#timer_date').html(year + ' / ' + month + ' / ' + day);
