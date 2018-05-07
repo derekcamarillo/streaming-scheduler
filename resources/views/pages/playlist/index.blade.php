@@ -65,9 +65,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="{{ url('playlist/create') }}" class="save-btn ic-save"><span>Add Project</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Project</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Project</span></a>
+        <a href="{{ url('playlist/create') }}" class="save-btn ic-save"><span>Add Playlist</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Playlist</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Playlist</span></a>
     </div>
 
     <script>

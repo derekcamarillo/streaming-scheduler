@@ -48,7 +48,7 @@
 
     <form id="form_image" action="{{ url('/logo/upload') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="file" id="logo" name="logo" style="display: none;"> <!--accept="image/jpeg,image/jpg,image/png"-->
+        <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/jpg,image/png">
     </form>
 
     <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
@@ -66,6 +66,7 @@
         <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
     </div><!--col-12-->
 
+    <img id="hiddenLogo" hidden>
 
     <!--div class="col-sm-12 col-md-12 bottom-btns logo-overlay-bottom">
         <div class="row">
@@ -109,16 +110,16 @@
     <script src="{{ asset('js/logooverlay.js') }}"></script>
 
     <script>
-        var logo = ''
         @if ($errors->has('logo'))
             swal("Logo", "{{ $errors->first('logo') }}", "error");
         @elseif(Session::has('logo_path'))
-            logo = '{{ Session::get('logo_path') }}';
+            $('#hiddenLogo').attr('src', '{{ Session::get('logo_path') }}');
             swal("Logo", "Logo successfully uploaded", "success");
+
         @endif
 
         function playVideo() {
-            if (logo == '') {
+            if (typeof $('#hiddenLogo').attr('src') == 'undefined') {
                 swal("Logo", "Please upload logo first", "error");
                 return;
             }
@@ -129,7 +130,7 @@
             }
 
             videoContent =
-                '<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="640" height="360">' +
+                '<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="auto">' +
                     '<source src="http://localhost/movie1.mp4" type="video/mp4">' +
                 '</video>';
 
@@ -138,13 +139,18 @@
             xpos = $('#xpos').val() || 10;
             ypos = $('#ypos').val() || 10;
 
+            ori_width = $('#hiddenLogo').width();
+            ori_height = $('#hiddenLogo').height();
+
             videojs("my-video", {
                 plugins: {
                     logoOverlay: {
-                        src: logo,
+                        src: $('#hiddenLogo').attr('src'),
                         margin: [ypos, xpos],
                         userActive: false,
-                        position: $('#position').val()
+                        position: $('#position').val(),
+                        width: 100,
+                        height: (100 / ori_width) * ori_height
                     }
                 }
             });
