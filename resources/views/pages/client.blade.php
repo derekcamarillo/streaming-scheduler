@@ -36,7 +36,7 @@
 
 <script>
     @if(!isset($project))
-        swal("Project", "Project is not available", "success");
+        swal("Project", "Project is not available", "error");
     @endif
 </script>
 </body>

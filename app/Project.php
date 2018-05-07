@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    protected $fillable = [
+        'title'
+    ];
+
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     //
@@ -14,7 +18,7 @@ class Project extends Model
     }
 
     public function activatedPlaylist() {
-
+        return $this->belongsToMany('App\Playlist', 'project_playlist')->wherePivot('activated', 1);
     }
 
     public function logo() {

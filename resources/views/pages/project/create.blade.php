@@ -121,7 +121,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -131,21 +130,22 @@
 @section('script')
     <script>
         function saveProject() {
+            playlists = [];
+            $('#tbl_playlist1 .tbl-row').each(function(index, value) {
+                playlists.push($(this).data().id);
+            });
+
             $.post('/project/store', {
                 '_token' : '{{ csrf_token() }}',
                 'title' : $('#title').val(),
-                'message_id' : $('#message_id').val(),
-                'start_time' : $('#start_time').val(),
-                'end_time' : $('#end_time').val(),
-                'days' : days,
-                'months' : months,
-                'endless' : $("#endless").is(":checked") ? 1 : 0,
-                'videoclips' : videoclips,
+                'playlists' : playlists,
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Video Clip", "New video clip successfully saved", "success");
+                    swal("Project", "New project successfully saved", "success");
+                } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                    swal("Project", "Validation failed", "error");
                 } else {
-                    swal("Video Clip", "Saving video clip failed", "error");
+                    swal("Project", "Saving project failed", "error");
                 }
             });
         }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Playlist;
 use App\Project;
 use Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProjectController extends Controller
 {
@@ -30,18 +33,38 @@ class ProjectController extends Controller
     public function store(Request $request) {
         $project = new Project();
 
-        $this->validate($request, [
-            'title'  => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'title'  => 'required'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
 
         $project->fill($request->all());
         $project->url = uniqid();
         $project->user_id = Auth::user()->id;
 
         try{
-            $project->save();
+            if($project->save()) {
+                foreach ($request->input('playlists') as $playlist_id) {
+                    $playlist = Playlist::find($playlist_id);
+                    $project->playlists()->save($playlist);
+                }
 
-            return redirect('project/create')->with('id', $project->id);
+                return response()->json([
+                    "result" => Config::get('constants.status.success'),
+                    "data" => $project->id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => Config::get('constants.status.error')
+                ]);
+            }
         }
         catch(Exception $e){
             return response()->json([
