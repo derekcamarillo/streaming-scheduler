@@ -32,26 +32,44 @@ class LogoController extends Controller
     public function edit($id) {
         $logo = Logo::find($id);
 
-        return view('pages.logo.edit', compact('logo'));
+        $user = Auth::user();
+        $projects = $user->projects;
+        $messages = $user->messages;
+
+        return view('pages.logo.edit', compact('logo', 'projects', 'messages'));
     }
 
     public function update($id, Request $request) {
         $logo = Logo::findOrFail($id);
+
+        $this->validate($request, [
+            'url'  => 'required',
+            'position' => 'required',
+            'xpos' => 'required|integer|between:0,500',
+            'ypos' => 'required|integer|between:0,500'
+        ]);
+
         $logo->update($request->all());
 
         try{
             if($logo->save()) {
-                return response()->json([
-                    "result" => "success",
-                    "id" => $logo->id
-                ]);
+                $project_id = $request->input('project_id');
+                if (isset($project_id)) {
+                    $project = Project::find($project_id);
+                    $project->logo_id = $logo->id;
+                    $project->save();
+                }
+
+                $request->session()->flash('logo_create', 'Logo successfully created.');
+                return redirect('logo/edit/'.$logo->id);
             } else {
-                return response()->json([
-                    "result" => "error"
-                ]);
+                return $this->response->error('logo', 500);
             }
         }catch(Exception $e){
-            return $this->response->error('could_not_update_message', 500);
+            return response()->json([
+                "result" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
 
@@ -71,7 +89,7 @@ class LogoController extends Controller
 
             if($logo->save()) {
                 $project_id = $request->input('project_id');
-                if (isset($videoclip_id)) {
+                if (isset($project_id)) {
                     $project = Project::find($project_id);
                     $project->logo_id = $logo->id;
                     $project->save();

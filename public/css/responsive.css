@@ -127,7 +127,7 @@
 
 	.tab-content {padding: 15px 0px 10px;}
 
-	.video-box {min-height: auto;}
+	.video-box {min-height: fit-content;}
 
 	.video-box:before {width: 40px; height: 40px; left: 50%; top: 50%; margin-left: -20px;margin-top: -20px; background-size: contain;}
 
@@ -141,7 +141,7 @@
 
 	
 
-	.edit-playlist-options input, {width: 40%;}
+	.edit-playlist-options input {width: 40%;}
 
 	.edit-playlist-options .fontInput {width: 60%; margin-right: 0px;}
 

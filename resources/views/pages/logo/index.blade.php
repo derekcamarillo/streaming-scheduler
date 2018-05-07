@@ -20,8 +20,8 @@
                             <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
                             <td>{{ $item->url }}</td>
                             <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
-                            <td>{{ $item->xPosition }}</td>
-                            <td>{{ $item->yPosition }}</td>
+                            <td>{{ $item->xpos }}</td>
+                            <td>{{ $item->ypos }}</td>
                         </tr>
                     @endforeach
                     </tbody>

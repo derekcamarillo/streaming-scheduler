@@ -162,7 +162,33 @@
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
                         swal("Video Clip", "Saving message failed", "error");
                     } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                        swal("Video Clip", "Validation error", "error");
+                        validStr = "";
+                        if (response.data.effect) {
+                            response.data.effect.forEach(function(item, index){
+                                validStr += "\n" + item;
+                            });
+                        }
+                        if (response.data.fontsize) {
+                            response.data.fontsize.forEach(function(item, index){
+                                validStr += "\n" + item;
+                            });
+                        }
+                        if (response.data.text) {
+                            response.data.text.forEach(function(item, index){
+                                validStr += "\n" + item;
+                            });
+                        }
+                        if (response.data.xpos) {
+                            response.data.xpos.forEach(function(item, index){
+                                validStr += "\n" + item;
+                            });
+                        }
+                        if (response.data.ypos) {
+                            response.data.ypos.forEach(function(item, index){
+                                validStr += "\n" + item;
+                            });
+                        }
+                        swal("Video Clip", validStr, "error");
                     }
                 });
             });

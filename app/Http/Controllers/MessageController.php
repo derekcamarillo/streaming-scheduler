@@ -79,9 +79,25 @@ class MessageController extends Controller
 
     public function update($id, Request $request) {
         $message = Message::findOrFail($id);
-        $message->update($request->all());
+
+        try {
+            $this->validate($request, [
+                'text'  => 'required',
+                'effect' => 'required',
+                'xpos' => 'required|integer|between:0,500',
+                'ypos' => 'required|integer|between:0,500',
+                'fontsize' => 'required|integer|between:8,72'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
 
         try{
+            $message->update($request->all());
             if($message->save()) {
                 return response()->json([
                     "result" => "success",

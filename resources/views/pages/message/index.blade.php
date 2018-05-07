@@ -15,7 +15,7 @@
                     <!-- class="active-tr" -->
                     @foreach($messages as $item)
                         <tr class="tbl_row">
-                            <td style="text-align: center;">{{ $item->id }}</td>
+                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
                             <td>{{ $item->text }}</td>
                             <td>{{ Config::get('constants.message_type.'.$item->effect) }}</td>
                         </tr>
