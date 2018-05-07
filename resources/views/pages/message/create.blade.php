@@ -58,17 +58,14 @@
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-            <a onclick="playVid()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
+            <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
             <a onclick="pauseVid()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
             <a onclick="saveMessage()" class="add-video-btn"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
-        <div class="col-sm-12 col-md-12 myVideo-box">
+        <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
             <video id="myVideo">
-                <!--
-                <source src="mov_bbb.mp4" type="video/mp4">
-                <source src="mov_bbb.ogg" type="video/ogg">
-                -->
+                <source src="http://localhost/movie1.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -81,6 +78,31 @@
 @stop
 
 @section('script')
+    <link href="{{ asset('css/videojs/video-js.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs.watermark.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs-logo-overlay.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
+    <script src="{{ asset('js/videoclip.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
+    <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+
+    <style id="style_marquee" type="text/css">
+        .vjs-emre-marquee {
+            width: 100%;
+            overflow: hidden;
+            z-index: 9998;
+            position: absolute;
+            font-size: 24px !important;
+        }
+    </style>
+
+
     <script>
         new WOW().init();
         $('#speed').slider({
@@ -88,6 +110,43 @@
                 return 'Scroll Speed' + value;
             }
         });
+
+        function playVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
+
+            videoContent =
+                '<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="848" height="480" data-setup=\'{"playbackRates": [1, 1.5, 2] }\'>' +
+                '<source src="http://localhost/movie1.mp4" type="video/mp4">' +
+                '</video>';
+
+            $('#videoContainer').html(videoContent);
+
+            player = videojs("my-video");
+
+            player.marqueeOverlay({
+                contentOfMarquee: $('#text').val(),
+                position: "bottom",
+                direction: $('#effect').val(),
+                backgroundcolor: 'transparent',
+                duration: (5000 - $('#speed').val() * 200),
+                color: $('#fontcolor').val()
+            });
+
+            css =
+                ".vjs-emre-marquee {" +
+                "width: 100%; overflow: hidden; z-index: 9998;position: absolute;" +
+                "font-size:" + $('#fontsize').val() + "px !important;" +
+                "left: " + $('#xpos').val() + "px !important;" +
+                "bottom: " + $('#ypos').val() + "px !important;" +
+                "font-family: " + $('#fonttype').val() + "!important;" +
+                "}";
+
+            $('#style_marquee').html(css);
+
+            player.qualityPickerPlugin();
+        }
 
         function saveMessage() {
             $('#form_message').submit();
