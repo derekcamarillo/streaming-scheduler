@@ -3,47 +3,52 @@
     <div class="row">
         <h1 class="titleh1">Logo Overlay</h1>
 
-        <div class="col-sm-12 select-box create-playlist">
-            <div class="row edit-playlist-section">
-                <div class="col-xs-7 col-sm-5 col-md-5">
-                    <select class="form-control" id="project_id" name="project_id">
-                        <option value="" disabled="disabled" selected="selected">Select Project</option>
-                        @foreach($projects as $item)
-                            <option value="{{ $item->id }}">{{ $item->title }}</option>
-                        @endforeach
-                    </select>
-                </div><!--col-5-->
+        <form id="form_logo" action="{{ url('/logo/store') }}" method="post">
+            {{ csrf_field() }}
+            <div class="col-sm-12 select-box create-playlist">
+                <div class="row edit-playlist-section">
+                    <div class="col-xs-7 col-sm-5 col-md-5">
+                        <select class="form-control" id="project_id" name="project_id">
+                            <option value="" disabled="disabled" selected="selected">Select Project</option>
+                            @foreach($projects as $item)
+                                <option value="{{ $item->id }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </div><!--col-5-->
 
-                <div class="col-xs-5 col-sm-3 col-md-3 upload-logo-btn">
-                    <a class="activate-playlist-button" onclick="uploadLogo();">
-                        <span>Upload Logo</span>
-                    </a>
-                </div><!--col-3-->
+                    <div class="col-xs-5 col-sm-3 col-md-3 upload-logo-btn">
+                        <a class="activate-playlist-button" onclick="uploadLogo();">
+                            <span>Upload Logo</span>
+                        </a>
+                    </div><!--col-3-->
 
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <select class="form-control" id="position" name="position">
-                        <option value="" disabled="disabled" selected="selected">Select position</option>
-                        @foreach(Config::get('constants.logo_type') as $key => $item)
-                            <option value="{{ $key }}">{{ $item }}</option>
-                        @endforeach
-                    </select>
-                </div><!--col-5-->
-            </div><!--row | edit-playlist-section-->
-        </div><!--col-12-->
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <select class="form-control" id="position" name="position">
+                            <option value="" disabled="disabled" selected="selected">Select position</option>
+                            @foreach(Config::get('constants.logo_type') as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                    </div><!--col-5-->
+                </div><!--row | edit-playlist-section-->
+            </div><!--col-12-->
 
-        <div class="col-sm-12 select-box">
-            <div class="row edit-playlist-options">
-                <div class="col-xs-6 col-sm-3 col-md-3">
-                    <span>Ofset X-Position</span>
-                    <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" >
-                </div><!--col-3-->
+            <div class="col-sm-12 select-box">
+                <div class="row edit-playlist-options">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <span>Ofset X-Position</span>
+                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" >
+                    </div><!--col-3-->
 
-                <div class="col-xs-6 col-sm-3 col-md-3">
-                    <span>Ofset Y-Position</span>
-                    <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" >
-                </div><!--col-3-->
-            </div><!--row | edit-playlist-options-->
-        </div><!--col-12-->
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <span>Ofset Y-Position</span>
+                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" >
+                    </div><!--col-3-->
+                </div><!--row | edit-playlist-options-->
+            </div><!--col-12-->
+
+            <input type="hidden" id="url" name="url" value="@if(Session::has('logo_path')){{ Session::get('logo_path') }}@endif">
+        </form>
     </div><!--row-->
 
     <form id="form_image" action="{{ url('/logo/upload') }}" method="post" enctype="multipart/form-data">
@@ -110,16 +115,27 @@
     <script src="{{ asset('js/logooverlay.js') }}"></script>
 
     <script>
+        @if ($errors->has('url'))
+            swal("Logo", "{{ $errors->first('url') }}", "error");
+        @elseif($errors->has('position'))
+            swal("Logo", "{{ $errors->first('position') }}", "error");
+        @elseif($errors->has('xpos'))
+            swal("Logo", "{{ $errors->first('xpos') }}", "error");
+        @elseif($errors->has('ypos'))
+            swal("Logo", "{{ $errors->first('ypos') }}", "error");
+        @endif
+
         @if ($errors->has('logo'))
             swal("Logo", "{{ $errors->first('logo') }}", "error");
         @elseif(Session::has('logo_path'))
             $('#hiddenLogo').attr('src', '{{ Session::get('logo_path') }}');
             swal("Logo", "Logo successfully uploaded", "success");
-
+        @elseif(Session::has('logo_create'))
+            swal("Logo", "Logo successfully created", "success");
         @endif
 
         function saveLogo() {
-
+            $('#form_logo').submit();
         }
 
         function playVideo() {
@@ -128,7 +144,6 @@
                 return;
             }
 
-            //remove previous controller
             if (videojs.getPlayers()['my-video']) {
                 delete videojs.getPlayers()["my-video"];
             }

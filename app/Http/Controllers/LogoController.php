@@ -58,20 +58,12 @@ class LogoController extends Controller
     public function store(Request $request) {
         $logo = new Logo();
 
-        try {
-            $this->validate($request, [
-                'url'  => 'required',
-                'position' => 'required',
-                'xpos' => 'required|integer|between:0,500',
-                'ypos' => 'required|integer|between:0,500'
-            ]);
-        }catch (ValidationException $e) {
-            $data = $e->getResponse()->getOriginalContent();
-            return response()->json([
-                "result" => Config::get('constants.status.validation'),
-                "data" => $data
-            ]);
-        }
+        $this->validate($request, [
+            'url'  => 'required',
+            'position' => 'required',
+            'xpos' => 'required|integer|between:0,500',
+            'ypos' => 'required|integer|between:0,500'
+        ]);
 
         try {
             $logo->fill($request->all());
@@ -85,14 +77,11 @@ class LogoController extends Controller
                     $project->save();
                 }
 
-                return response()->json([
-                    "result" => Config::get('constants.status.success'),
-                    "id" => $logo->id
-                ]);
+                $request->session()->flash('logo_create', 'Logo successfully created.');
+                return redirect('logo/create');
+                //return $this->response->success('logo', 200);
             } else {
-                return response()->json([
-                    "result" => Config::get('constants.status.error'),
-                ]);
+                return $this->response->error('logo', 500);
             }
         }
         catch(Exception $e){
