@@ -61,9 +61,9 @@
     </div>
 
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-        <a href="#" class="add-video-btn"><i class="fa fa-save"></i></a>
         <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
         <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
+        <a onclick="saveLogo()" class="add-video-btn"><i class="fa fa-save"></i></a>
     </div><!--col-12-->
 
     <img id="hiddenLogo" hidden>
@@ -117,6 +117,10 @@
             swal("Logo", "Logo successfully uploaded", "success");
 
         @endif
+
+        function saveLogo() {
+
+        }
 
         function playVideo() {
             if (typeof $('#hiddenLogo').attr('src') == 'undefined') {
