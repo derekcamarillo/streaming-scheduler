@@ -13,6 +13,10 @@ class Project extends Model
         return $this->belongsToMany('App\Playlist', 'project_playlist');
     }
 
+    public function activatedPlaylist() {
+
+    }
+
     public function logo() {
         return $this->belongsTo('App\Logo');
     }

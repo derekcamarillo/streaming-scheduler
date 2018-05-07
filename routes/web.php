@@ -59,3 +59,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/logo/destroy/{id}', 'LogoController@destroy');
     Route::post('logo/upload', 'LogoController@upload');
 });
+
+Route::get('/project/{url}', 'HomeController@client');

@@ -234,7 +234,7 @@ CREATE TABLE `project_playlist` (
 -- Dumping data for table `project_playlist`
 --
 
-INSERT INTO `project_playlist` (`id`, `project_id`, `playlist_id`, `created_at`, `updated_at`, `actived`, `deleted_at`) VALUES
+INSERT INTO `project_playlist` (`id`, `project_id`, `playlist_id`, `created_at`, `updated_at`, activated, `deleted_at`) VALUES
 (1, 1, 16, '2018-05-02 10:34:36', '2018-05-02 10:34:39', 0, NULL),
 (2, 1, 18, '2018-05-02 15:35:39', '2018-05-02 15:35:42', 0, NULL);
 
