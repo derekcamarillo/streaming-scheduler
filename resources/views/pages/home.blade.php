@@ -140,42 +140,14 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
-                        @php
-                            $project = null;
-                        @endphp
-
                         @foreach($projects as $item)
-                            @if($item->actived == 1)
-                                @if(!isset($project))
-                                    @php $project = $item @endphp
-                                @endif
-
-                                <option value="{{ $item->id }}" selected>{{ $item->title }}</option>
-                            @else
-                                @if(!isset($project))
-                                    @php $project = $item @endphp
-                                @endif
-
-                                <option value="{{ $item->id }}">{{ $item->title }}</option>
-                            @endif
+                            <option value="{{ $item->id }}">{{ $item->title }}</option>
                         @endforeach
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="playlist">
-                        @php
-                            $playlist = null;
-                        @endphp
-                        @if(isset($project))
-                            @foreach($project->playlists as $item)
-                                @if(!isset($playlist))
-                                    @php
-                                        $playlist = $item;
-                                    @endphp
-                                @endif
-                                <option value="{{ $item->id }}">{{ $item->title }}</option>
-                            @endforeach
-                        @endif
+
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -198,34 +170,7 @@
         </ul><!--nav nav-tabs-->
         <div class="tab-content table-section">
             <div id="menu1" class="tab-pane fade in active">
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                            <video
-                                    id="vid1"
-                                    class="video-js vjs-default-skin vjs-4-3"
-                                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "iv_load_policy": 1 } }'>
-                            </video>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                            <video
-                                    id="vid1"
-                                    class="video-js vjs-default-skin vjs-4-3"
-                                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=jnF1Zbbjx5E"}], "youtube": { "iv_load_policy": 1 } }'>
-                            </video>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                            <video
-                                    id="vid2"
-                                    class="video-js vjs-4-3"
-                                    data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "https://vimeo.com/99275308"}], "vimeo": { "color": "#fbc51b"} }'
-                            >
-                            </video>
-                    </div>
-                </div><!--col-3-->
+
             </div><!--menu1-->
 
             <div id="menu2" class="tab-pane fade">
@@ -308,7 +253,7 @@
 
     <script>
         var projects = [];
-        var selProject;
+        var selProject, selPlaylist;
 
         @foreach($projects as $project)
             var playlists = [];
@@ -337,7 +282,7 @@
                     playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message));
                 @endforeach
             @endif
-            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ $project->url }}', playlists));
+            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url('project/url/'.$project->url) }}', playlists));
         @endforeach
 
         function activatePlaylist() {
@@ -351,6 +296,98 @@
         function checkTime(i) {
             if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
             return i;
+        }
+
+        function selectProject(project) {
+            selProject = project;
+
+            $('#project_url').val(project.url);
+            $('#playlist').empty();
+            $('#videoclips').empty();
+            $('#menu1').empty();
+
+            project.playlists.forEach(function(item, index){
+                if (index == 0)
+                    selectPlaylist(item);
+                $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
+            });
+        }
+
+        function selectPlaylist(playlist) {
+            /*
+            $('#videoclips').empty();
+            $('#menu1').empty();
+            */
+
+            playlist.videoclips.forEach(function(item, index) {
+                ///////////////////////////   Reset video clips in the time line ////////////////////////////////
+                switch (index % 6) {
+                    case 0:
+                        $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                    case 1:
+                        $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                    case 2:
+                        $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                    case 3:
+                        $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                    case 4:
+                        $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                    case 5:
+                        $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
+                        break;
+                }
+
+                ///////////////////////////   Reset video clips in video list ////////////////////////////////
+                var videoclipHtml =
+                    '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
+                    '<div class="video-box">' +
+                    '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
+                    '</div>' +
+                    '</div><!--col-3-->';
+
+                var data = {};
+                data.techOrder = [];
+                data.sources = [];
+
+                if (item.url.indexOf("youtube") !== -1) {
+                    var source = {};
+                    source.type = "video/youtube";
+                    source.src = item.url;
+
+                    data.techOrder.push("youtube");
+                    data.sources.push(source);
+                } else if (item.url.indexOf("vimeo") !== -1) {
+                    var source = {};
+                    source.type = "video/vimeo";
+                    source.src = item.url;
+
+                    var option = {};
+                    option.color = "#fbc51b";
+                    option.controls = false;
+
+                    data.techOrder.push("vimeo");
+                    data.sources.push(source);
+                    //data.vimeo = option;
+                }
+                videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+                $('#menu1').append(videoclipHtml);
+
+                if (videojs.getPlayers()['video' + item.id]) {
+                    delete videojs.getPlayers()['video' + item.id];
+                }
+
+                videojs('video' + item.id);
+
+                $('#video' + item.id).click(function () {
+                    var player = videojs.getPlayers()['video' + item.id];
+                    player.play();
+                });
+            });
         }
 
         function startTimer() {
@@ -378,126 +415,29 @@
         $(function() {
             startTimer();
 
-            @if(isset($project))
-                $('#project_url').val('{{ $project->url }}');
-            @endif
-
-            @if(isset($playlist))
-                $('#videoclips').empty();
-                @php
-                    $index = 0;
-                @endphp
-
-                @foreach($playlist->videoclips as $item)
-                    @if($index % 6 == 0)
-                        $('#videoclips').append('<div class="greenbox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @elseif($index % 6 == 1)
-                        $('#videoclips').append('<div class="Bluebox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @elseif($index % 6 == 2)
-                        $('#videoclips').append('<div class="redbox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @elseif($index % 6 == 3)
-                        $('#videoclips').append('<div class="orangebox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @elseif($index % 6 == 4)
-                        $('#videoclips').append('<div class="lightbluebox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @elseif($index % 6 == 5)
-                        $('#videoclips').append('<div class="greybox editorBox">{{ $item->title }}<p>sub text here</p></div>');
-                    @endif
-                    @php
-                        $index++;
-                    @endphp
-                @endforeach
-            @endif
+            if (projects.length > 0) {
+                selectProject(projects[0]);
+            }
 
             $('#project').change(function() {
                 for (var i = 0; i < projects.length; i++) {
                     if (projects[i].id == $('#project').val()) {
-                        selProject = projects[i];
+                        selectProject(projects[i]);
                         break;
                     }
                 }
-                $('#project_url').val(selProject.url);
-                $('#playlist').empty();
-                selProject.playlists.forEach(function(item, index){
-                    $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
-                });
             });
 
             $('#playlist').change(function() {
-                var selPlaylist;
+                $('#videoclips').empty();
+                $('#menu1').empty();
+
                 for (var i = 0; i < selProject.playlists.length; i++) {
                     if (selProject.playlists[i].id == $('#playlist').val()) {
-                        selPlaylist = selProject.playlists[i];
+                        selectPlaylist(selProject.playlists[i]);
                         break;
                     }
                 }
-
-                $('#videoclips').empty();
-                selPlaylist.videoclips.forEach(function(item, index) {
-                    switch (index % 6) {
-                        case 0:
-                            $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 1:
-                            $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 2:
-                            $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 3:
-                            $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 4:
-                            $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                        case 5:
-                            $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
-                            break;
-                    }
-                });
-
-                $('#menu1').empty();
-                selPlaylist.videoclips.forEach(function(item, index) {
-                    var videoclipHtml =
-                            '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
-                            '<div class="video-box">' +
-                            '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
-                            '</div>' +
-                            '</div><!--col-3-->';
-
-                    var data = {};
-                    data.techOrder = [];
-                    data.sources = [];
-
-                    if (item.url.indexOf("youtube") !== -1) {
-                        var source = {};
-                        source.type = "video/youtube";
-                        source.src = item.url;
-
-                        data.techOrder.push("youtube");
-                        data.sources.push(source);
-                    } else if (item.url.indexOf("vimeo") !== -1) {
-                        var source = {};
-                        source.type = "video/vimeo";
-                        source.src = item.url;
-
-                        var option = {};
-                        option.color = "#fbc51b";
-                        option.controls = false;
-
-                        data.techOrder.push("vimeo");
-                        data.sources.push(source);
-                        //data.vimeo = option;
-                    }
-                    videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
-                    $('#menu1').append(videoclipHtml);
-
-                    videojs('video' + item.id);
-
-                    $('#video' + item.id).click(function () {
-                        var player = videojs.getPlayers()['video' + item.id];
-                        player.play();
-                    });
-                });
             });
         });
     </script>
