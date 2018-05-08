@@ -61,24 +61,21 @@
         var minutes = today.getMinutes();
         minutes = minutes < 0 ? '0' + minutes : minutes;
 
-        var b1 = playlist.schedule.months.includes(month);
-        var b2 = playlist.schedule.days.includes(day);
+        var b1 = playlist.schedule.months.includes(month.toString());
+        var b2 = playlist.schedule.days.includes(day.toString());
         var b3 = playlist.schedule.start_time == hours + ":" + minutes + ":" + "00";
-        /*
-        if (b1 && b2 && b3) {
 
+        if (b1 && b2 && b3) {
+            playVideoClip(playlist.videoclips[0]);
         } else {
             setTimeout(startTimer, 1000);
         }
-        */
-
-        playVideoClip(playlist.videoclips[0]);
     }
 
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" height="auto" controls autoplay data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-16-9" height="100" autoplay data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];
@@ -113,8 +110,12 @@
             index ++;
 
             player.on('ended', function() {
-                if (index == playlist.videoclips.length)
-                    return;
+                if (index == playlist.videoclips.length ) {
+                    if (playlist.schedule.endless == 0)
+                        return;
+                    else
+                        index = 0;
+                }
 
                 playVideoClip(playlist.videoclips[index])
             });
