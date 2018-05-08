@@ -30,13 +30,46 @@
     <script src="{{ asset('js/bootstrap-slider.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap-timepicker.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetalert.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/classes.js') }}"></script>
 </head>
 
 <body>
 
 <script>
+    function startTimer() {
+        var t = setTimeout(startTimer, 1000);
+    }
+
     @if(!isset($project))
         swal("Project", "Project is not available", "error");
+    @elseif(!isset($project->activatedPlaylist))
+        swal("Server", "Server is not streaming now", "error");
+    @else
+        <?php $playlist = $project->activatedPlaylist()->first(); ?>
+        var videoclips = [];
+        @if(isset($playlist->videoclips))
+            @foreach($playlist->videoclips as $videoclip)
+                var message = null;
+                @if(isset($videoclip->message))
+                    message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
+                        '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}', '{{ $videoclip->message->xpos }}',
+                        '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
+                        '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
+                @endif
+                videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
+            @endforeach
+        @endif
+
+        var message = null;
+        @if(isset($playlist->message))
+            message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
+                '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}', '{{ $playlist->message->xpos }}',
+                '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
+                '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
+        @endif
+        var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message);
+
+        startTimer();
     @endif
 </script>
 </body>

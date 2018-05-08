@@ -15,6 +15,15 @@ function Playlist(id, title, videoclips, message) {
     this.message = message;
 }
 
+function Schedule(id, start_time, end_time, endlss, days, months) {
+    this.id = id;
+    this.start_time = start_time;
+    this.end_time = end_time;
+    this.endlss = endlss;
+    this.days = days;
+    this.months = months;
+}
+
 function Videoclip(id, title, url, message) {
     this.id = id;
     this.title = title;
