@@ -57,9 +57,9 @@
         var day = today.getDay();
 
         var hours = today.getHours();
-        hours = hours < 0 ? '0' + hours : hours;
+        hours = hours < 10 ? '0' + hours : hours;
         var minutes = today.getMinutes();
-        minutes = minutes < 0 ? '0' + minutes : minutes;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
 
         var b1 = playlist.schedule.months.includes(month.toString());
         var b2 = playlist.schedule.days.includes(day.toString());
