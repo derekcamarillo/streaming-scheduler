@@ -8,11 +8,12 @@ function Project(id, title, url, playlists) {
     this.playlists = playlists;
 }
 
-function Playlist(id, title, videoclips, message) {
+function Playlist(id, title, videoclips, message, schedule) {
     this.id = id;
     this.title = title;
     this.videoclips = videoclips;
     this.message = message;
+    this.schedule = schedule;
 }
 
 function Schedule(id, start_time, end_time, endlss, days, months) {
@@ -20,8 +21,8 @@ function Schedule(id, start_time, end_time, endlss, days, months) {
     this.start_time = start_time;
     this.end_time = end_time;
     this.endlss = endlss;
-    this.days = days;
-    this.months = months;
+    this.days = days.slice(0, -1).split(',');
+    this.months = months.slice(0, -1).split(',');
 }
 
 function Videoclip(id, title, url, message) {

@@ -279,7 +279,12 @@
                             '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
                             '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
                     @endif
-                    playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message));
+                    var schedule = null;
+                    @if(isset($playlist->schedule))
+                        schedule = new Schedule('{{ $playlist->schedule->id }}', '{{ $playlist->schedule->start_time }}', '{{ $playlist->schedule->end_time }}',
+                            '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
+                    @endif
+                    playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule));
                 @endforeach
             @endif
             projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url('project/url/'.$project->url) }}', playlists));

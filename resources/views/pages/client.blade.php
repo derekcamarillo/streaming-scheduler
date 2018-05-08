@@ -31,13 +31,94 @@
     <script src="{{ asset('js/bootstrap-timepicker.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetalert.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/classes.js') }}"></script>
+
+
+    <link href="{{ asset('css/videojs/video-js.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs.watermark.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs-logo-overlay.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
 </head>
 
 <body>
+<div id="videoContainer"></div>
 
 <script>
+    var index = 0;
+
     function startTimer() {
-        var t = setTimeout(startTimer, 1000);
+        var today = new Date();
+        var month = today.getMonth();
+        var day = today.getDay();
+
+        var hours = today.getHours();
+        hours = hours < 0 ? '0' + hours : hours;
+        var minutes = today.getMinutes();
+        minutes = minutes < 0 ? '0' + minutes : minutes;
+
+        var b1 = playlist.schedule.months.includes(month);
+        var b2 = playlist.schedule.days.includes(day);
+        var b3 = playlist.schedule.start_time == hours + ":" + minutes + ":" + "00";
+        /*
+        if (b1 && b2 && b3) {
+
+        } else {
+            setTimeout(startTimer, 1000);
+        }
+        */
+
+        playVideoClip(playlist.videoclips[0]);
+    }
+
+    function playVideoClip(item) {
+        $('#videoContainer').empty();
+
+        videoclipHtml = '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" height="auto" controls autoplay data-setup=\'%data%\'></video>';
+
+        var data = {};
+        data.techOrder = [];
+        data.sources = [];
+
+        if (item.url.indexOf("youtube") !== -1) {
+            var source = {};
+            source.type = "video/youtube";
+            source.src = item.url;
+
+            data.techOrder.push("youtube");
+            data.sources.push(source);
+        } else if (item.url.indexOf("vimeo") !== -1) {
+            var source = {};
+            source.type = "video/vimeo";
+            source.src = item.url;
+
+            var option = {};
+            option.color = "#fbc51b";
+            option.controls = false;
+
+            data.techOrder.push("vimeo");
+            data.sources.push(source);
+            //data.vimeo = option;
+        }
+        videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+        $('#videoContainer').append(videoclipHtml);
+
+        videojs('video' + item.id).ready(function() {
+            var player = this;
+
+            index ++;
+
+            player.on('ended', function() {
+                if (index == playlist.videoclips.length)
+                    return;
+
+                playVideoClip(playlist.videoclips[index])
+            });
+        });
     }
 
     @if(!isset($project))
@@ -67,9 +148,17 @@
                 '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
                 '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
         @endif
-        var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message);
 
-        startTimer();
+        var schedule = null;
+        @if(isset($playlist->schedule))
+            schedule = new Schedule('{{ $playlist->schedule->id }}', '{{ $playlist->schedule->start_time }}', '{{ $playlist->schedule->end_time }}',
+                '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
+        @endif
+
+        var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule);
+
+        if (schedule != null)
+            startTimer();
     @endif
 </script>
 </body>
