@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Color</span>
-                        <input type="color" id="fontcolor" name="fontcolor" class="text-center colorFeild" value="@if(isset($message)){{ $message->fontcolor }}@endif">
+                        <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor" value="@if(isset($message)){{ $message->fontcolor }}@endif">
                     </div>
                 </div>
             </div>
