@@ -75,7 +75,7 @@
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-16-9" height="100" controls autoplay data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];
@@ -91,7 +91,7 @@
         } else if (item.url.indexOf("vimeo") !== -1) {
             var source = {};
             source.type = "video/vimeo";
-            source.src = item.url;
+            source.src = item.url + "?autoplay=1";
 
             var option = {};
             option.color = "#fbc51b";
@@ -101,11 +101,13 @@
             data.sources.push(source);
             //data.vimeo = option;
         }
+
         videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
         $('#videoContainer').append(videoclipHtml);
 
         videojs('video' + item.id).ready(function() {
             var player = this;
+            player.play();
 
             index ++;
 
