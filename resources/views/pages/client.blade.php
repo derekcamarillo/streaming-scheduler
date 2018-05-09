@@ -39,6 +39,8 @@
     <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
 
     <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
     <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
@@ -105,7 +107,24 @@
         videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
         $('#videoContainer').append(videoclipHtml);
 
-        videojs('video' + item.id).ready(function() {
+        if (logo) {
+            videoPlayer = videojs('video' + item.id, {
+                plugins: {
+                    logoOverlay: {
+                        src: logo.url,
+                        margin: [logo.ypos, logo.xpos],
+                        userActive: false,
+                        position: logo.position,
+                        width: 100,
+                        height: 100
+                    }
+                }
+            });
+        } else {
+            videoPlayer = videojs('video' + item.id);
+        }
+
+        videoPlayer.ready(function() {
             var player = this;
             player.play();
 
@@ -123,6 +142,11 @@
             });
         });
     }
+
+    @if(isset($project) and isset($project->logo))
+        var logo = new Logo('{{ $project->logo->id }}', '{{ $project->logo->url }}', '{{ $project->logo->position }}',
+            '{{ $project->logo->xpos }}', '{{ $project->logo->ypos }}');
+    @endif
 
     @if(!isset($project))
         swal("Project", "Project is not available", "error");

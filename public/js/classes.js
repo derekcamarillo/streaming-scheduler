@@ -32,6 +32,14 @@ function Videoclip(id, title, url, message) {
     this.message = message;
 }
 
+function Logo(id, url, position, xpos, ypos) {
+    this.id = id;
+    this.url = url;
+    this.position = position;
+    this.xpos = xpos;
+    this.ypos = ypos;
+}
+
 function Message(id, text, effect, speed, duration, xpos, ypos, fonttype, fontsize, fontcolor) {
     this.id = id;
     this.text = text;
