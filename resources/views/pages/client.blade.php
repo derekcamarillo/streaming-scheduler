@@ -91,7 +91,7 @@
         } else if (item.url.indexOf("vimeo") !== -1) {
             var source = {};
             source.type = "video/vimeo";
-            source.src = item.url + "?autoplay=1";
+            source.src = item.url;
 
             var option = {};
             option.color = "#fbc51b";
