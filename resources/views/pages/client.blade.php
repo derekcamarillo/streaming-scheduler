@@ -63,7 +63,7 @@
 
         var b1 = playlist.schedule.months.includes(month.toString());
         var b2 = playlist.schedule.days.includes(day.toString());
-        var b3 = playlist.schedule.start_time == hours + ":" + minutes + ":" + "00";
+        var b3 = playlist.schedule.start_time <= hours + ":" + minutes + ":" + "00";
 
         if (b1 && b2 && b3) {
             playVideoClip(playlist.videoclips[0]);
@@ -75,7 +75,7 @@
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-16-9" height="100" autoplay data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-16-9" height="100" controls autoplay data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];
