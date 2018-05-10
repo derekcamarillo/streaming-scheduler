@@ -12,6 +12,8 @@
 <link href="{{ asset('fonts/ic-style.css') }}" rel="stylesheet">
 <link href="{{ asset('css/main-style.css') }}" rel="stylesheet">
 <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+<link href="{{ asset('css/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -25,6 +27,6 @@
 <script src="{{ asset('js/wow.min.js') }}"></script>
 <script src="{{ asset('js/scrollbar.js') }}"></script>
 <script src="{{ asset('js/bootstrap-slider.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/bootstrap-timepicker.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/sweetalert.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jscolor.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/timepicker/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>

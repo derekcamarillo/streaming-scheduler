@@ -51,11 +51,20 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(isset($item->message))
-                                        {{ $item->message->text }}
-                                    @endif
+                                    <span>
+                                        @if(isset($item->message))
+                                            {{ $item->message->text }}
+                                        @endif
+                                    </span>
                                 </td>
-                                <td>1</td>
+                                <td>
+                                    <div class="endles-loop">
+                                        <div class="round">
+                                            <input type="checkbox" id="endless" name="endless" @if(isset($item->schedule) and $item->schedule->endless == 1) checked @endif disabled>
+                                            <label for="endless"></label>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -18,12 +18,12 @@
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <span>Start Time</span>
-                <input type="text" id="start_time" name="start_time" placeholder="hh:mm" >
+                <input type="text" id="start_time" name="start_time" placeholder="hh:mm" class="timepicker">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <span>End Time</span>
-                <input type="text" id="end_time" name="end_time" placeholder="hh:mm" >
+                <input type="text" id="end_time" name="end_time" placeholder="hh:mm" class="timepicker">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-2 endles-loop">
@@ -123,6 +123,11 @@
         var videoclips = [];
 
         $(function () {
+            $('.timepicker').timepicker({
+                showSeconds: false,
+                showMeridian: false
+            });
+
             $('.ic-delete-video').click(function(event){
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
                     $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {

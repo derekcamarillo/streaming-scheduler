@@ -22,12 +22,12 @@
 
             <div class="col-xs-6 col-sm-4 col-md-3 bootstrap-timepicker timepicker">
                 <span>Start Time</span>
-                <input type="text" id="start_time" name="start_time" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->start_time }} @endif" >
+                <input type="text" id="start_time" name="start_time" class="timepicker" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->start_time }} @endif" >
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <span>End Time</span>
-                <input type="text" id="end_time" name="end_time" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->end_time }} @endif">
+                <input type="text" id="end_time" name="end_time" class="timepicker" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->end_time }} @endif">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-2 endles-loop">
@@ -154,11 +154,10 @@
         var videoclips = [];
 
         $(function () {
-            $('#start_time').timepicker();
-            $('#start_time').focus(function (){
-                $('#start_time').timepicker('showWidget');
+            $('.timepicker').timepicker({
+                showSeconds: false,
+                showMeridian: false
             });
-            $('#end_time').timepicker();
 
             $('.ic-delete-video').click(function(event) {
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
