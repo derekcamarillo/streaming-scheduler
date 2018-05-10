@@ -43,11 +43,23 @@
     <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
+    <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
     <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
 </head>
 
 <body>
+
+<style id="style_marquee" type="text/css">
+    .vjs-emre-marquee {
+        width: 100%;
+        overflow: hidden;
+        z-index: 9998;
+        position: absolute;
+        font-size: 24px !important;
+    }
+</style>
+
 <div id="videoContainer"></div>
 
 <script>
@@ -72,6 +84,30 @@
         } else {
             setTimeout(startTimer, 1000);
         }
+    }
+
+    function showScrollMessage(player, message) {
+        player.marqueeOverlay({
+            contentOfMarquee: message.text,
+            position: "bottom",
+            direction: message.effect,
+            backgroundcolor: 'transparent',
+            duration: (5000 - message.speed * 200),
+            color: message.fontcolor
+        });
+
+        css =
+                ".vjs-emre-marquee {" +
+                "width: 100%; overflow: hidden; z-index: 9998;position: absolute;" +
+                "font-size:" + message.fontsize + "px !important;" +
+                "left: " + message.xpos + "px !important;" +
+                "bottom: " + message.ypos + "px !important;" +
+                "font-family: " + message.fonttype + "!important;" +
+                "}";
+
+        $('#style_marquee').html(css);
+
+        player.qualityPickerPlugin();
     }
 
     function playVideoClip(item) {
@@ -128,9 +164,9 @@
             var player = this;
             player.play();
 
-            index ++;
-
             player.on('ended', function() {
+                index ++;
+
                 if (index == playlist.videoclips.length ) {
                     if (playlist.schedule.endless == 0)
                         return;
@@ -141,6 +177,12 @@
                 playVideoClip(playlist.videoclips[index])
             });
         });
+
+        if (playlist.message) {
+            showScrollMessage(videoPlayer, playlist.message);
+        } else if (videoclip[index].message) {
+            showScrollMessage(videoPlayer, videoclip[index].message);
+        }
     }
 
     @if(isset($project) and isset($project->logo))
@@ -161,7 +203,7 @@
                 @if(isset($videoclip->message))
                     message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
                         '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}', '{{ $videoclip->message->xpos }}',
-                        '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
+                        '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
                         '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
                 @endif
                 videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
@@ -172,7 +214,7 @@
         @if(isset($playlist->message))
             message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
                 '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}', '{{ $playlist->message->xpos }}',
-                '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
+                '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
                 '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
         @endif
 
