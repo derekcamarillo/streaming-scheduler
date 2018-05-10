@@ -265,7 +265,7 @@
                             var message = null;
                             @if(isset($videoclip->message))
                                 message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
-                                    '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}', '{{ $videoclip->message->xpos }}',
+                                    '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}',
                                     '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
                                     '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
                             @endif
@@ -275,7 +275,7 @@
                     var message = null;
                     @if(isset($playlist->message))
                         message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
-                            '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}', '{{ $playlist->message->xpos }}',
+                            '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}',
                             '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
                             '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
                     @endif
@@ -291,11 +291,35 @@
         @endforeach
 
         function activatePlaylist() {
-
+            $.post('/playlist/activatePlaylist', {
+                '_token' : '{{ csrf_token() }}',
+                'project_id' : $('#title').val(),
+                'playlist_id' : playlists,
+            }, function (response) {
+                if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                    swal("Project", "New project successfully saved", "success");
+                } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                    swal("Project", "Validation failed", "error");
+                } else {
+                    swal("Project", "Saving project failed", "error");
+                }
+            });
         }
 
         function deactivatePlaylist() {
-
+            $.post('/playlist/deactivatePlaylist', {
+                '_token' : '{{ csrf_token() }}',
+                'project_id' : $('#title').val(),
+                'playlist_id' : playlists,
+            }, function (response) {
+                if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                    swal("Project", "New project successfully saved", "success");
+                } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                    swal("Project", "Validation failed", "error");
+                } else {
+                    swal("Project", "Saving project failed", "error");
+                }
+            });
         }
 
         function checkTime(i) {
@@ -410,7 +434,7 @@
             hours = hours % 12;
             hours = hours ? hours : 12;
             hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0'+minutes : minutes;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
 
             $('#timer_date').html(year + ' / ' + month + ' / ' + day);
             $('#timer_time').html(hours + ' : ' + minutes + ' ' + ampm);
