@@ -17,7 +17,7 @@
                             <tr class="tbl_row">
                                 <td style="text-align: center;">{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ $item->url }}</td>
+                                <td>{{ url('project/url/'.$item->url) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

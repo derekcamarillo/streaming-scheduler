@@ -19,7 +19,7 @@
                             <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
                             <td>{{ $item->title }}</td>
                             <td>@if(isset($item->message)) {{ Config::get('constants.message_type.'.$item->message->effect) }} @endif</td>
-                            <td>@if(isset($item->message)) {{ $item->message->text }} @endif</td>
+                            <td><span>@if(isset($item->message)) {{ $item->message->text }} @endif</span></td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -105,9 +105,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(isset($item->message))
-                                            {{ $item->message->text }}
-                                        @endif
+                                        <span>
+                                            @if(isset($item->message))
+                                                {{ $item->message->text }}
+                                            @endif
+                                        </span>
                                     </td>
                                     <td>
                                         @if(isset($item->schedule))

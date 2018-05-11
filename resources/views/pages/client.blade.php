@@ -68,6 +68,7 @@
         var today = new Date();
         var month = today.getMonth();
         var day = today.getDay();
+        day = (day + 6) % 7;
 
         var hours = today.getHours();
         hours = hours < 10 ? '0' + hours : hours;
@@ -184,8 +185,9 @@
         }
     }
 
+    var logo;
     @if(isset($project) and isset($project->logo))
-        var logo = new Logo('{{ $project->logo->id }}', '{{ $project->logo->url }}', '{{ $project->logo->position }}',
+        logo = new Logo('{{ $project->logo->id }}', '{{ $project->logo->url }}', '{{ $project->logo->position }}',
             '{{ $project->logo->xpos }}', '{{ $project->logo->ypos }}');
     @endif
 

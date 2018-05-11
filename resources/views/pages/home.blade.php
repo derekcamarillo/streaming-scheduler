@@ -140,6 +140,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
+                        <option selected disabled>Please select project</option>
                         @foreach($projects as $item)
                             <option value="{{ $item->id }}">{{ $item->title }}</option>
                         @endforeach
@@ -147,7 +148,7 @@
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="playlist">
-
+                        <option selected disabled>Please select playlist</option>
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
