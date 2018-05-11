@@ -156,7 +156,11 @@
             $('#form_message').submit(function (event){
                 event.preventDefault();
 
+                waitingDialog.show();
+
                 $.post('/message/store', $(this).serializeArray(), function (response) {
+                    waitingDialog.hide();
+
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Message", "New message successfully saved", "success");
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
