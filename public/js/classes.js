@@ -8,12 +8,13 @@ function Project(id, title, url, playlists) {
     this.playlists = playlists;
 }
 
-function Playlist(id, title, videoclips, message, schedule) {
+function Playlist(id, title, videoclips, message, schedule, activated) {
     this.id = id;
     this.title = title;
     this.videoclips = videoclips;
     this.message = message;
     this.schedule = schedule;
+    this.activated = activated;
 }
 
 function Schedule(id, start_time, end_time, endlss, days, months) {

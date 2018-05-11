@@ -99,7 +99,7 @@
                 ".vjs-emre-marquee {" +
                 "width: 100%; overflow: hidden; z-index: 9998;position: absolute;" +
                 "font-size:" + message.fontsize + "px !important;" +
-                "left: " + message.xpos + "px !important;" +
+                //"left: " + message.xpos + "px !important;" +
                 "bottom: " + message.ypos + "px !important;" +
                 "font-family: " + message.fonttype + "!important;" +
                 "}";
@@ -223,9 +223,9 @@
                 '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
         @endif
 
-        var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule);
+        var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1);
 
-        if (schedule != null)
+        if (schedule)
             startTimer();
     @endif
 </script>

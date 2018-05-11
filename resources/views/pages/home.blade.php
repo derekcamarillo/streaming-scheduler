@@ -279,12 +279,19 @@
                             '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
                             '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
                     @endif
+
                     var schedule = null;
                     @if(isset($playlist->schedule))
                         schedule = new Schedule('{{ $playlist->schedule->id }}', '{{ $playlist->schedule->start_time }}', '{{ $playlist->schedule->end_time }}',
                             '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
                     @endif
-                    playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule));
+
+                    @if(isset($project->activatedPlaylist) && ($project->activatedPlaylist()->first()->id == $playlist->id))
+                        playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1));
+                    @else
+                        playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 0));
+                    @endif
+
                 @endforeach
             @endif
             projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url('project/url/'.$project->url) }}', playlists));
@@ -307,23 +314,18 @@
                 'playlist_id' : $('#playlist').val(),
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Project", "Playlist activated successfully", "success");
+                    swal("Playlist", "Playlist activated successfully", "success");
 
                     for (var i = 0; i < projects.length; i++) {
                         if (projects[i].id == $('#project').val()) {
-                            for (var j = 0; j < projects[i].playlists.length; j++) {
-                                if (projects[i].playlists[j] == $('#playlist').val()) {
-                                    showVideoSchedule(projects[i].playlists[j]);
-                                    break;
-                                }
-                            }
+                            showVideoSchedule(projects[i]);
                             break;
                         }
                     }
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Project", "Validation failed", "error");
+                    swal("Playlist", "Validation failed", "error");
                 } else {
-                    swal("Project", "Activating playlist failed", "error");
+                    swal("Playlist", "Activating playlist failed", "error");
                 }
             });
         }
@@ -345,11 +347,11 @@
                 'playlist_id' : $('#playlist').val(),
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Project", "New project successfully saved", "success");
+                    swal("Playlist", "Playlist deactivated successfully", "success");
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Project", "Validation failed", "error");
+                    swal("Playlist", "Validation failed", "error");
                 } else {
-                    swal("Project", "Saving project failed", "error");
+                    swal("Playlist", "Deactivating playlist failed", "error");
                 }
             });
         }
@@ -359,32 +361,43 @@
             return i;
         }
 
-        function showVideoSchedule(playlist) {
+        function showVideoSchedule(project) {
             $('#videoclips').empty();
 
-            playlist.videoclips.forEach(function(item, index) {
-                ///////////////////////////   Reset video clips in the time line ////////////////////////////////
-                switch (index % 6) {
-                    case 0:
-                        $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
-                    case 1:
-                        $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
-                    case 2:
-                        $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
-                    case 3:
-                        $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
-                    case 4:
-                        $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
-                    case 5:
-                        $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
-                        break;
+            var playlist;
+
+            for (var i = 0; i < project.playlists.length; i++) {
+                if (project.playlists[i].activated == 1) {
+                    playlist = project.playlists[i];
+                    break;
                 }
-            });
+            }
+
+            if (playlist) {
+                playlist.videoclips.forEach(function(item, index) {
+                    ///////////////////////////   Reset video clips in the time line ////////////////////////////////
+                    switch (index % 6) {
+                        case 0:
+                            $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                        case 1:
+                            $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                        case 2:
+                            $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                        case 3:
+                            $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                        case 4:
+                            $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                        case 5:
+                            $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            break;
+                    }
+                });
+            }
         }
 
         function selectProject(project) {
@@ -392,7 +405,7 @@
 
             $('#project_url').val(project.url);
             $('#playlist').empty();
-            $('#videoclips').empty();
+            //$('#videoclips').empty();
             $('#menu1').empty();
 
             project.playlists.forEach(function(item, index){
@@ -407,8 +420,6 @@
             $('#videoclips').empty();
             $('#menu1').empty();
             */
-
-            showVideoSchedule(playlist);
 
             playlist.videoclips.forEach(function(item, index) {
 
@@ -487,19 +498,21 @@
 
             if (projects.length > 0) {
                 selectProject(projects[0]);
+                showVideoSchedule(projects[0]);
             }
 
             $('#project').change(function() {
                 for (var i = 0; i < projects.length; i++) {
                     if (projects[i].id == $('#project').val()) {
                         selectProject(projects[i]);
+                        showVideoSchedule(projects[i]);
                         break;
                     }
                 }
             });
 
             $('#playlist').change(function() {
-                $('#videoclips').empty();
+                //$('#videoclips').empty();
                 $('#menu1').empty();
 
                 for (var i = 0; i < selProject.playlists.length; i++) {
