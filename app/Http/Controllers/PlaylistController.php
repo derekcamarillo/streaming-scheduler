@@ -153,4 +153,12 @@ class PlaylistController extends Controller
             return $this->response->error('could_not_delete_playlist', 500);
         }
     }
+
+    public function activatePlaylist(Request $request) {
+
+    }
+
+    public function deactivatePlaylist(Request $request) {
+
+    }
 }
