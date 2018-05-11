@@ -139,16 +139,14 @@
                     <input type="text" id="project_url" placeholder="Project URL(https:\\suisse-view.com\videoclips\foldername\filename.)">
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select class="form-control" id="project">
-                        <option selected disabled>Please select project</option>
+                    <select class="form-control" id="project" placeholder="Please select project">
                         @foreach($projects as $item)
                             <option value="{{ $item->id }}">{{ $item->title }}</option>
                         @endforeach
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select class="form-control" id="playlist">
-                        <option selected disabled>Please select playlist</option>
+                    <select class="form-control" id="playlist" placeholder="Please select playlist">
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
