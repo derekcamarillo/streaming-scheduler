@@ -131,7 +131,7 @@
                 direction: $('#effect').val(),
                 backgroundcolor: 'transparent',
                 duration: (5000 - $('#speed').val() * 200),
-                color: $('#fontcolor').val()
+                color: "#" + $('#fontcolor').val()
             });
 
             css =

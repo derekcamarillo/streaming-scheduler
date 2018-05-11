@@ -16,7 +16,7 @@
                     @foreach($messages as $item)
                         <tr class="tbl_row">
                             <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
-                            <td>{{ $item->text }}</td>
+                            <td><span>{{ $item->text }}</span></td>
                             <td>{{ Config::get('constants.message_type.'.$item->effect) }}</td>
                         </tr>
                     @endforeach
