@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Playlist;
+use App\Project;
 use App\Videoclip;
 use App\Schedule;
 use Illuminate\Support\Facades\Config;
@@ -155,10 +156,18 @@ class PlaylistController extends Controller
     }
 
     public function activatePlaylist(Request $request) {
-
+        $project = Project::find($request->input('project_id'));
+        $playlists = $project->playlists;
+        foreach ($playlists as $playlist) {
+            if ($playlist->id == $request->input('playlist_id'))
+                $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 1]);
+            else
+                $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 0]);
+        }
     }
 
     public function deactivatePlaylist(Request $request) {
-
+        $project = Project::find($request->input('project_id'));
+        $project->activatedPlaylist()->updateExistingPivot($request->input('playlist_id'), ['activated' => 0]);
     }
 }

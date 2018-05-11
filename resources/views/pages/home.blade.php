@@ -291,10 +291,20 @@
         @endforeach
 
         function activatePlaylist() {
+            if (! $('#project').val()) {
+                swal("Project", "Please select project", "error");
+                return;
+            }
+
+            if (! $('#playlist').val()) {
+                swal("Playlist", "Please select playlist", "error");
+                return;
+            }
+
             $.post('/playlist/activatePlaylist', {
                 '_token' : '{{ csrf_token() }}',
-                'project_id' : $('#title').val(),
-                'playlist_id' : playlists,
+                'project_id' : $('#project').val(),
+                'playlist_id' : $('#playlist').val(),
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Project", "New project successfully saved", "success");
@@ -307,10 +317,20 @@
         }
 
         function deactivatePlaylist() {
+            if (! $('#project').val()) {
+                swal("Project", "Please select project", "error");
+                return;
+            }
+
+            if (! $('#playlist').val()) {
+                swal("Playlist", "Please select playlist", "error");
+                return;
+            }
+
             $.post('/playlist/deactivatePlaylist', {
                 '_token' : '{{ csrf_token() }}',
-                'project_id' : $('#title').val(),
-                'playlist_id' : playlists,
+                'project_id' : $('#project').val(),
+                'playlist_id' : $('#playlist').val(),
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Project", "New project successfully saved", "success");

@@ -37,7 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/playlist/store', 'PlaylistController@store');
     Route::post('/playlist/update/{id}', 'PlaylistController@update');
     Route::get('/playlist/destroy/{id}', 'PlaylistController@destroy');
-    Route::get('/playlist/activatePlaylist', 'PlaylistController@activatePlaylist');
+    Route::post('/playlist/activatePlaylist', 'PlaylistController@activatePlaylist');
+    Route::post('/playlist/deactivatePlaylist', 'PlaylistController@deactivatePlaylist');
 
     Route::get('/videoclip', 'VideoclipController@index');
     Route::get('/videoclip/create', 'VideoclipController@create');
