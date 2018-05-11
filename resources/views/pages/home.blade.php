@@ -307,11 +307,23 @@
                 'playlist_id' : $('#playlist').val(),
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Project", "New project successfully saved", "success");
+                    swal("Project", "Playlist activated successfully", "success");
+
+                    for (var i = 0; i < projects.length; i++) {
+                        if (projects[i].id == $('#project').val()) {
+                            for (var j = 0; j < projects[i].playlists.length; j++) {
+                                if (projects[i].playlists[j] == $('#playlist').val()) {
+                                    showVideoSchedule(projects[i].playlists[j]);
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Project", "Validation failed", "error");
                 } else {
-                    swal("Project", "Saving project failed", "error");
+                    swal("Project", "Activating playlist failed", "error");
                 }
             });
         }
@@ -347,26 +359,8 @@
             return i;
         }
 
-        function selectProject(project) {
-            selProject = project;
-
-            $('#project_url').val(project.url);
-            $('#playlist').empty();
+        function showVideoSchedule(playlist) {
             $('#videoclips').empty();
-            $('#menu1').empty();
-
-            project.playlists.forEach(function(item, index){
-                if (index == 0)
-                    selectPlaylist(item);
-                $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
-            });
-        }
-
-        function selectPlaylist(playlist) {
-            /*
-            $('#videoclips').empty();
-            $('#menu1').empty();
-            */
 
             playlist.videoclips.forEach(function(item, index) {
                 ///////////////////////////   Reset video clips in the time line ////////////////////////////////
@@ -390,6 +384,33 @@
                         $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
                         break;
                 }
+            });
+        }
+
+        function selectProject(project) {
+            selProject = project;
+
+            $('#project_url').val(project.url);
+            $('#playlist').empty();
+            $('#videoclips').empty();
+            $('#menu1').empty();
+
+            project.playlists.forEach(function(item, index){
+                if (index == 0)
+                    selectPlaylist(item);
+                $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
+            });
+        }
+
+        function selectPlaylist(playlist) {
+            /*
+            $('#videoclips').empty();
+            $('#menu1').empty();
+            */
+
+            showVideoSchedule(playlist);
+
+            playlist.videoclips.forEach(function(item, index) {
 
                 ///////////////////////////   Reset video clips in video list ////////////////////////////////
                 var videoclipHtml =

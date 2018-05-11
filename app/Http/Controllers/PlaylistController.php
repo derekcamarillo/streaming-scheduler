@@ -156,7 +156,28 @@ class PlaylistController extends Controller
     }
 
     public function activatePlaylist(Request $request) {
+        try {
+            $this->validate($request, [
+                'project_id'  => 'required',
+                'playlist_id'  => 'required'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
+
         $project = Project::find($request->input('project_id'));
+
+        if (!isset($project)) {
+            return response()->json([
+                "result" => "error",
+                "data" => "Couldn't find project"
+            ]);
+        }
+
         $playlists = $project->playlists;
         foreach ($playlists as $playlist) {
             if ($playlist->id == $request->input('playlist_id'))
@@ -164,10 +185,41 @@ class PlaylistController extends Controller
             else
                 $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 0]);
         }
+
+        return response()->json([
+            "result" => Config::get('constants.status.success'),
+            "data" => $request->input('playlist_id')
+        ]);
     }
 
     public function deactivatePlaylist(Request $request) {
+        try {
+            $this->validate($request, [
+                'project_id'  => 'required',
+                'playlist_id'  => 'required'
+            ]);
+        }catch (ValidationException $e) {
+            $data = $e->getResponse()->getOriginalContent();
+            return response()->json([
+                "result" => Config::get('constants.status.validation'),
+                "data" => $data
+            ]);
+        }
+
         $project = Project::find($request->input('project_id'));
+
+        if (!isset($project)) {
+            return response()->json([
+                "result" => "error",
+                "data" => "Couldn't find project"
+            ]);
+        }
+
         $project->activatedPlaylist()->updateExistingPivot($request->input('playlist_id'), ['activated' => 0]);
+
+        return response()->json([
+            "result" => Config::get('constants.status.success'),
+            "data" => $request->input('playlist_id')
+        ]);
     }
 }
