@@ -38,6 +38,7 @@
     <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
 
     <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/froogaloop.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
@@ -93,7 +94,7 @@
             direction: message.effect,
             backgroundcolor: 'transparent',
             duration: (5000 - message.speed * 200),
-            color: message.fontcolor
+            color: '#' + message.fontcolor
         });
 
         css =
@@ -113,7 +114,7 @@
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" controls autoplay data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];
@@ -132,12 +133,12 @@
             source.src = item.url;
 
             var option = {};
-            option.color = "#fbc51b";
+            //option.color = "#fbc51b";
             option.controls = false;
 
             data.techOrder.push("vimeo");
             data.sources.push(source);
-            //data.vimeo = option;
+            data.vimeo = option;
         }
 
         videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
@@ -162,7 +163,13 @@
 
         videoPlayer.ready(function() {
             var player = this;
+
             player.play();
+
+            /*
+            if (player.techName_ == "Vimeo")
+                setTimeout(checkIframe, 1000);
+            */
 
             player.on('ended', function() {
                 index ++;
@@ -180,8 +187,18 @@
 
         if (playlist.message) {
             showScrollMessage(videoPlayer, playlist.message);
-        } else if (videoclip[index].message) {
-            showScrollMessage(videoPlayer, videoclip[index].message);
+        } else if (videoclips[index].message) {
+            showScrollMessage(videoPlayer, videoclips[index].message);
+        }
+    }
+
+    function checkIframe() {
+        var iframe = document.getElementsByTagName('iframe');
+
+        if (iframe.length > 0) {
+            $f(iframe[0]).api("play");
+        } else {
+            setTimeout(checkIframe, 1000);
         }
     }
 
