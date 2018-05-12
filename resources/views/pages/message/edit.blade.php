@@ -71,7 +71,11 @@
             <a onclick="saveMessage()" class="add-video-btn"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
-        <div class="col-sm-12 col-md-12 myVideo-box" id="myVideo"></div>
+        <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
+            <video id="myVideo">
+                <source src="http://localhost/movie1.mp4" type="video/mp4">
+            </video>
+        </div>
 
         <div class="col-sm-12 select-box optionsRight">
             <div class="row edit-playlist-options">
@@ -79,6 +83,33 @@
             </div>
         </div><!--col-12-->
     </div><!--row-->
+
+@stop
+
+@section('script')
+    <link href="{{ asset('css/videojs/video-js.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs.watermark.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/videojs-logo-overlay.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
+
+    <script src="{{ asset('js/videojs/video.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
+    <script src="{{ asset('js/videoclip.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
+    <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+
+    <style id="style_marquee" type="text/css">
+        .vjs-emre-marquee {
+            width: 100%;
+            overflow: hidden;
+            z-index: 9998;
+            position: absolute;
+            font-size: 24px !important;
+        }
+    </style>
 
     <script>
         var messageId = "{{ $message->id  }}";
@@ -90,8 +121,41 @@
             }
         });
 
-        function pauseVideo() {
+        function playVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
 
+            videoContent =
+                    '<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="848" height="480" data-setup=\'{"playbackRates": [1, 1.5, 2] }\'>' +
+                    '<source src="http://localhost/movie1.mp4" type="video/mp4">' +
+                    '</video>';
+
+            $('#videoContainer').html(videoContent);
+
+            player = videojs("my-video");
+
+            player.marqueeOverlay({
+                contentOfMarquee: $('#text').val(),
+                position: "bottom",
+                direction: $('#effect').val(),
+                backgroundcolor: 'transparent',
+                duration: (5000 - $('#speed').val() * 200),
+                color: "#" + $('#fontcolor').val()
+            });
+
+            css =
+                    ".vjs-emre-marquee {" +
+                    "width: 100%; overflow: hidden; z-index: 9998;position: absolute;" +
+                    "font-size:" + $('#fontsize').val() + "px !important;" +
+                    "left: " + $('#xpos').val() + "px !important;" +
+                    "bottom: " + $('#ypos').val() + "px !important;" +
+                    "font-family: " + $('#fonttype').val() + "!important;" +
+                    "}";
+
+            $('#style_marquee').html(css);
+
+            player.qualityPickerPlugin();
         }
 
         function saveMessage() {
@@ -140,19 +204,4 @@
             });
         });
     </script>
-
-    <link href="{{ asset('css/videojs/video-js.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/videojs/videojs.watermark.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/videojs/videojs-logo-overlay.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/videojs/colorpick.css') }}" rel="stylesheet">
-
-    <script src="{{ asset('js/videojs/video.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs-logo-overlay.js') }}"></script>
-    <script src="{{ asset('js/videoclip.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs-marquee-overlay.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
-    <script src="{{ asset('js/videojs/jquery.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
-    <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
-    <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
 @stop
