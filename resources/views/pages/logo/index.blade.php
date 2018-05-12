@@ -18,7 +18,7 @@
                     @foreach($logos as $item)
                         <tr class="tbl_row">
                             <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
-                            <td>{{ $item->url }}</td>
+                            <td><span>{{ $item->url }}</span></td>
                             <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
                             <td>{{ $item->xpos }}</td>
                             <td>{{ $item->ypos }}</td>

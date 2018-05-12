@@ -62,9 +62,12 @@
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
+                                waitingDialog.show();
+
                                 $('#id').val(value.children[0].innerText);
 
                                 $.get('/message/destroy/' + value.children[0].innerText,  function (response) {
+                                    waitingDialog.hide();
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
                                         swal("Message", "Message successfully deleted", "success");
