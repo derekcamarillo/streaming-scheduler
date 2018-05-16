@@ -140,14 +140,18 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
-                        <option disabled>Please select project</option>
+                        @if (count($projects) == 0)
+                            <option disabled selected>Please select project</option>
+                        @endif
+
                         @foreach($projects as $item)
                             <option value="{{ $item->id }}">{{ $item->title }}</option>
                         @endforeach
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select class="form-control" id="playlist" placeholder="Please select playlist">
+                    <select class="form-control" id="playlist">
+                        <option disabled selected>Please select playlist</option>
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -408,11 +412,15 @@
             //$('#videoclips').empty();
             $('#menu1').empty();
 
-            project.playlists.forEach(function(item, index){
-                if (index == 0)
-                    selectPlaylist(item);
-                $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
-            });
+            if (project.playlists.length == 0) {
+                $('#playlist').append('<option disabled selected>Please select playlist</option>');
+            } else {
+                project.playlists.forEach(function(item, index){
+                    if (index == 0)
+                        selectPlaylist(item);
+                    $('#playlist').append('<option value="' + item.id + '">' + item.title + '</option>');
+                });
+            }
         }
 
         function selectPlaylist(playlist) {
