@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/project/create', 'ProjectController@create');
     Route::get('/project/edit/{id}', 'ProjectController@edit');
     Route::post('/project/store', 'ProjectController@store');
+    Route::get('/project/destroy/{id}', 'ProjectController@destroy');
 
     Route::get('/playlist', 'PlaylistController@index');
     Route::get('/playlist/create', 'PlaylistController@create');

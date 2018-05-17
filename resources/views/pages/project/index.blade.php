@@ -14,7 +14,7 @@
                     <tbody>
                         <!-- class="active-tr" -->
                         @foreach($projects as $item)
-                            <tr class="tbl_row">
+                            <tr class="tbl_row" data-id="{{ $item->id }}">
                                 <td style="text-align: center;">{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ url('project/url/'.$item->url) }}</td>
@@ -50,7 +50,34 @@
             });
 
             $('.ic-delete-video').click(function () {
+                if ($('tbody>tr').hasClass('active-tr')) {
+                    $('.active-tr').each(function(index, value) {
+                        swal({
+                            title: "Project",
+                            text: "Do you really want to delete this?",
+                            icon: "error",
+                            buttons: true,
+                            dangerMode: true
+                        }).then(function(result) {
+                            if (result) {
+                                $('#id').val(value.children[0].innerText);
 
+                                $.get('/project/destroy/' + value.children[0].innerText,  function (response) {
+                                    if (response.result == 'success') {
+                                        $('tr[data-id="' + response.id + '"]').remove();
+                                        swal("Project", "Playlist successfully deleted", "success");
+                                    } else {
+                                        swal("Project", "Deleting playlist failed", "error");
+                                    }
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    swal("Please select project to delete",{
+                        icon:"error",
+                    });
+                }
             });
         });
     </script>

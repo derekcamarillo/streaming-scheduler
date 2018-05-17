@@ -51,9 +51,12 @@ class ProjectController extends Controller
 
         try{
             if($project->save()) {
-                foreach ($request->input('playlists') as $playlist_id) {
-                    $playlist = Playlist::find($playlist_id);
-                    $project->playlists()->save($playlist);
+                $playlists = $request->input('playlists');
+                if (isset($playlists)) {
+                    foreach ($request->input('playlists') as $playlist_id) {
+                        $playlist = Playlist::find($playlist_id);
+                        $project->playlists()->save($playlist);
+                    }
                 }
 
                 return response()->json([
@@ -70,6 +73,23 @@ class ProjectController extends Controller
             return response()->json([
                 "result" => Config::get('constants.status.error')
             ]);
+        }
+    }
+
+    public function destroy($id) {
+        try{
+            if(Project::destroy($id)) {
+                return response()->json([
+                    "result" => "success",
+                    "id" => $id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => "error"
+                ]);
+            }
+        }catch(Exception $e){
+            return $this->response->error('could_not_delete_project', 500);
         }
     }
 }
