@@ -210,7 +210,7 @@
 
     @if(!isset($project))
         swal("Project", "Project is not available", "error");
-    @elseif(!isset($project->activatedPlaylist))
+    @elseif(!isset($project->activatedPlaylist) or (count($project->activatedPlaylist) == 0))
         swal("Server", "Server is not streaming now", "error");
     @else
         <?php $playlist = $project->activatedPlaylist()->first(); ?>
@@ -237,16 +237,17 @@
         @endif
 
         var schedule = null;
+
         @if(isset($playlist->schedule))
             schedule = new Schedule('{{ $playlist->schedule->id }}', '{{ $playlist->schedule->start_time }}', '{{ $playlist->schedule->end_time }}',
                 '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
         @endif
 
         var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1);
-
-        if (schedule)
-            startTimer();
     @endif
+
+    if (schedule)
+        startTimer();
 </script>
 </body>
 </html>
