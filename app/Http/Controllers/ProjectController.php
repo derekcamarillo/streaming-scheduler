@@ -104,9 +104,10 @@ class ProjectController extends Controller
             if($project->save()) {
                 $playlists = $request->input('playlists');
                 if (isset($playlists)) {
+                    $project->playlists()->detach();
                     foreach ($request->input('playlists') as $playlist_id) {
                         $playlist = Playlist::find($playlist_id);
-                        $project->playlists()->save($playlist);
+                        $project->playlists()->attach($playlist);
                     }
                 }
 
