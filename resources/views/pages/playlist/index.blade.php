@@ -90,8 +90,8 @@
                         window.location.href = "{{ url('/playlist/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("Please select playlist to edit",{
-                        icon:"error",
+                    swal("Please select playlist to edit", {
+                        icon:"error"
                     });
                 }
             });

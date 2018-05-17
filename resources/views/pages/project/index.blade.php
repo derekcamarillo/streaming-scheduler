@@ -42,10 +42,12 @@
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value){
-                        alert(value.children[0].innerText);
+                        window.location.href = "{{ url('/project/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    alert('error');
+                    swal("Please select project to edit", {
+                        icon:"error"
+                    });
                 }
             });
 

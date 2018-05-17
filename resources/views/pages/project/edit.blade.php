@@ -1,11 +1,11 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Create Project</h1>
+        <h1 class="titleh1">Edit Project</h1>
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <div class="col-sm-9 col-md-9">
-                    <input type="text" id="title" name="title" placeholder="Project title" class="input" value="">
+                    <input type="text" id="title" name="title" placeholder="Project title" class="input" value="{{ $project->title }}">
                 </div><!--col-5-->
                 <div class="col-sm-3 col-md-3 project-save-btn">
                     <a class="activate-playlist-button" onclick="saveProject()">
@@ -32,7 +32,54 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach($project->playlists as $playlist)
+                                @php
+                                    if(isset($playlist->schedule)) {
+                                        $months = explode(',', $playlist->schedule->months);
+                                        $weekdays = explode(',', $playlist->schedule->days);
+                                    }
+                                @endphp
+                                <tr class="tbl-row" data-id="{{ $playlist->id }}">
+                                    <td style="width: 35px;">{{ $playlist->id }}</td>
+                                    <td>{{ $playlist->title }}</td>
+                                    <td>
+                                        @if(isset($months))
+                                            @foreach($months as $month)
+                                                @if(is_numeric($month))
+                                                    {{ Config::get('constants.months')[$month] }},
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(isset($weekdays))
+                                            @foreach($weekdays as $weekday)
+                                                @if(is_numeric($weekday))
+                                                    {{ Config::get('constants.weekdays')[$weekday] }},
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(isset($playlist->schedule))
+                                            {{ $playlist->schedule->start_time }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span>
+                                            @if(isset($playlist->message))
+                                                {{ $playlist->message->text }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td style="line-height: 0px;">
+                                        <div class="round">
+                                            <input type="checkbox" id="endless" name="endless" @if(isset($playlist->schedule) and $playlist->schedule->endless == 1) checked @endif disabled>
+                                            <label for="endless"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div><!--table-responsive-->
@@ -137,13 +184,13 @@
                 playlists.push($(this).data().id);
             });
 
-            $.post('/project/store', {
+            $.post('/project/update/{{ $project->id }}', {
                 '_token' : '{{ csrf_token() }}',
                 'title' : $('#title').val(),
-                'playlists' : playlists,
+                'playlists' : playlists
             }, function (response) {
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Project", "New project successfully saved", "success");
+                    swal("Project", "Project successfully saved", "success");
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Project", "Validation failed", "error");
                 } else {
@@ -164,6 +211,11 @@
                         icon:"error",
                     });
                 }
+            });
+
+            $('#tbl_playlist1 .tbl-row').click(function() {
+                $('.tbl-row').removeClass('active-tr');
+                $(this).addClass('active-tr');
             });
 
             $('#tbl_playlist2 .tbl-row').click(function() {

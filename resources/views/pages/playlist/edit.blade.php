@@ -195,7 +195,7 @@
                     'days' : days,
                     'months' : months,
                     'endless' : $("#endless").is(":checked") ? 1 : 0,
-                    'videoclips' : videoclips,
+                    'videoclips' : videoclips
                 }, function (response) {
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Playlist", "Playlist successfully saved", "success");
