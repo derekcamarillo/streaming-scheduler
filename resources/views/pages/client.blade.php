@@ -114,7 +114,7 @@
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" controls autoplay data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];

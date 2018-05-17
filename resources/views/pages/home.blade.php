@@ -261,6 +261,7 @@
 
         @foreach($projects as $project)
             var playlists = [];
+
             @if(isset($project->playlists))
                 @foreach($project->playlists as $playlist)
                     var videoclips = [];
@@ -276,6 +277,7 @@
                             videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
                         @endforeach
                     @endif
+
                     var message = null;
                     @if(isset($playlist->message))
                         message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
@@ -290,14 +292,14 @@
                             '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
                     @endif
 
-                    @if(isset($project->activatedPlaylist) && ($project->activatedPlaylist()->first()->id == $playlist->id))
+                    @if(isset($project->activatedPlaylist) && count($project->activatedPlaylist) > 0 && ($project->activatedPlaylist()->first()->id == $playlist->id))
                         playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1));
                     @else
                         playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 0));
                     @endif
-
                 @endforeach
             @endif
+
             projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url('project/url/'.$project->url) }}', playlists));
         @endforeach
 
@@ -425,19 +427,19 @@
 
         function selectPlaylist(playlist) {
             /*
-            $('#videoclips').empty();
-            $('#menu1').empty();
-            */
+             $('#videoclips').empty();
+             $('#menu1').empty();
+             */
 
             playlist.videoclips.forEach(function(item, index) {
 
                 ///////////////////////////   Reset video clips in video list ////////////////////////////////
                 var videoclipHtml =
-                    '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
-                    '<div class="video-box">' +
-                    '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
-                    '</div>' +
-                    '</div><!--col-3-->';
+                        '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
+                        '<div class="video-box">' +
+                        '<video id="video%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
+                        '</div>' +
+                        '</div><!--col-3-->';
 
                 var data = {};
                 data.techOrder = [];
