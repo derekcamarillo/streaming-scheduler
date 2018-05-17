@@ -57,12 +57,10 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td>
-                                    <div class="endles-loop">
-                                        <div class="round">
-                                            <input type="checkbox" id="endless" name="endless" @if(isset($item->schedule) and $item->schedule->endless == 1) checked @endif disabled>
-                                            <label for="endless"></label>
-                                        </div>
+                                <td style="line-height: 0px;">
+                                    <div class="round">
+                                        <input type="checkbox" id="endless" name="endless" @if(isset($item->schedule) and $item->schedule->endless == 1) checked @endif disabled>
+                                        <label for="endless"></label>
                                     </div>
                                 </td>
                             </tr>

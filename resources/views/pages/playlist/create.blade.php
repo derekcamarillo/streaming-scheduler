@@ -82,7 +82,7 @@
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
     <div class="modal fade" id="modal_videoclip" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -102,7 +102,7 @@
                             <tr class="tbl-row" data-id="{{ $item->id }}">
                                 <td style="text-align: center;">{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ $item->url }}</td>
+                                <td><span style="width: 100%;">{{ $item->url }}</span></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -167,9 +167,9 @@
                     'videoclips' : videoclips,
                 }, function (response) {
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Video Clip", "New video clip successfully saved", "success");
+                        swal("Playlist", "New playlist successfully saved", "success");
                     } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                        swal("Playlist", "Saving playlist failed", "error");
                     }
                 });
             });

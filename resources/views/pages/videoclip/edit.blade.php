@@ -85,7 +85,7 @@
             <div class="col-sm-12 select-box">
                 <input type="text" id="text" name="text" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
             </div>
-            <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
+            <input type="hidden" id="videoclip_id" name="videoclip_id" value="{{ $videoclip->id  }}">
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -108,22 +108,14 @@
                 </video>
             </div>
         </div><!--col-12-->
-
-        <div class="col-sm-12 select-box optionsRight">
-            <div class="row edit-playlist-options">
-                <video
-                    id="vid2"
-                    class="video-js"
-                    width="640" height="264"
-                    data-setup='{ "techOrder": ["vimeo"], "sources": [{ "type": "video/vimeo", "src": "https://vimeo.com/99275308"}], "vimeo": { "color": "#fbc51b"} }'
-                >
-                </video>
-            </div>
-        </div><!--col-12-->
     </div><!--row-->
 
     <script>
-        var messageId = "{{ $videoclip->message->id  }}";
+        var messageId;
+        @if(isset($videoclip->message))
+            messageId = "{{ $videoclip->message->id  }}";
+        @endif
+
         var videoclipId = "{{ $videoclip->id  }}";
         var videoclipUrl = "{{ $videoclip->url  }}";
 
@@ -157,15 +149,27 @@
             $('#form_message').submit(function (event){
                 event.preventDefault();
 
-                $.post('/message/update/' + messageId, $(this).serializeArray(), function (response) {
-                    if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Message", "New message successfully updated", "success");
-                    } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
-                        swal("Message", "Updating message failed", "error");
-                    } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                        swal("Message", "Validation error", "error");
-                    }
-                });
+                if(messageId) {
+                    $.post('/message/update/' + messageId, $(this).serializeArray(), function (response) {
+                        if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                            swal("Message", "New message successfully updated", "success");
+                        } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
+                            swal("Message", "Updating message failed", "error");
+                        } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                            swal("Message", "Validation error", "error");
+                        }
+                    });
+                } else {
+                    $.post('/message/store/' + messageId, $(this).serializeArray(), function (response) {
+                        if (response.result == '<?= Config::get('constants.status.success') ?>') {
+                            swal("Message", "New message successfully updated", "success");
+                        } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
+                            swal("Message", "Updating message failed", "error");
+                        } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
+                            swal("Message", "Validation error", "error");
+                        }
+                    });
+                }
             });
             $('.save-btn').click(function () {
                 $('#form_video').submit();
