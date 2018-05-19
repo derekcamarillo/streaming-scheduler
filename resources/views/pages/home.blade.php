@@ -314,11 +314,15 @@
                 return;
             }
 
+            waitingDialog.show();
+
             $.post('/playlist/activatePlaylist', {
                 '_token' : '{{ csrf_token() }}',
                 'project_id' : $('#project').val(),
                 'playlist_id' : $('#playlist').val(),
             }, function (response) {
+                waitingDialog.hide();
+
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Playlist", "Playlist activated successfully", "success");
 
@@ -347,11 +351,15 @@
                 return;
             }
 
+            waitingDialog.show();
+
             $.post('/playlist/deactivatePlaylist', {
                 '_token' : '{{ csrf_token() }}',
                 'project_id' : $('#project').val(),
                 'playlist_id' : $('#playlist').val(),
             }, function (response) {
+                waitingDialog.hide();
+
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Playlist", "Playlist deactivated successfully", "success");
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
