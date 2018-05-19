@@ -6,13 +6,30 @@ use App\Playlist;
 use App\Project;
 use App\Videoclip;
 use App\Schedule;
+use Pusher;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use stdClass;
 
 class PlaylistController extends Controller
 {
+    protected $pusher;
+
+    public function __construct() {
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => true
+        );
+        $this->pusher = new Pusher\Pusher(
+            'b49a9350eaaad837235a',
+            '47cf03fbc5a44f29f036',
+            '528560',
+            $options
+        );
+    }
+
     //
     public function index() {
         $user = Auth::user();
@@ -156,6 +173,7 @@ class PlaylistController extends Controller
     }
 
     public function activatePlaylist(Request $request) {
+
         try {
             $this->validate($request, [
                 'project_id'  => 'required',
@@ -186,6 +204,88 @@ class PlaylistController extends Controller
                 $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 0]);
         }
 
+        $data = array();
+
+        if(isset($project) and isset($project->logo)) {
+            $logo['id'] = $project->logo->id;
+            $logo['url'] = $project->logo->url;
+            $logo['position'] = $project->logo->position;
+            $logo['xpos'] = $project->logo->xpos;
+            $logo['ypos'] = $project->logo->ypos;
+
+            $data['logo'] = $logo;
+        }
+
+        if(isset($project->activatedPlaylist) and (count($project->activatedPlaylist) > 0)) {
+            $playlist = $project->activatedPlaylist()->first();
+
+            $plist['id'] = $playlist->id;
+            $plist['title'] = $playlist->title;
+
+
+            $videoclips = array();
+            foreach($playlist->videoclips as $videoclip) {
+                if(isset($videoclip->message)) {
+                    $message['id'] = $videoclip->message->id;
+                    $message['text'] = $videoclip->message->text;
+                    $message['effect'] = $videoclip->message->effect;
+                    $message['speed'] = $videoclip->message->id;
+                    $message['duration'] = $videoclip->message->duration;
+                    $message['xpos'] = $videoclip->message->xpos;
+                    $message['ypos'] = $videoclip->message->ypos;
+                    $message['fonttype'] = $videoclip->message->fonttype;
+                    $message['fontsize'] = $videoclip->message->fontsize;
+                    $message['fontcolor'] = $videoclip->message->fontcolor;
+
+                    $videoclip['id'] = $videoclip->id;
+                    $videoclip['title'] = $videoclip->title;
+                    $videoclip['url'] = $videoclip->url;
+                    $videoclip['message'] = $message;
+
+                    array_push($videoclips, $videoclip);
+                } else {
+                    $videoclip['id'] = $videoclip->id;
+                    $videoclip['title'] = $videoclip->title;
+                    $videoclip['url'] = $videoclip->url;
+                    $videoclip['message'] = null;
+
+                    array_push($videoclips, $videoclip);
+                }
+            }
+            $plist['videoclips'] = $videoclips;
+
+            if(isset($playlist->message)) {
+                $message['id'] = $playlist->message->id;
+                $message['text'] = $playlist->message->text;
+                $message['effect'] = $playlist->message->effect;
+                $message['speed'] = $playlist->message->id;
+                $message['duration'] = $playlist->message->duration;
+                $message['xpos'] = $playlist->message->xpos;
+                $message['ypos'] = $playlist->message->ypos;
+                $message['fonttype'] = $playlist->message->fonttype;
+                $message['fontsize'] = $playlist->message->fontsize;
+                $message['fontcolor'] = $playlist->message->fontcolor;
+
+                $plist['message'] = $message;
+            }
+
+            if(isset($playlist->schedule)) {
+                $schedule['id'] = $playlist->schedule->id;
+                $schedule['start_time'] = $playlist->schedule->start_time;
+                $schedule['end_time'] = $playlist->schedule->end_time;
+                $schedule['endless'] = $playlist->schedule->endless;
+                $schedule['days'] = explode(',', $playlist->schedule->days);
+                $schedule['months'] = explode(',', $playlist->schedule->months);
+
+                $plist['schedule'] = $schedule;
+            }
+
+            $data['playlist'] = $plist;
+        }
+        $data['command'] = 'start';
+
+        $this->pusher->trigger($project->url, 'onCommand', $data);
+
         return response()->json([
             "result" => Config::get('constants.status.success'),
             "data" => $request->input('playlist_id')
@@ -214,6 +314,9 @@ class PlaylistController extends Controller
                 "data" => "Couldn't find project"
             ]);
         }
+
+        $data['command'] = 'stop';
+        $this->pusher->trigger($project->url, 'onCommand', $data);
 
         $project->activatedPlaylist()->updateExistingPivot($request->input('playlist_id'), ['activated' => 0]);
 

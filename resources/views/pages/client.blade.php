@@ -46,6 +46,32 @@
     <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
     <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
+
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('b49a9350eaaad837235a', {
+            cluster: 'eu',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('{{ $project->url }}');
+        channel.bind('onCommand', function(data) {
+            if (data.command == "start") {
+                playlist = data.playlist;
+                logo = data.logo;
+
+                startTimer();
+            } else if (data.command = "stop") {
+                swal("Server", "Server is not streaming now", "error");
+
+                for (var key in videojs.getPlayers()) {
+                    videojs.getPlayers()[key].dispose();
+                }
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -82,9 +108,9 @@
 
         if (b1 && b2 && b3) {
             playVideoClip(playlist.videoclips[0]);
-        } else {
-            setTimeout(startTimer, 1000);
         }
+
+        setTimeout(startTimer, 1000);
     }
 
     function showScrollMessage(player, message) {
@@ -244,10 +270,11 @@
         @endif
 
         var playlist = new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1);
+
+        if (schedule)
+            startTimer();
     @endif
 
-    if (schedule)
-        startTimer();
 </script>
 </body>
 </html>
