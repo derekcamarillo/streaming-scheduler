@@ -100,11 +100,11 @@
             <div class="row edit-playlist-options">
                 <video
                     id="vid1"
-                    class="video-js vjs-default-skin"
+                    class="video-js vjs-default-skin vjs-4-3"
                     controls
                     autoplay
                     width="640" height="264"
-                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "iv_load_policy": 1 } }'>
+                    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $videoclip->url }}"}] }'>
                 </video>
             </div>
         </div><!--col-12-->

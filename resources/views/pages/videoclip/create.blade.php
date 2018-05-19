@@ -80,8 +80,8 @@
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-            <a onclick="playVid()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
-            <a onclick="pauseVid()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
+            <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
+            <a onclick="pauseVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
             <a onclick="saveMessage()" class="add-video-btn"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
@@ -106,6 +106,14 @@
                 return 'Scroll Speed' + value;
             }
         });
+
+        function playVideo() {
+
+        }
+
+        function pauseVideo() {
+
+        }
 
         function saveMessage() {
             $('#form_message').submit();
