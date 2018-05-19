@@ -100,7 +100,7 @@
             <div class="row edit-playlist-options">
                 <video
                     id="vid1"
-                    class="video-js vjs-default-skin vjs-4-3"
+                    class="video-js vjs-default-skin vjs-16-9"
                     controls
                     autoplay
                     width="640" height="264"
