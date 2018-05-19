@@ -108,9 +108,9 @@
 
         if (b1 && b2 && b3) {
             playVideoClip(playlist.videoclips[0]);
+        } else {
+            setTimeout(startTimer, 1000);
         }
-
-        setTimeout(startTimer, 1000);
     }
 
     function showScrollMessage(player, message) {
@@ -151,8 +151,12 @@
             source.type = "video/youtube";
             source.src = item.url;
 
+            var youtube = {};
+            youtube.autoplay = 1;
+
             data.techOrder.push("youtube");
             data.sources.push(source);
+            data.youtube = youtube;
         } else if (item.url.indexOf("vimeo") !== -1) {
             var source = {};
             source.type = "video/vimeo";
