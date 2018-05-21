@@ -168,7 +168,7 @@
                         }
                     });
                 } else {
-                    $.post('/message/store/' + messageId, $(this).serializeArray(), function (response) {
+                    $.post('/message/store', $(this).serializeArray(), function (response) {
                         waitingDialog.hide();
 
                         if (response.result == '<?= Config::get('constants.status.success') ?>') {
