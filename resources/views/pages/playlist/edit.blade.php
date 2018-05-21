@@ -173,6 +173,8 @@
             });
 
             $('.ic-save').click(function(event) {
+                waitingDialog.show();
+
                 days = months = "";
                 $('.c_days.active').each(function(index, value) {
                     days += $(this).data().day + ",";
@@ -197,6 +199,8 @@
                     'endless' : $("#endless").is(":checked") ? 1 : 0,
                     'videoclips' : videoclips
                 }, function (response) {
+                    waitingDialog.hide();
+
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Playlist", "Playlist successfully saved", "success");
                     } else {

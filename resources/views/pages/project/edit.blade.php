@@ -179,6 +179,8 @@
 @section('script')
     <script>
         function saveProject() {
+            waitingDialog.show();
+
             playlists = [];
             $('#tbl_playlist1 .tbl-row').each(function(index, value) {
                 playlists.push($(this).data().id);
@@ -189,6 +191,8 @@
                 'title' : $('#title').val(),
                 'playlists' : playlists
             }, function (response) {
+                waitingDialog.hide();
+
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Project", "Project successfully saved", "success");
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {

@@ -138,7 +138,11 @@
             $('#form_video').submit(function (event){
                 event.preventDefault();
 
+                waitingDialog.show();
+
                 $.post('/videoclip/update/' + videoclipId, $(this).serializeArray(), function (response) {
+                    waitingDialog.hide();
+
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Video Clip", "Video clip successfully updated", "success");
                     } else {
@@ -149,8 +153,12 @@
             $('#form_message').submit(function (event){
                 event.preventDefault();
 
+                waitingDialog.show();
+
                 if(messageId) {
                     $.post('/message/update/' + messageId, $(this).serializeArray(), function (response) {
+                        waitingDialog.hide();
+
                         if (response.result == '<?= Config::get('constants.status.success') ?>') {
                             swal("Message", "New message successfully updated", "success");
                         } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
@@ -161,6 +169,8 @@
                     });
                 } else {
                     $.post('/message/store/' + messageId, $(this).serializeArray(), function (response) {
+                        waitingDialog.hide();
+
                         if (response.result == '<?= Config::get('constants.status.success') ?>') {
                             swal("Message", "New message successfully updated", "success");
                         } else if (response.result == '<?= Config::get('constants.status.error') ?>') {

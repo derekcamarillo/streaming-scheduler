@@ -123,7 +123,11 @@
             $('#form_video').submit(function (event){
                 event.preventDefault();
 
+                waitingDialog.show();
+
                 $.post('/videoclip/store', $(this).serializeArray(), function (response) {
+                    waitingDialog.hide();
+
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         $('#videoclip_id').val(response.id);
                         swal("Video Clip", "New video clip successfully saved", "success");
@@ -141,7 +145,11 @@
                     return;
                 }
 
+                waitingDialog.show();
+
                 $.post('/message/store', $(this).serializeArray(), function (response) {
+                    waitingDialog.hide();
+
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         swal("Message", "New message successfully saved", "success");
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {

@@ -362,6 +362,8 @@
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
                     swal("Playlist", "Playlist deactivated successfully", "success");
+
+                    $('#videoclips').html('');
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Playlist", "Validation failed", "error");
                 } else {

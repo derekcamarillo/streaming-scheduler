@@ -188,6 +188,8 @@
 
         $(function() {
             $("#logo").change(function() {
+                waitingDialog.show();
+
                 $('#form_image').submit();
             });
         });
