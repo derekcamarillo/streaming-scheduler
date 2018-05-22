@@ -13,8 +13,8 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{ url('/home') }}">Home</a></li>
-                            <li><a href="{{ url('/project') }}">Project</a>
+                            <li class="{{ request()->is('home') ? 'active' : '' }}"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="{{ request()->is('project*') ? 'active' : '' }}"><a href="{{ url('/project') }}">Project</a>
                                 <!--
                                 <ul class="nav-submenu">
                                     <li><a href="create-project">New Project</a></li>
@@ -22,10 +22,10 @@
                                 </ul>
                                 -->
                             </li>
-                            <li><a href="{{ url('/playlist') }}">Playlist</a></li>
-                            <li><a href="{{ url('/videoclip') }}">Video Clip</a></li>
-                            <li><a href="{{ url('/logo') }}">Logo Overlay</a></li>
-                            <li><a href="{{ url('/message') }}">Message</a></li>
+                            <li class="{{ request()->is('playlist*') ? 'active' : '' }}"><a href="{{ url('/playlist') }}">Playlist</a></li>
+                            <li class="{{ request()->is('videoclip*') ? 'active' : '' }}"><a href="{{ url('/videoclip') }}">Video Clip</a></li>
+                            <li class="{{ request()->is('logo*') ? 'active' : '' }}"><a href="{{ url('/logo') }}">Logo Overlay</a></li>
+                            <li class="{{ request()->is('message*') ? 'active' : '' }}"><a href="{{ url('/message') }}">Message</a></li>
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="user-button">
