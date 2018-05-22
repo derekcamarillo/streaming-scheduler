@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
         $project = Project::where('url', $url)->first();
 
-        return view('pages.client', compact('project'));
+        return view('pages.client', compact(['project', 'url']));
     }
 
     public function getProjectPlaylist($id)

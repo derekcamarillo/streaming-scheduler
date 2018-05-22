@@ -56,7 +56,7 @@
             encrypted: true
         });
 
-        var channel = pusher.subscribe('{{ $project->url }}');
+        var channel = pusher.subscribe('{{ $url }}');
         channel.bind('onCommand', function(data) {
             if (data.command == "start") {
                 playlist = data.playlist;
@@ -64,7 +64,7 @@
 
                 startTimer();
             } else if (data.command = "stop") {
-                swal("Server", "Server is not streaming now", "error");
+                swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
 
                 for (var key in videojs.getPlayers()) {
                     videojs.getPlayers()[key].dispose();
@@ -239,9 +239,9 @@
     @endif
 
     @if(!isset($project))
-        swal("Project", "Project is not available", "error");
+        swal("Project", "Project is not available", "error", { buttons: false, timer: 3000});
     @elseif(!isset($project->activatedPlaylist) or (count($project->activatedPlaylist) == 0))
-        swal("Server", "Server is not streaming now", "error");
+        swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
     @else
         <?php $playlist = $project->activatedPlaylist()->first(); ?>
         var videoclips = [];
