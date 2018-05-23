@@ -140,7 +140,7 @@
     function playVideoClip(item) {
         $('#videoContainer').empty();
 
-        videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
+        videoclipHtml = '<video id="video%id%" data-setup=\'%data%\'></video>';
 
         var data = {};
         data.techOrder = [];
@@ -153,10 +153,12 @@
 
             var youtube = {};
             youtube.autoplay = 1;
+            youtube.controls = 0;
+            youtube.mute = 1;
 
             data.techOrder.push("youtube");
             data.sources.push(source);
-            data.youtube = youtube;
+            //data.youtube = youtube;
         } else if (item.url.indexOf("vimeo") !== -1) {
             var source = {};
             source.type = "video/vimeo";
