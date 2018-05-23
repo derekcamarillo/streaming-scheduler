@@ -300,7 +300,7 @@
                 @endforeach
             @endif
 
-            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url('project/url/'.$project->url) }}', playlists));
+            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/'.$project->url.'/index.html') }}', playlists));
         @endforeach
 
         function activatePlaylist() {

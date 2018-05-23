@@ -66,3 +66,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/project/url/{url}', 'HomeController@client');
+
+Route::get('/{customer}/{project}/{url}/index.html', 'HomeController@test');

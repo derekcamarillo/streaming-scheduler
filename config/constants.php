@@ -29,7 +29,8 @@ return [
         'arial' => 'Arial',
         'poppines' => 'Poppines',
         'opensans' => 'Open Sans',
-        'roboto' => 'Roboto'
+        'roboto' => 'Roboto',
+        'lato' => 'Lato'
     ],
     'weekdays' => ['Mon', 'Tue', 'Wed', 'Thi', 'Fri', 'Sat', 'Sun'],
     'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

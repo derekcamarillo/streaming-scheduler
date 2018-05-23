@@ -44,6 +44,12 @@ class HomeController extends Controller
         return view('pages.client', compact(['project', 'url']));
     }
 
+    public function test($customer, $project, $url) {
+        $project = Project::where('url', $url)->first();
+
+        return view('pages.client', compact(['project', 'url']));
+    }
+
     public function getProjectPlaylist($id)
     {
         $project = Project::find($id);
