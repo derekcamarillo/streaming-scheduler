@@ -222,6 +222,12 @@
                 $(this).addClass('active-tr');
             });
 
+            $('#tbl_playlist1 .tbl-row').dblclick(function() {
+                var id = $(this).data('id');
+
+                window.location.href = "{{ url('/playlist/edit') }}/" + id;
+            });
+
             $('#tbl_playlist2 .tbl-row').click(function() {
                 $('#tbl_playlist1>tbody').append($(this).clone());
                 $(this).remove();
