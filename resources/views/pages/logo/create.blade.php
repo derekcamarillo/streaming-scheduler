@@ -59,14 +59,7 @@
         <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/jpg,image/png">
     </form>
 
-    <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
-        <!--div class="add-logo-img">
-            <img id="logo_img">
-        </div-->
-        <video id="myVideo" class="video-js vjs-big-play-centered">
-            <source src="http://localhost/movie1.mp4" type="video/mp4">
-        </video>
-    </div>
+    <div id="videoContainer" class="col-md-12 col-sm-12 myVideo-box"></div>
 
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
         <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
@@ -115,11 +108,14 @@
     <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
     <script src="{{ asset('js/logooverlay.js') }}"></script>
     <script src="{{ asset('js/classes.js') }}"></script>
 
     <script>
         var projects = [];
+        var playlist;
 
         @foreach($projects as $project)
             var playlists = [];
@@ -204,10 +200,8 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
-            var playlist;
-
             for (var i = 0; i < projects.length; i++) {
-                if (projectId == $('#project_id').val()) {
+                if (projects[i].id == $('#project_id').val()) {
                     if (projects[i].playlists.length > 0) {
                         playlist = projects[i].playlists[0];
                     }
@@ -216,29 +210,7 @@
             }
 
             if (playlist) {
-                videoContent =
-                        '<video id="video%id%" data-setup=\'%data%\'></video>';
-
-                $('#videoContainer').html(videoContent);
-
-                xpos = $('#xpos').val() || 10;
-                ypos = $('#ypos').val() || 10;
-
-                ori_width = $('#hiddenLogo').width();
-                ori_height = $('#hiddenLogo').height();
-
-                videojs("my-video", {
-                    plugins: {
-                        logoOverlay: {
-                            src: $('#hiddenLogo').attr('src'),
-                            margin: [ypos, xpos],
-                            userActive: false,
-                            position: $('#position').val(),
-                            width: 100,
-                            height: (100 / ori_width) * ori_height
-                        }
-                    }
-                });
+                playVideoClip(playlist.videoclips[0]);
             }
         }
 
@@ -249,7 +221,7 @@
         function playVideoClip(item) {
             $('#videoContainer').empty();
 
-            videoclipHtml = '<video id="video%id%" data-setup=\'%data%\'></video>';
+            videoclipHtml = '<video id="video%id%" style="padding-left: 50%;" width="1024" height="768" data-setup=\'%data%\'></video>';
 
             var data = {};
             data.techOrder = [];
@@ -285,32 +257,29 @@
             videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
             $('#videoContainer').append(videoclipHtml);
 
-            if (logo) {
-                videoPlayer = videojs('video' + item.id, {
-                    plugins: {
-                        logoOverlay: {
-                            src: logo.url,
-                            margin: [logo.ypos, logo.xpos],
-                            userActive: false,
-                            position: logo.position,
-                            width: 100,
-                            height: 100
-                        }
+            xpos = $('#xpos').val() || 10;
+            ypos = $('#ypos').val() || 10;
+
+            ori_width = $('#hiddenLogo').width();
+            ori_height = $('#hiddenLogo').height();
+
+            videoPlayer = videojs('video' + item.id, {
+                plugins: {
+                    logoOverlay: {
+                        src: $('#hiddenLogo').attr('src'),
+                        margin: [ypos, xpos],
+                        userActive: false,
+                        position: $('#position').val(),
+                        width: 100,
+                        height: (100 / ori_width) * ori_height
                     }
-                });
-            } else {
-                videoPlayer = videojs('video' + item.id);
-            }
+                }
+            });
 
             videoPlayer.ready(function() {
                 var player = this;
 
                 player.play();
-
-                /*
-                 if (player.techName_ == "Vimeo")
-                 setTimeout(checkIframe, 1000);
-                 */
 
                 player.on('ended', function() {
                     index ++;
@@ -325,12 +294,6 @@
                     playVideoClip(playlist.videoclips[index])
                 });
             });
-
-            if (playlist.message) {
-                showScrollMessage(videoPlayer, playlist.message);
-            } else if (videoclips[index].message) {
-                showScrollMessage(videoPlayer, videoclips[index].message);
-            }
         }
 
         function uploadLogo() {
