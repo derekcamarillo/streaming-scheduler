@@ -127,8 +127,7 @@
             }
 
             videoContent =
-                    '<video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="848" height="480" data-setup=\'{"playbackRates": [1, 1.5, 2] }\'>' +
-                    '<source src="http://localhost/movie1.mp4" type="video/mp4">' +
+                    '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" preload="auto">' +
                     '</video>';
 
             $('#videoContainer').html(videoContent);

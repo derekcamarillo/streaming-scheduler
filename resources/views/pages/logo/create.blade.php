@@ -221,7 +221,7 @@
         function playVideoClip(item) {
             $('#videoContainer').empty();
 
-            videoclipHtml = '<video id="video%id%" style="padding-left: 50%;" width="1024" height="768" data-setup=\'%data%\'></video>';
+            videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
 
             var data = {};
             data.techOrder = [];
