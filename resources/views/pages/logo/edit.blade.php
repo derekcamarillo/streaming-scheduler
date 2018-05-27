@@ -59,14 +59,7 @@
         <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/jpg,image/png">
     </form>
 
-    <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
-        <!--div class="add-logo-img">
-            <img id="logo_img">
-        </div-->
-        <video id="myVideo" class="video-js vjs-big-play-centered">
-            <source src="http://localhost/movie1.mp4" type="video/mp4">
-        </video>
-    </div>
+    <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box"></div>
 
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
         <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>

@@ -72,9 +72,6 @@
         </div><!--col-12-->
 
         <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
-            <video id="myVideo">
-                <source src="http://localhost/movie1.mp4" type="video/mp4">
-            </video>
         </div>
 
         <div class="col-sm-12 select-box optionsRight">
@@ -100,6 +97,8 @@
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
     <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
 
     <style id="style_marquee" type="text/css">
         .vjs-emre-marquee {
@@ -126,13 +125,30 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
-            videoContent =
-                    '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" preload="auto">' +
-                    '</video>';
+            videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
 
-            $('#videoContainer').html(videoContent);
+            var data = {};
+            data.techOrder = [];
+            data.sources = [];
+            var source = {};
+            source.type = "video/youtube";
+            source.src = 'https://www.youtube.com/watch?v=sVbgz1gBAC0&Demo+clip+Lucerne+Churces=';
+
+            var youtube = {};
+            youtube.autoplay = 1;
+            youtube.controls = 0;
+            youtube.mute = 1;
+
+            data.techOrder.push("youtube");
+            data.sources.push(source);
+
+            videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
+            $('#videoContainer').append(videoclipHtml);
 
             player = videojs("my-video");
+            player.ready(function() {
+                this.play();
+            });
 
             player.marqueeOverlay({
                 contentOfMarquee: $('#text').val(),

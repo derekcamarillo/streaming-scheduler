@@ -38,7 +38,7 @@
                         <span>Font Type</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
+                                <option value="{{ $key }}" style="font-family: {{ $item }};">{{ $item }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,11 +63,7 @@
             <a onclick="saveMessage()" class="add-video-btn"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
-        <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
-            <video id="myVideo">
-                <source src="http://localhost/movie1.mp4" type="video/mp4">
-            </video>
-        </div>
+        <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box"></div>
 
         <div class="col-sm-12 select-box optionsRight">
             <div class="row edit-playlist-options">
@@ -91,6 +87,8 @@
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
     <script src="{{ asset('js/videojs/jquery.marquee.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
 
     <style id="style_marquee" type="text/css">
         .vjs-emre-marquee {
@@ -116,14 +114,31 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
-            videoContent =
-                '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" controls preload="auto" width="848" height="480" data-setup=\'{"playbackRates": [1, 1.5, 2] }\'>' +
-                '<source src="http://localhost/movie1.mp4" type="video/mp4">' +
-                '</video>';
+            videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
 
-            $('#videoContainer').html(videoContent);
+            var data = {};
+            data.techOrder = [];
+            data.sources = [];
+            var source = {};
+            source.type = "video/youtube";
+            source.src = 'https://www.youtube.com/watch?v=sVbgz1gBAC0&Demo+clip+Lucerne+Churces=';
+
+            var youtube = {};
+            youtube.autoplay = 1;
+            youtube.controls = 0;
+            youtube.mute = 1;
+
+            data.techOrder.push("youtube");
+            data.sources.push(source);
+
+            videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
+            $('#videoContainer').append(videoclipHtml);
 
             player = videojs("my-video");
+
+            player.ready(function() {
+                this.play();
+            });
 
             player.marqueeOverlay({
                 contentOfMarquee: $('#text').val(),
@@ -153,7 +168,7 @@
         }
 
         $(function() {
-            $('#form_message').submit(function (event){
+            $('#form_message').submit(function (event) {
                 event.preventDefault();
 
                 waitingDialog.show();
@@ -197,10 +212,7 @@
                 });
             });
 
-
-            $('#font_color').on('change', function(e) {
-                $(this).css('background', $(this).val());
-            });
+            //$('#fonttype').fontselect();
         });
     </script>
 @stop

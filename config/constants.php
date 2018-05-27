@@ -30,7 +30,7 @@ return [
         'poppines' => 'Poppines',
         'opensans' => 'Open Sans',
         'roboto' => 'Roboto',
-        'lato' => 'Lato'
+        'lato' => 'Lato',
     ],
     'weekdays' => ['Mon', 'Tue', 'Wed', 'Thi', 'Fri', 'Sat', 'Sun'],
     'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

@@ -14,6 +14,7 @@
 <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
 <link href="{{ asset('css/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/fontpicker/fontselect-mine.css') }}" rel="stylesheet">
 
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -31,4 +32,5 @@
 <script src="{{ asset('js/sweetalert.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jscolor.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/timepicker/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/fontpicker/jquery.fontselect.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/loading.js') }}" type="text/javascript"></script>
