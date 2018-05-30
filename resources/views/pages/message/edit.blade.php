@@ -41,11 +41,11 @@
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Type</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
-                            @foreach(Config::get('constants.font_type') as $key => $item)
-                                @if(isset($message) and $message->fonttype == $key)
-                                    <option value="{{ $key }}" selected>{{ $item }}</option>
+                            @foreach(Config::get('constants.font_type') as $item)
+                                @if(isset($message) and $message->fonttype == $item)
+                                    <option value="{{ $item }}" selected>{{ $item }}</option>
                                 @else
-                                    <option value="{{ $key }}">{{ $item }}</option>
+                                    <option value="{{ $item }}">{{ $item }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -143,6 +143,7 @@
             data.sources.push(source);
 
             videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
+            $('#videoContainer').empty();
             $('#videoContainer').append(videoclipHtml);
 
             player = videojs("my-video");

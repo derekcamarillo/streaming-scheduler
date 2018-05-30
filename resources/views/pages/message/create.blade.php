@@ -22,12 +22,12 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Player X-Position</span>
-                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                        <input type="number" id="xpos" name="xpos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Player Y-Position</span>
-                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
+                        <input type="number" id="ypos" name="ypos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
             </div>
@@ -35,16 +35,17 @@
                 <div class="row edit-playlist-options">
                     <!--col-3-->
                     <div class="col-xs-6 col-sm-3 col-md-3">
+                        <!--input type="text" id="fonttype" name="fonttype" class="text-center"-->
                         <span>Font Type</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
-                            @foreach(Config::get('constants.font_type') as $key => $item)
-                                <option value="{{ $key }}" style="font-family: {{ $item }};">{{ $item }}</option>
+                            @foreach(Config::get('constants.font_type') as $item)
+                                <option value="{{ $item }}" style="font-family: {{ $item }} !important;">{{ $item }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Size</span>
-                        <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
+                        <input type="number" id="fontsize" min="8" max="72" name="fontsize" placeholder="12" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>Font Color</span>
@@ -114,6 +115,8 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
+
+
             videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
 
             var data = {};
@@ -130,6 +133,8 @@
 
             data.techOrder.push("youtube");
             data.sources.push(source);
+
+            $('#videoContainer').empty();
 
             videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
             $('#videoContainer').append(videoclipHtml);

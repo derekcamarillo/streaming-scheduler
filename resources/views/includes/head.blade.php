@@ -14,7 +14,7 @@
 <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
 <link href="{{ asset('css/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
-<link href="{{ asset('css/fontpicker/fontselect-mine.css') }}" rel="stylesheet">
+<link href="{{ asset('css/fontpicker/fontselect-default.css') }}" rel="stylesheet">
 
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

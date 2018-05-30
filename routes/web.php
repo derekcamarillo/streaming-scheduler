@@ -11,6 +11,8 @@
 |
 */
 
+App::setLocale('de');
+
 Route::get('/', function () {
     return view('pages.home');
 })->middleware(['auth']);
@@ -65,6 +67,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('logo/upload', 'LogoController@upload');
 });
 
-Route::get('/project/url/{url}', 'HomeController@client');
+//Route::get('/project/url/{url}', 'HomeController@client');
 
-Route::get('/{customer}/{project}/{url}/index.html', 'HomeController@test');
+Route::get('/{customer}/{project}/index.html', 'HomeController@client');

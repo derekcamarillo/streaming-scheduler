@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Video Player Scheduler</h1>
+        <h1 class="titleh1">{{ __('aaa') }}</h1>
         <div class="col-sm-12 col-md-12">
             <div class="date-time">
                 <span><i class="fa fa-calendar-alt"></i><span id="timer_date"></span></span>
@@ -136,7 +136,7 @@
         <div class="col-sm-12 select-box">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 project-input" style="margin-bottom: 35px;">
-                    <input type="text" id="project_url" placeholder="Project URL(https:\\suisse-view.com\videoclips\foldername\filename.)">
+                    <input type="text" id="project_url" placeholder="Project URL(https://suisse-view.com/customer/project/index.html.)">
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
@@ -300,7 +300,7 @@
                 @endforeach
             @endif
 
-            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/'.$project->url.'/index.html') }}', playlists));
+            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/index.html') }}', playlists));
         @endforeach
 
         function activatePlaylist() {
@@ -465,7 +465,7 @@
                 } else if (item.url.indexOf("vimeo") !== -1) {
                     var source = {};
                     source.type = "video/vimeo";
-                    source.src = item.url;
+                    source.src = item.url + "?autoplay=1";
 
                     var option = {};
                     option.color = "#fbc51b";

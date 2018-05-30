@@ -9,10 +9,13 @@
                 <div class="row edit-playlist-section">
                     <div class="col-xs-7 col-sm-5 col-md-5">
                         <select class="form-control" id="project_id" name="project_id">
-                            <option value="" disabled="disabled" selected="selected">Select Project</option>
-                            @foreach($projects as $item)
-                                <option value="{{ $item->id }}">{{ $item->title }}</option>
-                            @endforeach
+                            @if(sizeof($projects) > 0)
+                                @foreach($projects as $item)
+                                    <option value="{{ $item->id }}">{{ $item->title }}</option>
+                                @endforeach
+                            @else
+                                <option value="" disabled="disabled" selected="selected">Select Project</option>
+                            @endif
                         </select>
                     </div><!--col-5-->
 
@@ -108,7 +111,10 @@
     <script src="{{ asset('js/videojs/videojs-contrib-hls.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs5-hlsjs-source-handler.js') }}"></script>
     <script src="{{ asset('js/videojs/videojs.watermark.js') }}"></script>
+    <script src="{{ asset('js/videojs/Youtube.min.js') }}"></script>
+    <script src="{{ asset('js/videojs/videojs-vimeo.js') }}"></script>
     <script src="{{ asset('js/logooverlay.js') }}"></script>
+    <script src="{{ asset('js/classes.js') }}"></script>
 
     <script>
         @if ($errors->has('url'))
@@ -130,6 +136,53 @@
             swal("Logo", "Logo successfully updated", "success");
         @endif
 
+        var projects = [];
+        var playlist;
+
+        @foreach($projects as $project)
+            var playlists = [];
+
+            @if(isset($project->playlists))
+                @foreach($project->playlists as $playlist)
+                    var videoclips = [];
+                    @if(isset($playlist->videoclips))
+                        @foreach($playlist->videoclips as $videoclip)
+                            var message = null;
+                            @if(isset($videoclip->message))
+                                message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
+                                    '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}',
+                                    '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
+                                    '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
+                            @endif
+                            videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
+                        @endforeach
+                    @endif
+
+                    var message = null;
+                    @if(isset($playlist->message))
+                        message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
+                            '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}',
+                            '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
+                            '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
+                    @endif
+
+                    var schedule = null;
+                    @if(isset($playlist->schedule))
+                        schedule = new Schedule('{{ $playlist->schedule->id }}', '{{ $playlist->schedule->start_time }}', '{{ $playlist->schedule->end_time }}',
+                            '{{ $playlist->schedule->endless }}', '{{ $playlist->schedule->days }}', '{{ $playlist->schedule->months }}');
+                    @endif
+
+                    @if(isset($project->activatedPlaylist) && count($project->activatedPlaylist) > 0 && ($project->activatedPlaylist()->first()->id == $playlist->id))
+                        playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 1));
+                    @else
+                        playlists.push(new Playlist('{{ $playlist->id }}', '{{ $playlist->title }}', videoclips, message, schedule, 0));
+                    @endif
+                @endforeach
+            @endif
+
+            projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/'.$project->url.'/index.html') }}', playlists));
+        @endforeach
+
         function saveLogo() {
             $('#form_logo').submit();
         }
@@ -144,11 +197,66 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
-            videoContent =
-                '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" controls preload="auto" width="auto">' +
-                '</video>';
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].id == $('#project_id').val()) {
+                    if (projects[i].playlists.length > 0) {
+                        playlist = projects[i].playlists[0];
+                    }
+                    break;
+                }
+            }
 
-            $('#videoContainer').html(videoContent);
+            if (playlist) {
+                playVideoClip(playlist.videoclips[0]);
+            }
+        }
+
+        function stopVideo() {
+
+        }
+
+        function uploadLogo() {
+            $('#logo').click();
+        }
+
+        function playVideoClip(item) {
+            $('#videoContainer').empty();
+
+            videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
+
+            var data = {};
+            data.techOrder = [];
+            data.sources = [];
+
+            if (item.url.indexOf("youtube") !== -1) {
+                var source = {};
+                source.type = "video/youtube";
+                source.src = item.url;
+
+                var youtube = {};
+                youtube.autoplay = 1;
+                youtube.controls = 0;
+                youtube.mute = 1;
+
+                data.techOrder.push("youtube");
+                data.sources.push(source);
+                //data.youtube = youtube;
+            } else if (item.url.indexOf("vimeo") !== -1) {
+                var source = {};
+                source.type = "video/vimeo";
+                source.src = item.url;
+
+                var option = {};
+                //option.color = "#fbc51b";
+                option.controls = false;
+
+                data.techOrder.push("vimeo");
+                data.sources.push(source);
+                data.vimeo = option;
+            }
+
+            videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+            $('#videoContainer').append(videoclipHtml);
 
             xpos = $('#xpos').val() || 10;
             ypos = $('#ypos').val() || 10;
@@ -156,7 +264,7 @@
             ori_width = $('#hiddenLogo').width();
             ori_height = $('#hiddenLogo').height();
 
-            videojs("my-video", {
+            videoPlayer = videojs('video' + item.id, {
                 plugins: {
                     logoOverlay: {
                         src: $('#hiddenLogo').attr('src'),
@@ -168,14 +276,25 @@
                     }
                 }
             });
-        }
 
-        function stopVideo() {
+            videoPlayer.ready(function() {
+                var player = this;
 
-        }
+                player.play();
 
-        function uploadLogo() {
-            $('#logo').click();
+                player.on('ended', function() {
+                    index ++;
+
+                    if (index == playlist.videoclips.length ) {
+                        if (playlist.schedule.endless == 0)
+                            return;
+                        else
+                            index = 0;
+                    }
+
+                    playVideoClip(playlist.videoclips[index])
+                });
+            });
         }
 
         $(function() {

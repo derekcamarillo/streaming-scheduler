@@ -56,21 +56,23 @@
             encrypted: true
         });
 
-        var channel = pusher.subscribe('{{ $url }}');
-        channel.bind('onCommand', function(data) {
-            if (data.command == "start") {
-                playlist = data.playlist;
-                logo = data.logo;
+        @if(isset($project))
+            var channel = pusher.subscribe('{{ $project->url }}');
+            channel.bind('onCommand', function(data) {
+                if (data.command == "start") {
+                    playlist = data.playlist;
+                    logo = data.logo;
 
-                startTimer();
-            } else if (data.command = "stop") {
-                swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
+                    startTimer();
+                } else if (data.command = "stop") {
+                    swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
 
-                for (var key in videojs.getPlayers()) {
-                    videojs.getPlayers()[key].dispose();
+                    for (var key in videojs.getPlayers()) {
+                        videojs.getPlayers()[key].dispose();
+                    }
                 }
-            }
-        });
+            });
+        @endif
     </script>
 </head>
 
@@ -154,7 +156,6 @@
             var youtube = {};
             youtube.autoplay = 1;
             youtube.controls = 0;
-            youtube.mute = 1;
 
             data.techOrder.push("youtube");
             data.sources.push(source);
@@ -162,7 +163,7 @@
         } else if (item.url.indexOf("vimeo") !== -1) {
             var source = {};
             source.type = "video/vimeo";
-            source.src = item.url;
+            source.src = item.url + "?autoplay=1";
 
             var option = {};
             //option.color = "#fbc51b";
@@ -197,11 +198,6 @@
             var player = this;
 
             player.play();
-
-            /*
-            if (player.techName_ == "Vimeo")
-                setTimeout(checkIframe, 1000);
-            */
 
             player.on('ended', function() {
                 index ++;

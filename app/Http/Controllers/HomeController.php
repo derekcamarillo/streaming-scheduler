@@ -37,11 +37,26 @@ class HomeController extends Controller
         return view('pages.home', compact(['projects', 'playlists']));
     }
 
+    /*
     public function client($url)
     {
         $project = Project::where('url', $url)->first();
 
         return view('pages.client', compact(['project', 'url']));
+    }
+    */
+
+    public function client($customer, $project, Request $request) {
+        $user = User::where('name', $customer)->first();
+        if (!isset($user)) {
+            //$request->session()->flash('error', __('Couldn\'t find customer'));
+
+            return view('pages.client');
+        } else {
+            $project = $user->projects()->where('title', $project)->first();
+
+            return view('pages.client', compact('project'));
+        }
     }
 
     public function test($customer, $project, $url) {
