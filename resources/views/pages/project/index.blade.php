@@ -27,9 +27,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="project/create" class="save-btn ic-save"><span>Add Project</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Project</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Project</span></a>
+        <a href="project/create" class="save-btn ic-save"><span>{{ __('Add Project') }}</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>{{ __('Edit Project') }}</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>{{ __('Delete Project') }}</span></a>
     </div>
 
     <script>

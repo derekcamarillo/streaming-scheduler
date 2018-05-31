@@ -99,5 +99,8 @@
   "Saving video clip failed": "Speichern des Videoclips fehlgeschlagen",
   "Message Type": "Nachrichtentyp",
   "Delete Video Clip": "Videoclip löschen",
-  "Edit Video Clip": "Videoclip bearbeiten"
+  "Edit Video Clip": "Videoclip bearbeiten",
+  "Add Project": "Add Project",
+  "Edit Project": "Edit Project",
+  "Delete Project": "Delete Project"
 }
