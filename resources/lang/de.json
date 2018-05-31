@@ -75,5 +75,22 @@
   "Edit Message": "Edit Message",
   "Logo Overlay": "Logo Overlay",
   "Upload Logo": "Upload Logo",
-  "Select position": "Select position"
+  "Select position": "Select position",
+  "Ofset X-Position": "Ofset X-Position",
+  "Ofset Y-Position": "Ofset Y-Position",
+  "Logo successfully uploaded": "Logo successfully uploaded",
+  "Logo successfully created": "Logo successfully created",
+  "Please select project first": "Please select project first",
+  "Logo successfully updated": "Logo successfully updated",
+  "Select Project": "Select Project",
+  "Create Message": "Create Message",
+  "Message Effect": "Message Effect",
+  "Add Message": "Add Message",
+  "Delete Message": "Delete Message",
+  "Message successfully deleted": "Message successfully deleted",
+  "Deleting Message failed": "Deleting Message failed",
+  "Create Playlist": "Create Playlist",
+  "Endles Loop": "Endles Loop",
+  "End Time": "End Time",
+  "Start Time": "Start Time"
 }

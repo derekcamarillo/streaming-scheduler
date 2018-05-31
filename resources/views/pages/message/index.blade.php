@@ -8,7 +8,7 @@
                     <tr>
                         <th style="width: 35px;">ID</th>
                         <th>{{ __('Message Content') }}</th>
-                        <th>Message Effect</th>
+                        <th>{{ __('Message Effect') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,9 +27,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="message/create" class="save-btn ic-save"><span>Add Message</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Message</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Message</span></a>
+        <a href="message/create" class="save-btn ic-save"><span>{{ __('Add Message') }}</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>{{ __('Edit Message') }}</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>{{ __('Delete Message') }}</span></a>
     </div>
 
     <script>
@@ -45,7 +45,7 @@
                         window.location.href = "{{ url('/message/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("Please select video clip to edit",{
+                    swal("{{ __('Please select video clip to edit') }}",{
                         icon:"error",
                     });
                 }
@@ -70,16 +70,16 @@
                                     waitingDialog.hide();
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
-                                        swal("Message", "Message successfully deleted", "success");
+                                        swal("Message", "{{ __('Message successfully deleted') }}", "success");
                                     } else {
-                                        swal("Message", "Deleting Message failed", "error");
+                                        swal("Message", "{{ __('Deleting Message failed') }}", "error");
                                     }
                                 });
                             }
                         });
                     });
                 } else {
-                    swal("Please select video clip to delete",{
+                    swal("{{ __('Please select video clip to delete') }}",{
                         icon:"error",
                     });
                 }

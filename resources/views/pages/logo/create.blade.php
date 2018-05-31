@@ -39,12 +39,12 @@
             <div class="col-sm-12 select-box">
                 <div class="row edit-playlist-options">
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Ofset X-Position</span>
+                        <span>{{ __('Ofset X-Position') }}</span>
                         <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" >
                     </div><!--col-3-->
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Ofset Y-Position</span>
+                        <span>{{ __('Ofset Y-Position') }}</span>
                         <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" >
                     </div><!--col-3-->
                 </div><!--row | edit-playlist-options-->
@@ -176,14 +176,14 @@
             swal("Logo", "{{ $errors->first('logo') }}", "error");
         @elseif(Session::has('logo_path'))
             $('#hiddenLogo').attr('src', '{{ Session::get('logo_path') }}');
-            swal("Logo", "Logo successfully uploaded", "success");
+            swal("Logo", "{{ __('Logo successfully uploaded') }}", "success");
         @elseif(Session::has('logo_create'))
-            swal("Logo", "Logo successfully created", "success");
+            swal("Logo", "{{ __('Logo successfully created') }}", "success");
         @endif
 
         function saveLogo() {
             if (!$('#project_id').val()) {
-                swal("Logo", "Please select project first.", "error");
+                swal("Logo", "{{ __('Please select project first') }}", "error");
 
                 return;
             }

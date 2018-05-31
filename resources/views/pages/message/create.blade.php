@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Create Message</h1>
+        <h1 class="titleh1">{{ __('Create Message') }}</h1>
 
         <form id="form_message">
             {{ csrf_field() }}

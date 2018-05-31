@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Logo Overlay</h1>
+        <h1 class="titleh1">{{ __('Logo Overlay') }}</h1>
 
         <form id="form_logo" action="{{ url('/logo/update/'.$logo->id) }}" method="post">
             {{ csrf_field() }}
@@ -14,14 +14,14 @@
                                     <option value="{{ $item->id }}">{{ $item->title }}</option>
                                 @endforeach
                             @else
-                                <option value="" disabled="disabled" selected="selected">Select Project</option>
+                                <option value="" disabled="disabled" selected="selected">{{ __('Select Project') }}</option>
                             @endif
                         </select>
                     </div><!--col-5-->
 
                     <div class="col-xs-5 col-sm-3 col-md-3 upload-logo-btn">
                         <a class="activate-playlist-button" onclick="uploadLogo();">
-                            <span>Upload Logo</span>
+                            <span>{{ __('Upload Logo') }}</span>
                         </a>
                     </div><!--col-3-->
 
@@ -42,12 +42,12 @@
             <div class="col-sm-12 select-box">
                 <div class="row edit-playlist-options">
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Ofset X-Position</span>
+                        <span>{{ __('Ofset X-Position') }}</span>
                         <input type="text" id="xpos" name="xpos" placeholder="10" value="{{ $logo->xpos }}" class="text-center" >
                     </div><!--col-3-->
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Ofset Y-Position</span>
+                        <span>{{ __('Ofset Y-Position') }}</span>
                         <input type="text" id="ypos" name="ypos" placeholder="10" value="{{ $logo->ypos }}" class="text-center" >
                     </div><!--col-3-->
                 </div><!--row | edit-playlist-options-->
@@ -131,9 +131,9 @@
             swal("Logo", "{{ $errors->first('logo') }}", "error");
         @elseif(Session::has('logo_path'))
             $('#hiddenLogo').attr('src', '{{ Session::get('logo_path') }}');
-        swal("Logo", "Logo successfully uploaded", "success");
+        swal("Logo", "{{ __('Logo successfully uploaded') }}", "success");
         @elseif(Session::has('logo_create'))
-            swal("Logo", "Logo successfully updated", "success");
+            swal("Logo", "{{ __('Logo successfully updated') }}", "success");
         @endif
 
         var projects = [];
@@ -189,7 +189,7 @@
 
         function playVideo() {
             if (typeof $('#hiddenLogo').attr('src') == 'undefined') {
-                swal("Logo", "Please upload logo first", "error");
+                swal("Logo", "{{ __('Please upload logo first') }}", "error");
                 return;
             }
 

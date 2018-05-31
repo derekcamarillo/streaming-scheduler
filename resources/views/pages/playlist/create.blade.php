@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-    <h1 class="titleh1">Create Playlist</h1>
+    <h1 class="titleh1">{{ __('Create Playlist') }}</h1>
 
     <div class="col-sm-12 select-box create-playlist">
         <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="">
@@ -17,19 +17,19 @@
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
-                <span>Start Time</span>
+                <span>{{ __('Start Time') }}</span>
                 <input type="text" id="start_time" name="start_time" placeholder="hh:mm" class="timepicker">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
-                <span>End Time</span>
+                <span>{{ __('End Time') }}</span>
                 <input type="text" id="end_time" name="end_time" placeholder="hh:mm" class="timepicker">
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-2 endles-loop">
                 <div class="round">
                     <input type="checkbox" id="endless" name="endless" />
-                    <label for="endless"><span >Endles Loop</span></label>
+                    <label for="endless"><span>{{ __('Endles Loop') }}</span></label>
                 </div>
             </div><!--col-2-->
         </div><!--row | edit-playlist-options-->
@@ -37,7 +37,7 @@
 
     <div class="col-sm-12">
         <div class="week-days">
-            <span>Week Days</span>
+            <span>{{ __('Week Day') }}</span>
             @for($i = 0; $i < sizeof(Config::get('constants.weekdays')); $i++)
                 <a class="c_days" data-day="{{ $i }}">{{ Config::get('constants.weekdays')[$i] }}</a>
             @endfor
@@ -46,7 +46,7 @@
 
     <div class="col-sm-12">
         <div class="week-days months">
-            <span>Months</span>
+            <span>{{ __('Month') }}</span>
             @for($i = 0; $i < sizeof(Config::get('constants.months')); $i++)
                 <a class="c_months" data-month="{{ $i }}">{{ Config::get('constants.months')[$i] }}</a>
             @endfor
