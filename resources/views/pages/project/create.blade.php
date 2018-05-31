@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Create Project</h1>
+        <h1 class="titleh1">{{ __('Create Project') }}</h1>
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <div class="col-sm-9 col-md-9">

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-    <h1 class="titleh1">Edit Playlist</h1>
+    <h1 class="titleh1">{{ __('Edit Playlist') }}</h1>
 
     <div class="col-sm-12 select-box create-playlist">
         <input type="text" id="title" name="title" placeholder="Playlist title" class="input" value="{{ $playlist->title }}">
@@ -21,12 +21,12 @@
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3 bootstrap-timepicker timepicker">
-                <span>Start Time</span>
+                <span>{{ __('Start Time') }}</span>
                 <input type="text" id="start_time" name="start_time" class="timepicker" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->start_time }} @endif" >
             </div><!--col-3-->
 
             <div class="col-xs-6 col-sm-4 col-md-3">
-                <span>End Time</span>
+                <span>{{ __('End Time') }}</span>
                 <input type="text" id="end_time" name="end_time" class="timepicker" placeholder="hh:mm" value="@if(isset($playlist->schedule)) {{ $playlist->schedule->end_time }} @endif">
             </div><!--col-3-->
 
@@ -37,7 +37,7 @@
                     @else
                         <input type="checkbox" id="endless" name="endless" />
                     @endif
-                    <label for="endless"><span >Endles Loop</span></label>
+                    <label for="endless"><span>{{ __('Endles Loop') }}</span></label>
                 </div>
             </div><!--col-2-->
         </div><!--row | edit-playlist-options-->
@@ -83,8 +83,8 @@
                     <thead>
                     <tr>
                         <th style="width: 35px;">ID</th>
-                        <th>Video Clip Title</th>
-                        <th>Video Clip Url</th>
+                        <th>{{ __('Video Clip Title') }}</th>
+                        <th>{{ __('Video Clip Url') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -102,11 +102,11 @@
     </div><!--col-12-->
 
     <div class="bottom-btns">
-        <a class="move-btn ic-move-up"><span>Move Up</span></a>
-        <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>Add Video Clip</span></a>
-        <a class="del-video-btn ic-delete-video"><span>Delete Selected Video</span></a>
-        <a class="save-btn ic-save"><span>Save</span></a>
-        <a class="move-btn ic-move-down"><span>Move Down</span></a>
+        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
+        <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>{{ __('Add Video Clip') }}</span></a>
+        <a class="del-video-btn ic-delete-video"><span>{{ __('Delete Selected Video') }}</span></a>
+        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
+        <a class="move-btn ic-move-down"><span>{{ __('Move Down') }}</span></a>
     </div>
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
@@ -115,7 +115,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Select Video Clip</h4>
+                    <h4 class="modal-title">{{ __('Select Video Clip') }}</h4>
                 </div>
                 <div class="modal-body">
                     <table id="tbl_videoclip2" class="table">
@@ -123,7 +123,7 @@
                         <tr>
                             <th style="width: 35px;">ID</th>
                             <th>{{ __('Title') }}</th>
-                            <th>Url</th>
+                            <th>{{ __('Url') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -166,7 +166,7 @@
                         $(this).remove();
                     });
                 } else {
-                    swal("Please select video clip to remove", {
+                    swal("{{ __('Please select video clip to remove') }}", {
                         icon:"error",
                     });
                 }
@@ -202,9 +202,9 @@
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Playlist", "Playlist successfully saved", "success");
+                        swal("Playlist", "{{ __('Playlist successfully saved') }}", "success");
                     } else {
-                        swal("Playlist", "Saving playlist failed", "error");
+                        swal("Playlist", "{{ __('Saving playlist failed') }}", "error");
                     }
                 });
             });
@@ -220,7 +220,7 @@
                         $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos - 1) + ")").before($(this).clone());
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("{{ __('Please select video clip to remove') }}",{
                         icon:"error",
                     });
                 }
@@ -237,7 +237,7 @@
                         $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("{{ __('Please select video clip to remove') }}",{
                         icon:"error",
                     });
                 }
