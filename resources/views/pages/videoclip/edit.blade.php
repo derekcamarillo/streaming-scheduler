@@ -1,23 +1,23 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Create Video Clip</h1>
+        <h1 class="titleh1">{{ __('Create Video Clip') }}</h1>
 
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <form id="form_video">
                     {{ csrf_field() }}
                     <div class="col-xs-7 col-sm-4 col-md-4">
-                        <input type="text" id="title" name="title" placeholder="Video Clip Title" class="input" value="{{ $videoclip->title }}">
+                        <input type="text" id="title" name="title" placeholder="{{ __('Video Clip Title') }}" class="input" value="{{ $videoclip->title }}">
                     </div><!--col-4-->
 
                     <div class="col-xs-12 col-sm-6 col-md-6 project-input">
-                        <input type="text" id="url" name="url" placeholder="Video Clip URL (Youtube / Vimeo)" value="{{ $videoclip->url }}">
+                        <input type="text" id="url" name="url" placeholder="{{ __('Video Clip URL') }} (Youtube / Vimeo)" value="{{ $videoclip->url }}">
                     </div><!--col-6-->
 
                     <div class="col-xs-5 col-sm-2 col-md-2 bottom-btns">
                         <a class="save-btn ic-save" href="javascript:void(0)">
-                            <span>Save</span>
+                            <span>{{ __('Save') }}</span>
                         </a>
                     </div><!--col-2-->
                 </form>
@@ -236,9 +236,9 @@
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         $('#videoclip_id').val(response.id);
-                        swal("Video Clip", "New video clip successfully saved", "success");
+                        swal("Video Clip", "{{ __('New video clip successfully saved') }}", "success");
                     } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                        swal("Video Clip", "{{ __('Saving video clip failed') }}", "error");
                     }
                 });
             });
@@ -247,7 +247,7 @@
                 event.preventDefault();
 
                 if ($('#videoclip_id').val() == 0) {
-                    swal("Message", "Please create video clip first", "error");
+                    swal("Message", "{{ __('Please create video clip first') }}", "error");
                     return;
                 }
 
@@ -257,11 +257,11 @@
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Message", "New message successfully saved", "success");
+                        swal("Message", "{{ __('New message successfully saved') }}", "success");
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
-                        swal("Video Clip", "Saving message failed", "error");
+                        swal("Video Clip", "{{ __('Saving message failed') }}", "error");
                     } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                        swal("Video Clip", "Validation error", "error");
+                        swal("Video Clip", "{{ __('Validation error') }}", "error");
                     }
                 });
             });

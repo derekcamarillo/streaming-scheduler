@@ -233,9 +233,9 @@
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
                         $('#videoclip_id').val(response.id);
-                        swal("Video Clip", "New video clip successfully saved", "success");
+                        swal("Video Clip", "{{ __('New video clip successfully saved') }}", "success");
                     } else {
-                        swal("Video Clip", "Saving video clip failed", "error");
+                        swal("Video Clip", "{{ __('Saving video clip failed') }}", "error");
                     }
                 });
             });
@@ -244,7 +244,7 @@
                 event.preventDefault();
 
                 if ($('#videoclip_id').val() == 0) {
-                    swal("Message", "Please create video clip first", "error");
+                    swal("Message", "{{ __('Please create video clip first') }}", "error");
                     return;
                 }
 
@@ -254,11 +254,11 @@
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Message", "New message successfully saved", "success");
+                        swal("Message", "{{ __('New message successfully saved') }}", "success");
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
-                        swal("Video Clip", "Saving message failed", "error");
+                        swal("Video Clip", "{{ __('Saving message failed') }}", "error");
                     } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                        swal("Video Clip", "Validation error", "error");
+                        swal("Video Clip", "{{ __('Validation error') }}", "error");
                     }
                 });
             });

@@ -94,5 +94,10 @@
   "End Time": "End Time",
   "Start Time": "Start Time",
   "Playlist successfully saved": "Playlist successfully saved",
-  "Create Project": "Create Project"
+  "Please select project to edit": "Please select project to edit",
+  "Please select project to delete": "Please select project to delete",
+  "Saving video clip failed": "Saving video clip failed",
+  "Message Type": "Message Type",
+  "Delete Video Clip": "Delete Video Clip",
+  "Edit Video Clip": "Edit Video Clip"
 }

@@ -7,8 +7,8 @@
                     <thead>
                     <tr>
                         <th style="width: 35px;">ID</th>
-                        <th>Video Clip</th>
-                        <th>Message Type</th>
+                        <th>{{ __('Video Clip') }}</th>
+                        <th>{{ __('Message Type') }}</th>
                         <th>{{ __('Message') }}</th>
                     </tr>
                     </thead>
@@ -34,9 +34,9 @@
     </form>
 
     <div class="bottom-btns project-list-btns">
-        <a href="videoclip/create" class="save-btn ic-save"><span>Add Video Clip</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Video Clip</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Video Clip</span></a>
+        <a href="videoclip/create" class="save-btn ic-save"><span>{{ __('Add Video Clip') }}</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>{{ __('Edit Video Clip') }}</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>{{ __('Delete Video Clip') }}</span></a>
     </div>
 
     <script>
@@ -52,7 +52,7 @@
                         window.location.href = "{{ url('/videoclip/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("Please select video clip to edit",{
+                    swal("{{ __('Please select video clip to edit') }}",{
                         icon:"error",
                     });
                 }
@@ -83,7 +83,7 @@
                         });
                     });
                 } else {
-                    swal("Please select video clip to delete",{
+                    swal("{{ __('Please select video clip to delete') }}",{
                         icon:"error",
                     });
                 }

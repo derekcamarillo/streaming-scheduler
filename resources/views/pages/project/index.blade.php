@@ -45,7 +45,7 @@
                         window.location.href = "{{ url('/project/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("Please select project to edit", {
+                    swal("{{ __('Please select project to edit') }}", {
                         icon:"error"
                     });
                 }
@@ -76,7 +76,7 @@
                         });
                     });
                 } else {
-                    swal("Please select project to delete",{
+                    swal("{{ __('Please select project to delete') }}",{
                         icon:"error",
                     });
                 }
