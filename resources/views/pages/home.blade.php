@@ -156,12 +156,12 @@
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <a class="activate-playlist-button" style="cursor: pointer;" onclick="activatePlaylist()">
-                        <span>Activate Selected Playlist</span>
+                        <span>{{ __('Activate Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <a class="stop-playlist-button" style="cursor: pointer;"  onclick="deactivatePlaylist()">
-                        <span>Stop Selected Playlist</span>
+                        <span>{{ __('Stop Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
             </div><!--row-->
