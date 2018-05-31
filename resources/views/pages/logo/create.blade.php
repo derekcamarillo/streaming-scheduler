@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Logo Overlay</h1>
+        <h1 class="titleh1">{{ __('Logo Overlay') }}</h1>
 
         <form id="form_logo" action="{{ url('/logo/store') }}" method="post">
             {{ csrf_field() }}
@@ -21,13 +21,13 @@
 
                     <div class="col-xs-5 col-sm-3 col-md-3 upload-logo-btn">
                         <a class="activate-playlist-button" onclick="uploadLogo();">
-                            <span>Upload Logo</span>
+                            <span>{{ __('Upload Logo') }}</span>
                         </a>
                     </div><!--col-3-->
 
                     <div class="col-xs-12 col-sm-4 col-md-4">
                         <select class="form-control" id="position" name="position">
-                            <option value="" disabled="disabled" selected="selected">Select position</option>
+                            <option value="" disabled="disabled" selected="selected">{{ __('Select position') }}</option>
                             @foreach(Config::get('constants.logo_type') as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach

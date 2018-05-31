@@ -65,7 +65,7 @@
 
                     startTimer();
                 } else if (data.command = "stop") {
-                    swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
+                    swal("Server", "{{ __('Server is not streaming now') }}", "error", { buttons: false, timer: 3000});
 
                     for (var key in videojs.getPlayers()) {
                         videojs.getPlayers()[key].dispose();
@@ -237,9 +237,9 @@
     @endif
 
     @if(!isset($project))
-        swal("Project", "Project is not available", "error", { buttons: false, timer: 3000});
+        swal("Project", "{{ __('Project is not available') }}", "error", { buttons: false, timer: 3000});
     @elseif(!isset($project->activatedPlaylist) or (count($project->activatedPlaylist) == 0))
-        swal("Server", "Server is not streaming now", "error", { buttons: false, timer: 3000});
+        swal("Server", "{{ __('Server is not streaming now') }}", "error", { buttons: false, timer: 3000});
     @else
         <?php $playlist = $project->activatedPlaylist()->first(); ?>
         var videoclips = [];

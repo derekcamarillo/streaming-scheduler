@@ -305,12 +305,12 @@
 
         function activatePlaylist() {
             if (! $('#project').val()) {
-                swal("Project", "Please select project", "error");
+                swal("Project", "{{ __('Please select project') }}", "error");
                 return;
             }
 
             if (! $('#playlist').val()) {
-                swal("Playlist", "Please select playlist", "error");
+                swal("Playlist", "{{ __('Please select playlist') }}", "error");
                 return;
             }
 
@@ -324,7 +324,7 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "Playlist activated successfully", "success");
+                    swal("Playlist", "{{ __('Playlist activated successfully') }}", "success");
 
                     for (var i = 0; i < projects.length; i++) {
                         if (projects[i].id == $('#project').val()) {
@@ -333,21 +333,21 @@
                         }
                     }
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Playlist", "Validation failed", "error");
+                    swal("Playlist", "{{ __('Validation failed') }}", "error");
                 } else {
-                    swal("Playlist", "Activating playlist failed", "error");
+                    swal("Playlist", "{{ __('Activating playlist failed') }}", "error");
                 }
             });
         }
 
         function deactivatePlaylist() {
             if (! $('#project').val()) {
-                swal("Project", "Please select project", "error");
+                swal("Project", "{{ __('Please select project') }}", "error");
                 return;
             }
 
             if (! $('#playlist').val()) {
-                swal("Playlist", "Please select playlist", "error");
+                swal("Playlist", "{{ __('Please select playlist') }}", "error");
                 return;
             }
 
@@ -361,13 +361,13 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "Playlist deactivated successfully", "success");
+                    swal("Playlist", "{{ __('Playlist deactivated successfully') }}", "success");
 
                     $('#videoclips').html('');
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Playlist", "Validation failed", "error");
+                    swal("Playlist", "{{ __('Validation failed') }}", "error");
                 } else {
-                    swal("Playlist", "Deactivating playlist failed", "error");
+                    swal("Playlist", "{{ __('Deactivating playlist failed') }}", "error");
                 }
             });
         }

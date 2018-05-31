@@ -7,12 +7,12 @@
                     <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Title</th>
-                            <th>Month</th>
-                            <th>WeekDay</th>
-                            <th>Start</th>
-                            <th>Message</th>
-                            <th>Loop</th>
+                            <th>{{ __('Title') }}</th>
+                            <th>{{ __('Month') }}</th>
+                            <th>{{ __('WeekDay') }}</th>
+                            <th>{{ __('Start') }}</th>
+                            <th>{{ __('Message') }}</th>
+                            <th>{{ __('Loop') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,9 +72,9 @@
     </div><!--col-12-->
 
     <div class="bottom-btns project-list-btns">
-        <a href="{{ url('playlist/create') }}" class="save-btn ic-save"><span>Add Playlist</span></a>
-        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>Edit Playlist</span></a>
-        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>Delete Playlist</span></a>
+        <a href="{{ url('playlist/create') }}" class="save-btn ic-save"><span>{{ __('Add Playlist') }}</span></a>
+        <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>{{ __('Edit Playlist') }}</span></a>
+        <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>{{ __('Delete Playlist') }}</span></a>
     </div>
 
     <script>
@@ -90,7 +90,7 @@
                         window.location.href = "{{ url('/playlist/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("Please select playlist to edit", {
+                    swal("{{ __('Please select playlist to edit') }}", {
                         icon:"error"
                     });
                 }
@@ -101,7 +101,7 @@
                     $('.active-tr').each(function(index, value) {
                         swal({
                             title: "Playlist",
-                            text: "Do you really want to delete this?",
+                            text: "{{ __('Do you really want to delete this?') }}",
                             icon: "error",
                             buttons: true,
                             dangerMode: true
@@ -112,16 +112,16 @@
                                 $.get('/playlist/destroy/' + value.children[0].innerText,  function (response) {
                                     if (response.result == 'success') {
                                         $('tr[data-id="' + response.id + '"]').remove();
-                                        swal("Playlist", "Playlist successfully deleted", "success");
+                                        swal("Playlist", "{{ __('Playlist successfully deleted') }}", "success");
                                     } else {
-                                        swal("Playlist", "Deleting playlist failed", "error");
+                                        swal("Playlist", "{{ __('Deleting playlist failed') }}", "error");
                                     }
                                 });
                             }
                         });
                     });
                 } else {
-                    swal("Please select playlist to delete",{
+                    swal("{{ __('Please select playlist to delete') }}",{
                         icon:"error",
                     });
                 }

@@ -45,12 +45,12 @@
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player X-Position</span>
+                        <span>{{ __('Player X-Position') }}</span>
                         <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player Y-Position</span>
+                        <span>{{ __('Player Y-Position') }}</span>
                         <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="row edit-playlist-options">
                     <!--col-3-->
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Type</span>
+                        <span>{{ __('Font Type') }}</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>
@@ -67,17 +67,17 @@
                         </select>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Size</span>
+                        <span>{{ __('Font Size') }}</span>
                         <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Color</span>
+                        <span>{{ __('Font Color') }}</span>
                         <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor"  value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
-                <input type="text" id="text" name="text" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
+                <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
             </div>
             <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
         </form>

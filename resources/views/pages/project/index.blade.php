@@ -7,7 +7,7 @@
                     <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Title</th>
+                            <th>{{ __('Title') }}</th>
                             <th>Project URL</th>
                         </tr>
                     </thead>
@@ -56,7 +56,7 @@
                     $('.active-tr').each(function(index, value) {
                         swal({
                             title: "Project",
-                            text: "Do you really want to delete this?",
+                            text: "{{ __('Do you really want to delete this?') }}",
                             icon: "error",
                             buttons: true,
                             dangerMode: true
@@ -67,9 +67,9 @@
                                 $.get('/project/destroy/' + value.children[0].innerText,  function (response) {
                                     if (response.result == 'success') {
                                         $('tr[data-id="' + response.id + '"]').remove();
-                                        swal("Project", "Playlist successfully deleted", "success");
+                                        swal("Project", "{{ __('Playlist successfully deleted') }}", "success");
                                     } else {
-                                        swal("Project", "Deleting playlist failed", "error");
+                                        swal("Project", "{{ __('Deleting playlist failed') }}", "error");
                                     }
                                 });
                             }

@@ -9,7 +9,7 @@
                         <th style="width: 35px;">ID</th>
                         <th>Video Clip</th>
                         <th>Message Type</th>
-                        <th>Message</th>
+                        <th>{{ __('Message') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                     $('.active-tr').each(function(index, value) {
                         swal({
                             title: "Video Clip",
-                            text: "Do you really want to delete this?",
+                            text: "{{ __('Do you really want to delete this?') }}",
                             icon: "error",
                             buttons: true,
                             dangerMode: true

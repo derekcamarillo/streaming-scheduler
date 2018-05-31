@@ -9,7 +9,7 @@
                 <div class="row edit-playlist-section edit-playlist-options optionsRight">
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <select class="form-control" id="effect" name="effect">
-                            <option value="" disabled="disabled" selected="selected">Select Effect</option>
+                            <option value="" disabled="disabled" selected="selected">{{ __('Select Effect') }}</option>
                             @foreach(Config::get('constants.message_type') as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
@@ -21,12 +21,12 @@
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player X-Position</span>
+                        <span>{{ __('Player X-Position') }}</span>
                         <input type="number" id="xpos" name="xpos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player Y-Position</span>
+                        <span>{{ __('Player Y-Position') }}</span>
                         <input type="number" id="ypos" name="ypos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <!--col-3-->
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <!--input type="text" id="fonttype" name="fonttype" class="text-center"-->
-                        <span>Font Type</span>
+                        <span>{{ __('Font Type') }}</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $item)
                                 <option value="{{ $item }}" style="font-family: {{ $item }} !important;">{{ $item }}</option>
@@ -44,17 +44,17 @@
                         </select>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Size</span>
+                        <span>{{ __('Font Size') }}</span>
                         <input type="number" id="fontsize" min="8" max="72" name="fontsize" placeholder="12" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Color</span>
+                        <span>{{ __('Font Color') }}</span>
                         <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor" value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
-                <input type="text" id="text" name="text" placeholder="Message Content" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
+                <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
             </div>
         </form>
 
@@ -182,9 +182,9 @@
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Message", "New message successfully saved", "success");
+                        swal("Message", "{{ __('New message successfully saved') }}", "success");
                     } else if (response.result == '<?= Config::get('constants.status.error') ?>') {
-                        swal("Video Clip", "Saving message failed", "error");
+                        swal("Video Clip", "{{ __('Saving message failed') }}", "error");
                     } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                         validStr = "";
                         if (response.data.effect) {

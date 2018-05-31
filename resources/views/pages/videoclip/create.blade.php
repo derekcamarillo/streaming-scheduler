@@ -1,23 +1,23 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Create Video Clip</h1>
+        <h1 class="titleh1">{{ __('Create Video Clip') }}</h1>
 
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <form id="form_video">
                     {{ csrf_field() }}
                     <div class="col-xs-7 col-sm-4 col-md-4">
-                        <input type="text" id="title" name="title" placeholder="Video Clip Title" class="input">
+                        <input type="text" id="title" name="title" placeholder="{{ __('Video Clip Title') }}" class="input">
                     </div><!--col-4-->
 
                     <div class="col-xs-12 col-sm-6 col-md-6 project-input">
-                        <input type="text" id="url" name="url" placeholder="Video Clip URL (Youtube / Vimeo)">
+                        <input type="text" id="url" name="url" placeholder="{{ __('Video Clip URL') }} (Youtube / Vimeo)">
                     </div><!--col-6-->
 
                     <div class="col-xs-5 col-sm-2 col-md-2 bottom-btns">
                         <a class="save-btn ic-save" href="javascript:void(0)">
-                            <span>Save</span>
+                            <span>{{ __('Save') }}</span>
                         </a>
                     </div><!--col-2-->
                 </form>
@@ -30,7 +30,7 @@
                 <div class="row edit-playlist-section edit-playlist-options optionsRight">
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <select class="form-control" id="effect" name="effect">
-                            <option value="" disabled="disabled" selected="selected">Select Effect</option>
+                            <option value="" disabled="disabled" selected="selected">{{ __('Select Effect') }}</option>
                             @foreach(Config::get('constants.message_type') as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
@@ -42,12 +42,12 @@
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player X-Position</span>
+                        <span>{{ __('Player X-Position') }}</span>
                         <input type="number" id="xpos" name="xpos" placeholder="0" class="text-center" value="0">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Player Y-Position</span>
+                        <span>{{ __('Player Y-Position') }}</span>
                         <input type="number" id="ypos" name="ypos" placeholder="0" class="text-center" value="0">
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="row edit-playlist-options">
                     <!--col-3-->
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Type</span>
+                        <span>{{ __('Font Type') }}</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>
@@ -64,17 +64,17 @@
                         </select>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Size</span>
+                        <span>{{ __('Font Size') }}</span>
                         <input type="number" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="10">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>Font Color</span>
+                        <span>{{ __('Font Color') }}</span>
                         <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor" >
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
-                <input type="text" id="text" name="text" placeholder="Message Content" class="input">
+                <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input">
             </div>
             <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
         </form>

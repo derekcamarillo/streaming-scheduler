@@ -60,8 +60,8 @@
                     <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Video Clip Title</th>
-                            <th>Video Clip Url</th>
+                            <th>{{ __('Video Clip Title') }}</th>
+                            <th>{{ __('Video Clip Url') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,11 +73,11 @@
     </div><!--col-12-->
 
     <div class="bottom-btns">
-        <a class="move-btn ic-move-up"><span>Move Up</span></a>
-        <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>Add Video Clip</span></a>
-        <a class="del-video-btn ic-delete-video"><span>Delete Selected Video</span></a>
-        <a class="save-btn ic-save"><span>Save</span></a>
-        <a class="move-btn ic-move-down"><span>Move Down</span></a>
+        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
+        <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>{{ __('Add Video Clip') }}</span></a>
+        <a class="del-video-btn ic-delete-video"><span>{{ __('Delete Selected Video') }}</span></a>
+        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
+        <a class="move-btn ic-move-down"><span>{{ __('Move Down') }}</span></a>
     </div>
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
@@ -86,15 +86,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Select Video Clip</h4>
+                    <h4 class="modal-title">{{ __('Select Video Clip') }}</h4>
                 </div>
                 <div class="modal-body">
                     <table id="tbl_videoclip2" class="table">
                         <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Title</th>
-                            <th>Url</th>
+                            <th>{{ __('Title') }}</th>
+                            <th>{{ __('Url') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -109,8 +109,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-primary">{{ __('Save changes') }}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -135,7 +135,7 @@
                         $(this).remove();
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("{{ __('Please select video clip to remove') }}",{
                         icon:"error",
                     });
                 }
@@ -171,9 +171,9 @@
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                        swal("Playlist", "New playlist successfully saved", "success");
+                        swal("Playlist", "{{ __('New playlist successfully saved') }}", "success");
                     } else {
-                        swal("Playlist", "Saving playlist failed", "error");
+                        swal("Playlist", "{{ __('Saving playlist failed') }}", "error");
                     }
                 });
             });
@@ -189,7 +189,7 @@
                         $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos - 1) + ")").before($(this).clone());
                     });
                 } else {
-                    swal("Please select video clip to remove",{
+                    swal("{{ __('Please select video clip to remove') }}",{
                         icon:"error",
                     });
                 }
@@ -206,7 +206,7 @@
                         $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
                     });
                 } else {
-                    swal("Please select video clip to remove", {
+                    swal("{{ __('Please select video clip to remove') }}", {
                         icon:"error",
                     });
                 }

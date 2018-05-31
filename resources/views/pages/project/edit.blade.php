@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">Edit Project</h1>
+        <h1 class="titleh1">{{ __('Edit Project') }}</h1>
         <div class="col-sm-12 select-box create-playlist">
             <div class="row edit-playlist-section">
                 <div class="col-sm-9 col-md-9">
@@ -9,7 +9,7 @@
                 </div><!--col-5-->
                 <div class="col-sm-3 col-md-3 project-save-btn">
                     <a class="activate-playlist-button" onclick="saveProject()">
-                        <span>Save</span>
+                        <span>{{ __('Save') }}</span>
                     </a>
                 </div><!--col-3-->
             </div><!--row | edit-playlist-section-->
@@ -23,12 +23,12 @@
                         <thead>
                             <tr>
                                 <th style="width: 35px;">ID</th>
-                                <th>Playlist</th>
-                                <th>Month</th>
-                                <th>Week Day</th>
-                                <th>Start</th>
-                                <th>Message</th>
-                                <th>Endless</th>
+                                <th>{{ __('Playlist') }}</th>
+                                <th>{{ __('Month') }}</th>
+                                <th>{{ __('Week Day') }}</th>
+                                <th>{{ __('Start') }}</th>
+                                <th>{{ __('Message') }}</th>
+                                <th>{{ __('Endless') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,10 +88,10 @@
     </div><!--col-12-->
     <div class="bottom-btns project-list-btns edit-playlist-section">
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <a class="activate-playlist-button add-playlist" data-toggle="modal" data-target="#modal_playlist"><span>Add Playlist</span></a>
+            <a class="activate-playlist-button add-playlist" data-toggle="modal" data-target="#modal_playlist"><span>{{ __('Add Playlist') }}</span></a>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <a class="stop-playlist-button remove-playlist"><span>Remove Playlist</span></a>
+            <a class="stop-playlist-button remove-playlist"><span>{{ __('Remove Playlist') }}</span></a>
         </div>
     </div>
 
@@ -102,19 +102,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Select Playlist</h4>
+                    <h4 class="modal-title">{{ __('Select Playlist') }}</h4>
                 </div>
                 <div class="modal-body">
                     <table id="tbl_playlist2" class="table">
                         <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Playlist</th>
-                            <th>Month</th>
-                            <th>Week Day</th>
-                            <th>Start</th>
-                            <th>Message</th>
-                            <th>Endless</th>
+                            <th>{{ __('Playlist') }}</th>
+                            <th>{{ __('Month') }}</th>
+                            <th>{{ __('Week Day') }}</th>
+                            <th>{{ __('Start') }}</th>
+                            <th>{{ __('Message') }}</th>
+                            <th>{{ __('Endless') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -169,7 +169,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -194,11 +194,11 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Project", "Project successfully saved", "success");
+                    swal("Project", "{{ __('Project successfully saved') }}", "success");
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
-                    swal("Project", "Validation failed", "error");
+                    swal("Project", "{{ __('Validation failed') }}", "error");
                 } else {
-                    swal("Project", "Saving project failed", "error");
+                    swal("Project", "{{ __('Saving project failed') }}", "error");
                 }
             });
         }
@@ -211,7 +211,7 @@
                         $(this).remove();
                     });
                 } else {
-                    swal("Please select playlist to remove",{
+                    swal("{{ __('Please select playlist to remove') }}",{
                         icon:"error",
                     });
                 }

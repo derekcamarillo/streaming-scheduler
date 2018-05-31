@@ -7,7 +7,7 @@
                     <thead>
                     <tr>
                         <th style="width: 35px;">ID</th>
-                        <th>Message Content</th>
+                        <th>{{ __('Message Content') }}</th>
                         <th>Message Effect</th>
                     </tr>
                     </thead>
@@ -56,7 +56,7 @@
                     $('.active-tr').each(function(index, value) {
                         swal({
                             title: "Message",
-                            text: "Do you really want to delete this?",
+                            text: "{{ __('Do you really want to delete this?') }}",
                             icon: "error",
                             buttons: true,
                             dangerMode: true

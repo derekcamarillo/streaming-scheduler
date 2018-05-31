@@ -122,7 +122,7 @@
                         <thead>
                         <tr>
                             <th style="width: 35px;">ID</th>
-                            <th>Title</th>
+                            <th>{{ __('Title') }}</th>
                             <th>Url</th>
                         </tr>
                         </thead>
@@ -140,7 +140,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div><!-- /.modal-content -->
