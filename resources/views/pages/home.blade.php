@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <div class="row">
-        <h1 class="titleh1">{{ __('aaa') }}</h1>
+        <h1 class="titleh1">{{ __('Video Streaming Software') }}</h1>
         <div class="col-sm-12 col-md-12">
             <div class="date-time">
                 <span><i class="fa fa-calendar-alt"></i><span id="timer_date"></span></span>
