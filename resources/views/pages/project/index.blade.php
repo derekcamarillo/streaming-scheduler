@@ -17,7 +17,7 @@
                             <tr class="tbl_row" data-id="{{ $item->id }}">
                                 <td style="text-align: center;">{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ url('project/url/'.$item->url) }}</td>
+                                <td>{{ url(Auth::user()->name.'/'.$item->title.'/index.html') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
