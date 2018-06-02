@@ -141,7 +141,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
                         @if (count($projects) == 0)
-                            <option disabled selected>Please select project</option>
+                            <option disabled selected>{{ __('Please select project') }}</option>
                         @endif
 
                         @foreach($projects as $item)
@@ -151,7 +151,7 @@
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="playlist">
-                        <option disabled selected>Please select playlist</option>
+                        <option disabled selected>{{ __('Please select playlist') }}</option>
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -169,7 +169,7 @@
     </div><!--row-->
     <div class="video-section">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#menu1">Playlist Video Clips</a></li>
+            <li class="active"><a data-toggle="tab" href="#menu1">{{ __('Playlist Video Clips') }}</a></li>
             <!--li><a data-toggle="tab" href="#menu2">Playlist History</a></li-->
         </ul><!--nav nav-tabs-->
         <div class="tab-content table-section">
