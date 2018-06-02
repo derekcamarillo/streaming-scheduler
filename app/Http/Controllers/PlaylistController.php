@@ -76,9 +76,12 @@ class PlaylistController extends Controller
             $playlist->user_id = Auth::user()->id;
 
             if($playlist->save()) {
-                foreach ($request->input('videoclips') as $videoclip_id) {
-                    $videoclip = Videoclip::find($videoclip_id);
-                    $playlist->videoclips()->save($videoclip);
+                $videoclips = $request->input('videoclips');
+                if (isset($videoclips)) {
+                    foreach ($videoclips as $videoclip_id) {
+                        $videoclip = Videoclip::find($videoclip_id);
+                        $playlist->videoclips()->save($videoclip);
+                    }
                 }
 
                 $schedule = new Schedule();
