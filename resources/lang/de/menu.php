@@ -7,10 +7,10 @@
  */
 
 return [
-    'home' => 'HOME',
-    'project' => 'PROJECT',
-    'playlist' => 'PLAYLIST',
-    'videoclip' => 'VIDEO CLIP',
-    'logooverlay' => 'LOGO OVERLAY',
-    'message' => 'MESSAGE',
+    'home' => 'START',
+    'project' => 'PROJEKT',
+    'playlist' => 'WIEDERGABELISTE',
+    'videoclip' => 'VIDEOCLIP',
+    'logooverlay' => 'LOGO Overlay',
+    'message' => 'NACHRICHT',
 ];
