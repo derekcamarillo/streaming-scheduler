@@ -73,9 +73,9 @@
                                 $.get('/customer/destroy/' + value.children[0].innerText,  function (response) {
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
-                                        swal("Customer", "Customer successfully deleted", "success");
+                                        swal("Customer", "{{ __('Customer successfully deleted') }}", "success");
                                     } else {
-                                        swal("Customer", "Deleting customer failed", "error");
+                                        swal("Customer", "{{ __('Deleting customer failed') }}", "error");
                                     }
                                 });
                             }

@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Middleware\CheckAdmin;
+
 App::setLocale('de');
 
 Route::get('/', function () {
@@ -65,7 +67,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logo/update/{id}', 'LogoController@update');
     Route::get('/logo/destroy/{id}', 'LogoController@destroy');
     Route::post('logo/upload', 'LogoController@upload');
+});
 
+Route::group(['middleware' => [CheckAdmin::class]], function () {
     Route::get('/customer', 'CustomerController@index');
     Route::get('/customer/create', 'CustomerController@create');
     Route::get('/customer/edit/{id}', 'CustomerController@edit');

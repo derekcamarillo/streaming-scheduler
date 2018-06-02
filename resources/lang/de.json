@@ -108,5 +108,7 @@
   "Add Customer": "Add Customer",
   "Delete Customer": "Delete Customer",
   "Title": "Titel",
-  "Project URL": "Project URL"
+  "Project URL": "Project URL",
+  "Customer successfully deleted": "Customer successfully deleted",
+  "Deleting customer failed": "Deleting customer failed"
 }
