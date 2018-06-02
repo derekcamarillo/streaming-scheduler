@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -12,6 +13,16 @@ class CustomerController extends Controller
         $users = User::all();
 
         return view('pages.customer.index', compact('users'));
+    }
+
+    public function login(Request $request) {
+        $id = $request->input('id');
+
+        $user = User::findOrFail($id);
+
+        Auth::login($user);
+
+        return redirect('home');
     }
 
     public function destroy($id) {

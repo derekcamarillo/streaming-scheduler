@@ -15,8 +15,8 @@
                     <tbody>
                     <!-- class="active-tr" -->
                     @foreach($users as $item)
-                        <tr class="tbl_row">
-                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
+                        <tr class="tbl_row" data-id="{{ $item->id }}">
+                            <td style="text-align: center;">{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
                             <td>@if($item->role == 1) Admin @else Customer @endif</td>
@@ -28,7 +28,7 @@
         </div><!--table-section-->
     </div><!--col-12-->
 
-    <form id="delete_videoclip" method="post" action="videoclip/destroy">
+    <form id="login_customer" method="post" action="customer/login">
         {{ csrf_field() }}
         <input type="hidden" id="id" name="id" value="0">
     </form>
@@ -43,6 +43,13 @@
             $('.tbl_row').click(function() {
                 $('.tbl_row').removeClass('active-tr');
                 $(this).addClass('active-tr');
+            });
+
+            $('.tbl_row').dblclick(function() {
+                var id = $(this).data('id');
+
+                $('#id').val(id);
+                $('#login_customer').submit();
             });
 
             $('.ic-delete-video').click(function () {

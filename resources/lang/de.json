@@ -100,15 +100,15 @@
   "Message Type": "Nachrichtentyp",
   "Delete Video Clip": "Videoclip löschen",
   "Edit Video Clip": "Videoclip bearbeiten",
-  "Add Project": "Add Project",
-  "Delete Project": "Delete Project",
+  "Add Project": "Projekt hinzufügen",
+  "Delete Project": "Projekt löschen",
   "Name": "Name",
   "Email": "Email",
   "Role": "Role",
-  "Add Customer": "Add Customer",
-  "Delete Customer": "Delete Customer",
+  "Add Customer": "Kunden hinzufügen",
+  "Delete Customer": "Kunden löschen",
   "Title": "Titel",
-  "Project URL": "Project URL",
-  "Customer successfully deleted": "Customer successfully deleted",
-  "Deleting customer failed": "Deleting customer failed"
+  "Project URL": "Projekt URL",
+  "Customer successfully deleted": "Kunde erfolgreich gelöscht",
+  "Deleting customer failed": "Kunden löschen fehlgeschlagen"
 }
