@@ -136,7 +136,7 @@
         <div class="col-sm-12 select-box">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 project-input" style="margin-bottom: 35px;">
-                    <input type="text" id="project_url" placeholder="Project URL(https://suisse-view.com/customer/project/index.html.)">
+                    <input type="text" id="project_url" placeholder="{{ __('Project URL') }}(https://suisse-video.ch/customer-name/project-name/index.html.)">
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <select class="form-control" id="project">
