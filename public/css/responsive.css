@@ -147,17 +147,11 @@
 
 	.week-days a, .months a {margin: 0px 6px 15px; width: 11%;}
 
-	
-
-	.bottom-btns a {padding: 0px 15px;margin-top: 15px;}
-
 	.titleh1 {font-size: 30px;}
 
 	.myVideo-box .add-logo-img {left: 30px; width: 90px;}
 
 }
-
-
 
 @media (max-width: 480px) {
 
@@ -167,7 +161,7 @@
 
 	.edit-playlist-section .activate-playlist-button, .edit-playlist-section .stop-playlist-button {margin-top: 15px;}
 
-	.bottom-btns a , .project-list-btns .ic-save{width: 100% !important;margin-top: 15px; margin-right: 0px; margin-left: 0px; }
+	.bottom-btns a , .project-list-btns .ic-save{margin-top: 15px; margin-right: 0px; margin-left: 0px; }
 
 	.create-playlist .col-xs-12 {margin-top:15px;}
 

@@ -1,6 +1,6 @@
 <header class="header-bg">
     <div class="navigation" data-spy="affix" data-offset-top="50">
-        <div class="container">
+        <div class="container" style="width: 100%;">
             <div class="row">
                 <nav class="navbar navbar-inverse">
                     <div class="navbar-header">

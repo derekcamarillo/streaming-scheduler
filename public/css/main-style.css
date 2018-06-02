@@ -1010,7 +1010,7 @@ header {
 }
 
 .bottom-btns .add-video-btn {
-	width: 300px;
+	width: 300px !important;
 	background: linear-gradient(to right, #e646b7, #9933fe);
 }
 
@@ -1019,7 +1019,7 @@ header {
 }
 
 .bottom-btns .del-video-btn {
-	width: 300px;
+	width: 300px !important;
 	background: linear-gradient(to right, #fb505f, #fb9f4e);
 }
 
@@ -1231,3 +1231,5 @@ header {
 	text-align: left;
 	vertical-align: middle;
 }
+
+.bottom-btns a {padding: 0px 15px;margin-top: 15px;}
