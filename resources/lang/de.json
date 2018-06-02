@@ -106,5 +106,7 @@
   "Email": "Email",
   "Role": "Role",
   "Add Customer": "Add Customer",
-  "Delete Customer": "Delete Customer"
+  "Delete Customer": "Delete Customer",
+  "Title": "Titel",
+  "Project URL": "Project URL"
 }

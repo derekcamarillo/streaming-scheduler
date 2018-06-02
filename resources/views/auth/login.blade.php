@@ -50,9 +50,9 @@
                                     </span>
                         @endif
                     </div>
-                    <div class="col-lg-12 inputRow">
+                    <!--div class="col-lg-12 inputRow">
                         <a href="{{ route('register') }}" class="forgot">Sign Up</a>
-                    </div>
+                    </div-->
                     <div class="col-lg-12 bottom-btns">
                         <button type="submit" style="height: 60px; color: #fff; font-size: 16px; border-radius: 4px; font-weight: 600; outline: none; display: inline-block;" class="btn add-video-btn"> Login </button>
                     </div>
@@ -70,11 +70,6 @@
 <script src="js/wow.min.js"></script>
 <script src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<!--
-    <script>
-        new WOW().init();
-        $("#scroller").simplyScroll();
-    </script>
--->
+
 </body>
 </html>

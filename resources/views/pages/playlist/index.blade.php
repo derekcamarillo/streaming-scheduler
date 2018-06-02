@@ -9,8 +9,8 @@
                             <th style="width: 35px;">ID</th>
                             <th>{{ __('Title') }}</th>
                             <th>{{ __('Month') }}</th>
-                            <th>{{ __('WeekDay') }}</th>
-                            <th>{{ __('Start') }}</th>
+                            <th>{{ __('Week Day') }}</th>
+                            <th>{{ __('Start Time') }}</th>
                             <th>{{ __('Message') }}</th>
                             <th>{{ __('Loop') }}</th>
                         </tr>

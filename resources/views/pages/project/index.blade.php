@@ -8,7 +8,7 @@
                         <tr>
                             <th style="width: 35px;">ID</th>
                             <th>{{ __('Title') }}</th>
-                            <th>Project URL</th>
+                            <th>{{ __('Project URL') }}</th>
                         </tr>
                     </thead>
                     <tbody>
