@@ -71,10 +71,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['middleware' => [CheckAdmin::class]], function () {
     Route::get('/customer', 'CustomerController@index');
-    Route::get('/customer/create', 'CustomerController@create');
-    Route::get('/customer/edit/{id}', 'CustomerController@edit');
-    Route::post('/customer/store', 'CustomerController@store');
-    Route::post('/customer/update/{id}', 'CustomerController@update');
     Route::get('/customer/destroy/{id}', 'CustomerController@destroy');
 });
 

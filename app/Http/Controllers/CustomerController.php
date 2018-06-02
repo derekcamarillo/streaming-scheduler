@@ -13,4 +13,21 @@ class CustomerController extends Controller
 
         return view('pages.customer.index', compact('users'));
     }
+
+    public function destroy($id) {
+        try{
+            if(User::destroy($id)) {
+                return response()->json([
+                    "result" => "success",
+                    "id" => $id
+                ]);
+            } else {
+                return response()->json([
+                    "result" => "error"
+                ]);
+            }
+        }catch(Exception $e){
+            return $this->response->error('could_not_delete_customer', 500);
+        }
+    }
 }

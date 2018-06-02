@@ -45,32 +45,23 @@
                 $(this).addClass('active-tr');
             });
 
-            $('.ic-edit-project').click(function () {
-                if ($('tbody>tr').hasClass('active-tr')) {
-                    $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/videoclip/edit') }}/" + value.children[0].innerText;
-                    });
-                } else {
-                    swal("{{ __('Please select video clip to edit') }}",{
-                        icon:"error",
-                    });
-                }
-            });
-
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
                         swal({
-                            title: "Video Clip",
+                            title: "Customer",
                             text: "{{ __('Do you really want to delete this?') }}",
                             icon: "error",
                             buttons: true,
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
+                                waitingDialog.show();
+
                                 $('#id').val(value.children[0].innerText);
 
                                 $.get('/customer/destroy/' + value.children[0].innerText,  function (response) {
+                                    waitingDialog.hide();
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
                                         swal("Customer", "{{ __('Customer successfully deleted') }}", "success");
@@ -82,7 +73,7 @@
                         });
                     });
                 } else {
-                    swal("{{ __('Please select video clip to delete') }}",{
+                    swal("{{ __('Please select customer to delete') }}",{
                         icon:"error",
                     });
                 }
