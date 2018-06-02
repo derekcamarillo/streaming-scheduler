@@ -1006,11 +1006,11 @@ header {
 }
 
 .project-list-btns .ic-save {
-	width: 200px !important;
+	width: 300px !important;
 }
 
 .bottom-btns .add-video-btn {
-	width: 260px;
+	width: 300px;
 	background: linear-gradient(to right, #e646b7, #9933fe);
 }
 
@@ -1019,7 +1019,7 @@ header {
 }
 
 .bottom-btns .del-video-btn {
-	width: 290px;
+	width: 300px;
 	background: linear-gradient(to right, #fb505f, #fb9f4e);
 }
 

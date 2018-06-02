@@ -11,6 +11,7 @@ return [
     'project' => 'PROJEKT',
     'playlist' => 'WIEDERGABELISTE',
     'videoclip' => 'VIDEOCLIP',
-    'logooverlay' => 'LOGO Overlay',
+    'logooverlay' => 'LOGO',
     'message' => 'NACHRICHT',
+    'customer' => 'Customer'
 ];

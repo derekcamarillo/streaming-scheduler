@@ -27,6 +27,9 @@
                             <li class="{{ request()->is('logo*') ? 'active' : '' }}"><a href="{{ url('/logo') }}">{{ __('menu.logooverlay') }}</a></li>
                             <li class="{{ request()->is('message*') ? 'active' : '' }}"><a href="{{ url('/message') }}">{{ __('menu.message') }}</a></li>
                             @if (Auth::check())
+                                @if (Auth::User()->role == 1)
+                                    <li class="{{ request()->is('customer*') ? 'active' : '' }}"><a href="{{ url('/customer') }}">{{ __('menu.customer') }}</a></li>
+                                @endif
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="user-button">
                                         <img src="{{ asset('images/user-top-ic.png') }}">{{ Auth::user()->name }}

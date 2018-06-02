@@ -101,5 +101,10 @@
   "Delete Video Clip": "Videoclip löschen",
   "Edit Video Clip": "Videoclip bearbeiten",
   "Add Project": "Add Project",
-  "Delete Project": "Delete Project"
+  "Delete Project": "Delete Project",
+  "Name": "Name",
+  "Email": "Email",
+  "Role": "Role",
+  "Add Customer": "Add Customer",
+  "Delete Customer": "Delete Customer"
 }
