@@ -158,7 +158,7 @@ class VideoclipController extends Controller
 
         $filename = "videoclips_".time().".csv";
         $handle = fopen($filename, 'w+');
-        //fputcsv($handle, array('title', 'url'));
+        fputcsv($handle, array('title', 'url'));
 
         foreach($videoclips as $row) {
             fputcsv($handle, array($row['title'], $row['url']));
