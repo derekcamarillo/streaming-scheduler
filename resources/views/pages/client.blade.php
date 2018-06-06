@@ -177,6 +177,10 @@
         videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
         $('#videoContainer').append(videoclipHtml);
 
+        if (videojs.getPlayers()['video' + item.id]) {
+            delete videojs.getPlayers()['video' + item.id];
+        }
+
         if (logo) {
             videoPlayer = videojs('video' + item.id, {
                 plugins: {

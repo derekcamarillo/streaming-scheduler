@@ -8,6 +8,7 @@
   "Please input valid video url": "Geben Sie eine gültige Video-URL ein!!!",
   "Please select project": "Bitte wählen Sie ein Projekt",
   "Please select playlist": "Bitte wählen Sie eine Videolistet",
+  "Please select message": "Bitte wählen Sie eine Nachricht",
   "Playlist activated successfully": "Videolistet wurde aktiviert",
   "Validation failed": "Überprüfung fehlgeschlagen",
   "Activating playlist failed": "Aktivieren der Videoliste fehlgeschlagen",
@@ -64,8 +65,8 @@
   "Create Video Clip": "Videoclip erstellen",
   "Video Clip URL": "Videoclip-URL",
   "Select Effect": "Effekt auswählen",
-  "Player X-Position": "Videoplayer X-Position",
-  "Player Y-Position": "Videoplayer Y-Position",
+  "Player X-Position": "X-Position",
+  "Player Y-Position": "Y-Position",
   "Font Type": "Schriftart",
   "Font Size": "Schriftgrösse",
   "New message successfully saved": "Neue Nachricht erfolgreich gespeichert",
@@ -110,5 +111,6 @@
   "Title": "Titel",
   "Project URL": "Projekt URL",
   "Customer successfully deleted": "Kunde erfolgreich gelöscht",
-  "Deleting customer failed": "Kunden löschen fehlgeschlagen"
+  "Deleting customer failed": "Kunden löschen fehlgeschlagen",
+  "Message Content": "Nachrichteninhalt"
 }

@@ -65,9 +65,9 @@
     <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box"></div>
 
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-        <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
+        <a onclick="playVideo()" type="button" class="del-video-btn" style="width: 80px !important;"><i class="fa fa-play"></i></a>
         <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
-        <a onclick="saveLogo()" class="add-video-btn"><i class="fa fa-save"></i></a>
+        <a onclick="saveLogo()" class="add-video-btn" style="width: 80px !important;"><i class="fa fa-save"></i></a>
     </div><!--col-12-->
 
     <img id="hiddenLogo" src="{{ $logo->url }}" hidden>

@@ -10,9 +10,13 @@
         <div class="row edit-playlist-options">
             <div class="col-xs-12 col-sm-12 col-md-4">
                 <select class="form-control" id="message_id">
-                    @foreach($messages as $item)
-                        <option value="{{ $item->id }}">{{ $item->text }}</option>
-                    @endforeach
+                    @if (sizeof($messages) > 0)
+                        @foreach($messages as $item)
+                            <option value="{{ $item->id }}">{{ $item->text }}</option>
+                        @endforeach
+                    @else
+                        <option selected>{{ __('Please select message') }}</option>
+                    @endif
                 </select>
             </div><!--col-3-->
 

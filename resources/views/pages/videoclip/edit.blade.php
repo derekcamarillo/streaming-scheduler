@@ -16,7 +16,7 @@
                     </div><!--col-6-->
 
                     <div class="col-xs-5 col-sm-2 col-md-2 bottom-btns">
-                        <a class="save-btn ic-save" href="javascript:void(0)">
+                        <a class="save-btn ic-save" href="javascript:void(0)" style="margin-top: 0px;">
                             <span>{{ __('Save') }}</span>
                         </a>
                     </div><!--col-2-->
@@ -45,12 +45,12 @@
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>{{ __('Player X-Position') }}</span>
+                        <span style="max-width: 100px;">{{ __('Player X-Position') }}</span>
                         <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
-                        <span>{{ __('Player Y-Position') }}</span>
+                        <span style="max-width: 100px;">{{ __('Player Y-Position') }}</span>
                         <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
@@ -83,9 +83,9 @@
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
-            <a onclick="playVideo()" type="button" class="del-video-btn"><i class="fa fa-play"></i></a>
+            <a onclick="playVideo()" type="button" class="del-video-btn" style="width: 80px !important;"><i class="fa fa-play"></i></a>
             <a onclick="pauseVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
-            <a onclick="saveMessage()" class="add-video-btn"><i class="fa fa-save"></i></a>
+            <a onclick="saveMessage()" class="add-video-btn" style="width: 80px !important;"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
         <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box">
