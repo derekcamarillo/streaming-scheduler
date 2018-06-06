@@ -112,5 +112,9 @@
   "Project URL": "Projekt URL",
   "Customer successfully deleted": "Kunde erfolgreich gelöscht",
   "Deleting customer failed": "Kunden löschen fehlgeschlagen",
-  "Message Content": "Nachrichteninhalt"
+  "Message Content": "Nachrichteninhalt",
+  "CSV Import Videoclips": "CSV Import Videoclips",
+  "CSV Export Videoclips": "CSV Export Videoclips",
+  "Import Succeed": "Import Succeed",
+  "Import Failed": "Import Failed"
 }

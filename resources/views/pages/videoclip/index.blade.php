@@ -33,14 +33,41 @@
         <input type="hidden" id="id" name="id" value="0">
     </form>
 
+    <form id="form_csv" action="{{ url('/videoclip/import') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="file" id="csv" name="csv" style="display: none;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    </form>
+
     <div class="bottom-btns project-list-btns">
         <a href="videoclip/create" class="save-btn ic-save"><span>{{ __('Add Video Clip') }}</span></a>
         <a href="javascript:void(0);" class="add-video-btn ic-edit-project"><span>{{ __('Edit Video Clip') }}</span></a>
         <a href="javascript:void(0);" class="del-video-btn ic-delete-video"><span>{{ __('Delete Video Clip') }}</span></a>
     </div>
 
+    <div class="bottom-btns project-list-btns">
+        <a href="javascript:void(0);" class="add-video-btn" onclick="importVideoclips()"><span>{{ __('CSV Import Videoclips') }}</span></a>
+        <a href="videoclip/export" class="add-video-btn"><span>{{ __('CSV Export Videoclips') }}</span></a>
+    </div>
+
     <script>
+
+        @if (Session::has('videoclip.import.success'))
+            swal("Import", "{{ Session::get('videoclip.import.success') }}", "success");
+        @elseif(Session::has('videoclip.import.error'))
+            swal("Import", "{{ Session::get('videoclip.import.error') }}", "error");
+        @endif
+
+        function importVideoclips() {
+            $('#csv').click();
+        }
+
         $(function() {
+            $("#csv").change(function() {
+                waitingDialog.show();
+
+                $('#form_csv').submit();
+            });
+
             $('.tbl_row').click(function() {
                 $('.tbl_row').removeClass('active-tr');
                 $(this).addClass('active-tr');

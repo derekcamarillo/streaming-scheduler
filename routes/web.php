@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/videoclip/store', 'VideoclipController@store');
     Route::post('/videoclip/update/{id}', 'VideoclipController@update');
     Route::get('/videoclip/destroy/{id}', 'VideoclipController@destroy');
+    Route::post('/videoclip/import', 'VideoclipController@import');
+    Route::get('/videoclip/export', 'VideoclipController@export');
 
     Route::get('/message', 'MessageController@index');
     Route::get('/message/create', 'MessageController@create');
