@@ -85,7 +85,7 @@
     </div>
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
-    <div class="modal fade" id="modal_videoclip" tabindex="-1">
+    <div class="modal fade" id="modal_videoclip" tabindex="-1" style="z-index: 99999;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -184,13 +184,8 @@
 
             $('.ic-move-up').click(function(event) {
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
-                    var pos = $('#tbl_videoclip1 .tbl-row.active-tr').index();
-                    if (pos == 0)
-                        return;
-
                     $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
-                        $(this).remove();
-                        $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos - 1) + ")").before($(this).clone());
+                        $(this).insertBefore($(this).prev());
                     });
                 } else {
                     swal("{{ __('Please select video clip to remove') }}",{
@@ -201,13 +196,8 @@
 
             $('.ic-move-down').click(function(event) {
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
-                    var pos = $('#tbl_videoclip1 .tbl-row.active-tr').index();
-                    if (pos == $('#tbl_videoclip1 .tbl-row').length - 1)
-                        return;
-
                     $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
-                        $(this).remove();
-                        $("#tbl_videoclip1 .tbl-row:nth-child(" + (pos + 1) + ")").after($(this).clone());
+                        $(this).insertAfter($(this).next());
                     });
                 } else {
                     swal("{{ __('Please select video clip to remove') }}", {
