@@ -78,9 +78,9 @@ class PlaylistController extends Controller
             if($playlist->save()) {
                 $videoclips = $request->input('videoclips');
                 if (isset($videoclips)) {
-                    foreach ($videoclips as $videoclip_id) {
-                        $videoclip = Videoclip::find($videoclip_id);
-                        $playlist->videoclips()->save($videoclip);
+                    for ($i = 0; $i < sizeof($videoclips); $i++) {
+                        $videoclip = Videoclip::find($videoclips[$i]);
+                        $playlist->videoclips()->save($videoclip, ['order' => $i]);
                     }
                 }
 
@@ -129,10 +129,16 @@ class PlaylistController extends Controller
                 $videoclipIds = $request->input('videoclips');
                 if(isset($videoclipIds)) {
                     $playlist->videoclips()->detach();
+                    for ($i = 0; $i < sizeof($videoclipIds); $i++) {
+                        $videoclip = Videoclip::find($videoclipIds[$i]);
+                        $playlist->videoclips()->attach($videoclip, ['order' => $i]);
+                    }
+                    /*
                     foreach ($videoclipIds as $videoclipId) {
                         $videoclip = Videoclip::find($videoclipId);
                         $playlist->videoclips()->attach($videoclip);
                     }
+                    */
                 }
 
                 $schedule = $playlist->schedule;

@@ -26,6 +26,6 @@ class Playlist extends Model
     }
 
     public function videoclips() {
-        return $this->belongsToMany('App\Videoclip');
+        return $this->belongsToMany('App\Videoclip')->orderBy('order', 'asc');
     }
 }
