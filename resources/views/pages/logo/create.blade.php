@@ -40,12 +40,12 @@
                 <div class="row edit-playlist-options">
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Ofset X-Position') }}</span>
-                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" >
+                        <input type="number" id="xpos" name="xpos" placeholder="10" min="0" max="300" class="text-center" >
                     </div><!--col-3-->
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Ofset Y-Position') }}</span>
-                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" >
+                        <input type="number" id="ypos" name="ypos" placeholder="10" min="0" max="300" class="text-center" >
                     </div><!--col-3-->
                 </div><!--row | edit-playlist-options-->
             </div><!--col-12-->
@@ -215,13 +215,21 @@
         }
 
         function stopVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
 
+            $('#videoContainer').empty();
         }
 
         function playVideoClip(item) {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
+
             $('#videoContainer').empty();
 
-            videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
+            videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
 
             var data = {};
             data.techOrder = [];
@@ -254,7 +262,7 @@
                 data.vimeo = option;
             }
 
-            videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+            videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
             $('#videoContainer').append(videoclipHtml);
 
             xpos = $('#xpos').val() || 10;
@@ -263,7 +271,7 @@
             ori_width = $('#hiddenLogo').width();
             ori_height = $('#hiddenLogo').height();
 
-            videoPlayer = videojs('video' + item.id, {
+            videoPlayer = videojs('my-video', {
                 plugins: {
                     logoOverlay: {
                         src: $('#hiddenLogo').attr('src'),

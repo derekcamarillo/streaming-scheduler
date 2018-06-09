@@ -121,7 +121,7 @@
             position: "bottom",
             direction: message.effect,
             backgroundcolor: 'transparent',
-            duration: (5000 - message.speed * 200),
+            duration: (30000 - message.speed * 1000),
             color: '#' + message.fontcolor
         });
 
