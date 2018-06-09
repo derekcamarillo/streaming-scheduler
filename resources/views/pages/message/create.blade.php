@@ -60,7 +60,7 @@
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
             <a onclick="playVideo()" type="button" class="del-video-btn" style="width: 80px !important;"><i class="fa fa-play"></i></a>
-            <a onclick="pauseVid()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
+            <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
             <a onclick="saveMessage()" class="add-video-btn" style="width: 80px !important;"><i class="fa fa-save"></i></a>
         </div><!--col-12-->
 
@@ -115,8 +115,6 @@
                 delete videojs.getPlayers()["my-video"];
             }
 
-
-
             videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" autoplay data-setup=\'%data%\'></video>';
 
             var data = {};
@@ -150,7 +148,7 @@
                 position: "bottom",
                 direction: $('#effect').val(),
                 backgroundcolor: 'transparent',
-                duration: (5000 - $('#speed').val() * 200),
+                duration: (30000 - $('#speed').val() * 1000),
                 color: "#" + $('#fontcolor').val()
             });
 
@@ -166,6 +164,14 @@
             $('#style_marquee').html(css);
 
             player.qualityPickerPlugin();
+        }
+
+        function stopVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
+
+            $('#videoContainer').empty();
         }
 
         function saveMessage() {

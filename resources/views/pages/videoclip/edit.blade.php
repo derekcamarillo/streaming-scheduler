@@ -46,7 +46,7 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span style="max-width: 100px;">{{ __('Player X-Position') }}</span>
-                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                        <input type="number" id="xpos" name="xpos" placeholder="10" min="8" max="72" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">

@@ -13,13 +13,13 @@
                     </thead>
                     <tbody>
                         <!-- class="active-tr" -->
-                        @foreach($projects as $item)
-                            <tr class="tbl_row" data-id="{{ $item->id }}">
-                                <td style="text-align: center;">{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ url(Auth::user()->name.'/'.$item->title.'/index.html') }}</td>
+                        @for($i = 0; $i < sizeof($projects); $i++)
+                            <tr class="tbl_row" data-id="{{ $projects[$i]->id }}">
+                                <td style="text-align: center;">{{ $i + 1 }}</td>
+                                <td>{{ $projects[$i]->title }}</td>
+                                <td>{{ url(Auth::user()->name.'/'.$projects[$i]->title.'/index.html') }}</td>
                             </tr>
-                        @endforeach
+                        @endfor
                     </tbody>
                 </table>
             </div><!--table-responsive-->
