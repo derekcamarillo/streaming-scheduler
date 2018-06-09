@@ -116,5 +116,9 @@
   "CSV Import Videoclips": "CSV Import Videoclips",
   "CSV Export Videoclips": "CSV Export Videoclips",
   "Import Succeed": "Import Succeed",
-  "Import Failed": "Import Failed"
+  "Import Failed": "Import Failed",
+  "Clear Videoclips": "Clear Videoclips",
+  "Do you really want to clear videoclips": "Do you really want to clear videoclips",
+  "Video clip successfully cleared": "Video clip successfully cleared",
+  "Clear video clip failed": "Clear video clip failed"
 }

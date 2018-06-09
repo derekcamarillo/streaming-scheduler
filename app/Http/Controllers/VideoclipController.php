@@ -108,6 +108,19 @@ class VideoclipController extends Controller
         }
     }
 
+    public function clear(Request $request) {
+        $user = Auth::user();
+
+        $videoclips = $user->videoclips;
+        foreach ($videoclips as $videoclip) {
+            Videoclip::destroy($videoclip->id);
+        }
+
+        return response()->json([
+            "result" => "success"
+        ]);
+    }
+
     public function import(Request $request) {
         /*
         $this->validate($request, [

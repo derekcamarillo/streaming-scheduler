@@ -47,6 +47,7 @@
     <div class="bottom-btns project-list-btns">
         <a href="javascript:void(0);" class="add-video-btn" onclick="importVideoclips()"><span>{{ __('CSV Import Videoclips') }}</span></a>
         <a href="videoclip/export" class="add-video-btn"><span>{{ __('CSV Export Videoclips') }}</span></a>
+        <a href="javascript:void(0);" class="add-video-btn" onclick="clearVideoclips()"><span>{{ __('Clear Videoclips') }}</span></a>
     </div>
 
     <script>
@@ -59,6 +60,31 @@
 
         function importVideoclips() {
             $('#csv').click();
+        }
+
+        function clearVideoclips() {
+            swal({
+                title: "Video Clip",
+                text: "{{ __('Do you really want to clear videoclips?') }}",
+                icon: "error",
+                buttons: true,
+                dangerMode: true
+            }).then(function(result) {
+                if (result) {
+                    waitingDialog.show();
+
+                    $.get('/videoclip/clear',  function (response) {
+                        waitingDialog.hide();
+
+                        if (response.result == 'success') {
+                            $('.tbl_row').remove();
+                            swal("Video Clip", "Video clip successfully cleared", "success");
+                        } else {
+                            swal("Video Clip", "Clear video clip failed", "error");
+                        }
+                    });
+                }
+            });
         }
 
         $(function() {
