@@ -26,12 +26,12 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Player X-Position') }}</span>
-                        <input type="text" id="xpos" name="xpos" placeholder="10" class="text-center" value="@if(isset($message)){{ $message->xpos }}@endif">
+                        <input type="number" id="xpos" name="xpos" placeholder="10" min="0" max="300" class="text-center" value="@if(isset($message)){{ $message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Player Y-Position') }}</span>
-                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($message)){{ $message->ypos }}@endif">
+                        <input type="number" id="ypos" name="ypos" placeholder="10" min="0" max="300" class="text-center" value="@if(isset($message)){{ $message->ypos }}@endif">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Size') }}</span>
-                        <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($message)){{ $message->fontsize }}@endif">
+                        <input type="number" id="fontsize" name="fontsize" min="8" max="72" placeholder="10" class="text-center" value="@if(isset($message)){{ $message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Color') }}</span>
@@ -156,7 +156,7 @@
                 position: "bottom",
                 direction: $('#effect').val(),
                 backgroundcolor: 'transparent',
-                duration: (5000 - $('#speed').val() * 200),
+                duration: (30000 - $('#speed').val() * 1000),
                 color: "#" + $('#fontcolor').val()
             });
 
@@ -172,6 +172,14 @@
             $('#style_marquee').html(css);
 
             player.qualityPickerPlugin();
+        }
+
+        function stopVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
+
+            $('#videoContainer').empty();
         }
 
         function saveMessage() {
