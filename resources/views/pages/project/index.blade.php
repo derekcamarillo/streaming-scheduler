@@ -54,6 +54,7 @@
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
+                        var id = $(this).data('id');
                         swal({
                             title: "Project",
                             text: "{{ __('Do you really want to delete this?') }}",
@@ -62,9 +63,9 @@
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
-                                $('#id').val(value.children[0].innerText);
+                                $('#id').val(id);
 
-                                $.get('/project/destroy/' + value.children[0].innerText,  function (response) {
+                                $.get('/project/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
                                         $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Project", "{{ __('Playlist successfully deleted') }}", "success");

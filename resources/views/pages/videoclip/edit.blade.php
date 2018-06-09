@@ -46,12 +46,12 @@
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span style="max-width: 100px;">{{ __('Player X-Position') }}</span>
-                        <input type="number" id="xpos" name="xpos" placeholder="10" min="8" max="72" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                        <input type="number" id="xpos" name="xpos" placeholder="10" min="0" max="300" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span style="max-width: 100px;">{{ __('Player Y-Position') }}</span>
-                        <input type="text" id="ypos" name="ypos" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
+                        <input type="number" id="ypos" name="ypos" placeholder="10" min="0" max="300" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Size') }}</span>
-                        <input type="text" id="fontsize" name="fontsize" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
+                        <input type="number" id="fontsize" name="fontsize" placeholder="10" min="8" max="72" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Color') }}</span>

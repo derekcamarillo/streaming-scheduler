@@ -86,7 +86,7 @@
                 <table id="tbl_videoclip1" class="table">
                     <thead>
                     <tr>
-                        <th style="width: 35px;">ID</th>
+                        <th style="width: 35px;">NO</th>
                         <th>{{ __('Video Clip Title') }}</th>
                         <th>{{ __('Video Clip Url') }}</th>
                     </tr>
@@ -256,9 +256,19 @@
                 $(this).addClass('active-tr');
             });
 
+            $('#tbl_videoclip1 .tbl-row').dblclick(function() {
+                var id = $(this).data('id');
+                window.location.href = "http://localhost:8000/videoclip/edit/" + id;
+            });
+
             $('#tbl_videoclip2 .tbl-row').click(function() {
                 $('#tbl_videoclip1>tbody').append($(this).clone());
                 $(this).remove();
+
+                $('#tbl_videoclip1 .tbl-row').dblclick(function() {
+                    var id = $(this).data('id');
+                    window.location.href = "{{ url('/videoclip/edit') }}/" + id;
+                });
 
                 $('#tbl_videoclip1 .tbl-row').click(function() {
                     $('.tbl-row').removeClass('active-tr');

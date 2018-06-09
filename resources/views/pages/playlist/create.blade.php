@@ -63,7 +63,7 @@
                 <table id="tbl_videoclip1" class="table">
                     <thead>
                         <tr>
-                            <th style="width: 35px;">ID</th>
+                            <th style="width: 35px;">NO</th>
                             <th>{{ __('Video Clip Title') }}</th>
                             <th>{{ __('Video Clip Url') }}</th>
                         </tr>
@@ -96,19 +96,19 @@
                     <table id="tbl_videoclip2" class="table">
                         <thead>
                         <tr>
-                            <th style="width: 35px;">ID</th>
+                            <th style="width: 35px;">NO</th>
                             <th>{{ __('Title') }}</th>
                             <th>{{ __('Url') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($videoclips as $item)
-                            <tr class="tbl-row" data-id="{{ $item->id }}">
-                                <td style="text-align: center;">{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td><span style="width: 100%;">{{ $item->url }}</span></td>
+                        @for($i = 0; $i < sizeof($videoclips); $i++)
+                            <tr class="tbl-row" data-id="{{ $videoclips[$i]->id }}">
+                                <td style="text-align: center;">{{ $i + 1 }}</td>
+                                <td>{{ $videoclips[$i]->title }}</td>
+                                <td><span style="width: 100%;">{{ $videoclips[$i]->url }}</span></td>
                             </tr>
-                        @endforeach
+                        @endfor
                         </tbody>
                     </table>
                 </div>
@@ -223,6 +223,11 @@
             $('#tbl_videoclip2 .tbl-row').click(function() {
                 $('#tbl_videoclip1>tbody').append($(this).clone());
                 $(this).remove();
+
+                $('#tbl_videoclip1 .tbl-row').dblclick(function() {
+                    var id = $(this).data('id');
+                    window.location.href = "{{ url('/videoclip/edit') }}/" + id;
+                });
 
                 $('#tbl_videoclip1 .tbl-row').click(function() {
                     $('.tbl-row').removeClass('active-tr');

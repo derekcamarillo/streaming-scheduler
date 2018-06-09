@@ -62,13 +62,13 @@
         <input type="file" id="logo" name="logo" style="display: none;" accept="image/jpeg,image/jpg,image/png">
     </form>
 
-    <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box"></div>
-
     <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
         <a onclick="playVideo()" type="button" class="del-video-btn" style="width: 80px !important;"><i class="fa fa-play"></i></a>
         <a onclick="stopVideo()" type="button" class="save-btn"><i class="fa fa-square"></i></a>
         <a onclick="saveLogo()" class="add-video-btn" style="width: 80px !important;"><i class="fa fa-save"></i></a>
     </div><!--col-12-->
+
+    <div id="videoContainer" class="col-sm-12 col-md-12 myVideo-box"></div>
 
     <img id="hiddenLogo" src="{{ $logo->url }}" hidden>
 
@@ -212,7 +212,11 @@
         }
 
         function stopVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
 
+            $('#videoContainer').empty();
         }
 
         function uploadLogo() {
@@ -222,7 +226,7 @@
         function playVideoClip(item) {
             $('#videoContainer').empty();
 
-            videoclipHtml = '<video id="video%id%" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
+            videoclipHtml = '<video id="my-video" class="video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>';
 
             var data = {};
             data.techOrder = [];
@@ -255,7 +259,7 @@
                 data.vimeo = option;
             }
 
-            videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+            videoclipHtml = videoclipHtml.replace('%data%', JSON.stringify(data));
             $('#videoContainer').append(videoclipHtml);
 
             xpos = $('#xpos').val() || 10;
@@ -264,7 +268,7 @@
             ori_width = $('#hiddenLogo').width();
             ori_height = $('#hiddenLogo').height();
 
-            videoPlayer = videojs('video' + item.id, {
+            videoPlayer = videojs('my-video', {
                 plugins: {
                     logoOverlay: {
                         src: $('#hiddenLogo').attr('src'),
