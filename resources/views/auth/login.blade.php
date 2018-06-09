@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Suisse View</title>
+    <title>SUISSE-VIDEO STREAMING</title>
     <meta name="keywords" content="Suisse View" />
     <!-- Bootstrap -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
@@ -27,7 +27,8 @@
 <section class="contaneSection">
     <div class="container">
         <div class="row">
-            <h1 class="titleh1 loginTitle">Welcome to iStream</h1>
+            <h1 class="titleh1">WELCOME TO SUISSE-VIDEO</h1>
+            <h1 class="titleh1 loginTitle">STREAMING</h1>
             <div class="col-lg-4 emptyDiv">&nbsp;</div>
             <div class="col-md-4 emptyDiv">
                 <form role="form" method="POST" action="{{ route('login') }}">

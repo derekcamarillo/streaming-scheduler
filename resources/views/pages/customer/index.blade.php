@@ -70,7 +70,7 @@
                                 $.get('/customer/destroy/' + value.children[0].innerText,  function (response) {
                                     waitingDialog.hide();
                                     if (response.result == 'success') {
-                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Customer", "{{ __('Customer successfully deleted') }}", "success");
                                     } else {
                                         swal("Customer", "{{ __('Deleting customer failed') }}", "error");
