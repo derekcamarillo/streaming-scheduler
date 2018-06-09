@@ -136,6 +136,7 @@ class VideoclipController extends Controller
         $data = array();
         if (($handle = fopen($file, 'r')) !== false)         {
             while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                $row = array_map("utf8_encode", $row);
                 if (!$header)
                     $header = $row;
                 else
