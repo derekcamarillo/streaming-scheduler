@@ -15,7 +15,7 @@
                     <tbody>
                     <!-- class="active-tr" -->
                     @for($i = 0; $i < sizeof($videoclips); $i++)
-                        <tr class="tbl_row">
+                        <tr class="tbl_row" data-id="{{ $videoclips[$i]->id }}">
                             <td style="text-align: center;" data-id="{{ $videoclips[$i]->id }}">{{ $i + 1 }}</td>
                             <td>{{ $videoclips[$i]->title }}</td>
                             <td>@if(isset($videoclips[$i]->message)) {{ Config::get('constants.message_type.'.$videoclips[$i]->message->effect) }} @endif</td>
@@ -112,7 +112,7 @@
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/videoclip/edit') }}/" + value.children[0].innerText;
+                        window.location.href = "{{ url('/videoclip/edit') }}/" + $(this).data('id');
                     });
                 } else {
                     swal("{{ __('Please select video clip to edit') }}",{
