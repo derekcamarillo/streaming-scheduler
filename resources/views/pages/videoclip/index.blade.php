@@ -6,7 +6,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th style="width: 35px;">ID</th>
+                        <th style="width: 35px;">NO</th>
                         <th>{{ __('Video Clip') }}</th>
                         <th>{{ __('Message Type') }}</th>
                         <th>{{ __('Message') }}</th>
@@ -14,6 +14,15 @@
                     </thead>
                     <tbody>
                     <!-- class="active-tr" -->
+                    @for($i = 0; $i < sizeof($videoclips); $i++)
+                        <tr class="tbl_row">
+                            <td style="text-align: center;" data-id="{{ $videoclips[$i]->id }}">{{ $i + 1 }}</td>
+                            <td>{{ $videoclips[$i]->title }}</td>
+                            <td>@if(isset($videoclips[$i]->message)) {{ Config::get('constants.message_type.'.$videoclips[$i]->message->effect) }} @endif</td>
+                            <td><span>@if(isset($videoclips[$i]->message)) {{ $videoclips[$i]->message->text }} @endif</span></td>
+                        </tr>
+                    @endfor
+                    <!--
                     @foreach($videoclips as $item)
                         <tr class="tbl_row">
                             <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
@@ -22,6 +31,7 @@
                             <td><span>@if(isset($item->message)) {{ $item->message->text }} @endif</span></td>
                         </tr>
                     @endforeach
+                    -->
                     </tbody>
                 </table>
             </div><!--table-responsive-->
