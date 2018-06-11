@@ -19,7 +19,7 @@
                             @endif
                         @endforeach
                     @else
-                        <option selected>{{ __('Please select message') }}</option>
+                        <option value="0" selected>{{ __('Please select message') }}</option>
                     @endif
                 </select>
             </div><!--col-3-->
