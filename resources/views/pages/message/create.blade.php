@@ -17,17 +17,17 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3 scrollspeed">
                         <!--<span>Scroll Speed</span>-->
-                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@else 1 @endif" />
+                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="1" />
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Player X-Position') }}</span>
-                        <input type="number" id="xpos" name="xpos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->xpos }}@endif">
+                        <input type="number" id="xpos" name="xpos" min="0" max="300" placeholder="10" class="text-center" value="0">
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Player Y-Position') }}</span>
-                        <input type="number" id="ypos" name="ypos" min="0" max="300" placeholder="10" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->ypos }}@endif">
+                        <input type="number" id="ypos" name="ypos" min="0" max="300" placeholder="10" class="text-center" value="0">
                     </div>
                 </div>
             </div>
@@ -45,16 +45,16 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Size') }}</span>
-                        <input type="number" id="fontsize" min="8" max="72" name="fontsize" placeholder="12" class="text-center" value="@if(isset($videoclip->message)){{ $videoclip->message->fontsize }}@endif">
+                        <input type="number" id="fontsize" min="8" max="72" name="fontsize" placeholder="12" class="text-center" value="12">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Font Color') }}</span>
-                        <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor" value="@if(isset($videoclip->message)){{ $videoclip->message->fontcolor }}@endif">
+                        <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
-                <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
+                <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input">
             </div>
         </form>
 
