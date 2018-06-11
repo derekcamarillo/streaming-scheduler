@@ -45,7 +45,7 @@
                         window.location.href = "{{ url('/message/edit') }}/" + value.children[0].innerText;
                     });
                 } else {
-                    swal("{{ __('Please select video clip to edit') }}",{
+                    swal("{{ __('Please select message to edit') }}",{
                         icon:"error",
                     });
                 }
