@@ -39,7 +39,8 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->first();
 
-        $hisPlaylist = Playlist::find($history->playlist_id);
+        if (sizeof($history) > 0)
+            $hisPlaylist = Playlist::find($history->playlist_id);
 
         return view('pages.home', compact(['projects', 'playlists', 'hisPlaylist']));
     }
