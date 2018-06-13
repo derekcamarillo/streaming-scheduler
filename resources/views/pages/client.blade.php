@@ -224,16 +224,6 @@
         }
     }
 
-    function checkIframe() {
-        var iframe = document.getElementsByTagName('iframe');
-
-        if (iframe.length > 0) {
-            $f(iframe[0]).api("play");
-        } else {
-            setTimeout(checkIframe, 1000);
-        }
-    }
-
     var logo;
     @if(isset($project) and isset($project->logo))
         logo = new Logo('{{ $project->logo->id }}', '{{ $project->logo->url }}', '{{ $project->logo->position }}',

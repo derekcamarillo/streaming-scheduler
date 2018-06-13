@@ -170,7 +170,7 @@
     <div class="video-section">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#menu1">{{ __('Playlist Video Clips') }}</a></li>
-            <!--li><a data-toggle="tab" href="#menu2">Playlist History</a></li-->
+            <li><a data-toggle="tab" href="#menu2">Playlist History</a></li>
         </ul><!--nav nav-tabs-->
         <div class="tab-content table-section">
             <div id="menu1" class="tab-pane fade in active">
@@ -178,62 +178,7 @@
             </div><!--menu1-->
 
             <div id="menu2" class="tab-pane fade">
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-1.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-2.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-3.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-4.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-5.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-6.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-7.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
-                <div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">
-                    <div class="video-box">
-                        <a href="url_viewvideo">
-                            <img src="{{ asset('images/video-8.jpg') }}">
-                        </a>
-                    </div>
-                </div><!--col-3-->
+
             </div><!--menu2-->
         </div><!--tab-content-->
     </div><!--video-section-->

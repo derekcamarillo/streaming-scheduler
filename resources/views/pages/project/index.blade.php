@@ -39,6 +39,10 @@
                 $(this).addClass('active-tr');
             });
 
+            $('.tbl_row').dblclick(function() {
+                window.location.href = "{{ url('/project/edit') }}/" + $(this).data('id');
+            });
+
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value){

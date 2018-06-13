@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\History;
 use App\Playlist;
 use App\Project;
 use App\Videoclip;
@@ -188,7 +189,7 @@ class PlaylistController extends Controller
                 'project_id'  => 'required',
                 'playlist_id'  => 'required'
             ]);
-        }catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             $data = $e->getResponse()->getOriginalContent();
             return response()->json([
                 "result" => Config::get('constants.status.validation'),
@@ -211,6 +212,16 @@ class PlaylistController extends Controller
                 $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 1]);
             else
                 $project->playlists()->updateExistingPivot($playlist->id, ['activated' => 0]);
+
+            $histories = History::where([
+                ['project_id', $project->id],
+                ['playlist_id', $playlist->id]],
+                ['isPlaying', 1])
+                ->get();
+            foreach ($histories as $history) {
+                $history->isPlaying = 0;
+                $history->update();
+            }
         }
 
         $data = array();
@@ -295,6 +306,12 @@ class PlaylistController extends Controller
 
         $this->pusher->trigger($project->url, 'onCommand', $data);
 
+        $history = new History();
+        $history->project_id = $request->input('project_id');
+        $history->playlist_id = $request->input('playlist_id');
+
+        $history->save();
+
         return response()->json([
             "result" => Config::get('constants.status.success'),
             "data" => $request->input('playlist_id')
@@ -328,6 +345,16 @@ class PlaylistController extends Controller
         $this->pusher->trigger($project->url, 'onCommand', $data);
 
         $project->activatedPlaylist()->updateExistingPivot($request->input('playlist_id'), ['activated' => 0]);
+
+        $history = History::where([
+            ['project_id', $request->input('project_id')],
+            ['playlist_id', $request->input('playlist_id')]])
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $history->isPlaying = 0;
+
+        $history->update();
 
         return response()->json([
             "result" => Config::get('constants.status.success'),

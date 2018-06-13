@@ -16,8 +16,8 @@
                     <tbody>
                     <!-- class="active-tr" -->
                     @foreach($logos as $item)
-                        <tr class="tbl_row">
-                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
+                        <tr class="tbl_row" data-id="{{ $item->id }}">
+                            <td style="text-align: center;">{{ $item->id }}</td>
                             <td><span>{{ $item->url }}</span></td>
                             <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
                             <td>{{ $item->xpos }}</td>
@@ -43,10 +43,14 @@
                 $(this).addClass('active-tr');
             });
 
+            $('.tbl_row').dblclick(function() {
+                window.location.href = "{{ url('/logo/edit') }}/" + $(this).data('id');
+            });
+
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/logo/edit') }}/" + value.children[0].innerText;
+                        window.location.href = "{{ url('/logo/edit') }}/" + $(this).data('id');
                     });
                 } else {
                     swal("{{ __('Please select video clip to edit') }}",{
@@ -58,6 +62,8 @@
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
+                        var id = $(this).data('id');
+
                         swal({
                             title: "Logo",
                             text: "{{ __('Do you really want to delete this?') }}",
@@ -66,9 +72,9 @@
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
-                                $('#id').val(value.children[0].innerText);
+                                $('#id').val(id);
 
-                                $.get('/logo/destroy/' + value.children[0].innerText,  function (response) {
+                                $.get('/logo/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
                                         swal("Logo", "{{ __('Logo successfully deleted') }}", "success");

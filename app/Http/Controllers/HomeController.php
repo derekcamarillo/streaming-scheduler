@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\History;
 use App\Project;
 use App\Playlist;
 use App\Videoclip;
@@ -34,7 +35,13 @@ class HomeController extends Controller
         $projects = $user->projects;
         $playlists = $user->playlists;
 
-        return view('pages.home', compact(['projects', 'playlists']));
+        $history = History::where('isPlaying', '0')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $hisPlaylist = Playlist::find($history->playlist_id);
+
+        return view('pages.home', compact(['projects', 'playlists', 'hisPlaylist']));
     }
 
     public function client($customer, $project, Request $request) {
@@ -48,12 +55,6 @@ class HomeController extends Controller
 
             return view('pages.client', compact('project'));
         }
-    }
-
-    public function test($customer, $project, $url) {
-        $project = Project::where('url', $url)->first();
-
-        return view('pages.client', compact(['project', 'url']));
     }
 
     public function getProjectPlaylist($id)

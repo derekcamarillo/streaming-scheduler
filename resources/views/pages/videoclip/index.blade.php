@@ -16,7 +16,7 @@
                     <!-- class="active-tr" -->
                     @for($i = 0; $i < sizeof($videoclips); $i++)
                         <tr class="tbl_row" data-id="{{ $videoclips[$i]->id }}">
-                            <td style="text-align: center;" data-id="{{ $videoclips[$i]->id }}">{{ $i + 1 }}</td>
+                            <td style="text-align: center;">{{ $i + 1 }}</td>
                             <td>{{ $videoclips[$i]->title }}</td>
                             <td>@if(isset($videoclips[$i]->message)) {{ Config::get('constants.message_type.'.$videoclips[$i]->message->effect) }} @endif</td>
                             <td><span>@if(isset($videoclips[$i]->message)) {{ $videoclips[$i]->message->text }} @endif</span></td>
@@ -109,6 +109,10 @@
                 $(this).addClass('active-tr');
             });
 
+            $('.tbl_row').dblclick(function() {
+                window.location.href = "{{ url('/videoclip/edit') }}/" + $(this).data('id');
+            });
+
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
@@ -124,6 +128,8 @@
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
+                        var id = $(this).data('id');
+
                         swal({
                             title: "Video Clip",
                             text: "{{ __('Do you really want to delete this?') }}",
@@ -132,9 +138,9 @@
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
-                                $('#id').val(value.children[0].innerText);
+                                $('#id').val(id);
 
-                                $.get('/videoclip/destroy/' + value.children[0].innerText,  function (response) {
+                                $.get('/videoclip/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
                                         swal("Video Clip", "Video clip successfully deleted", "success");

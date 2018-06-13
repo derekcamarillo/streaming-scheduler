@@ -84,10 +84,14 @@
                 $(this).addClass('active-tr');
             });
 
+            $('.tbl_row').dblclick(function() {
+                window.location.href = "{{ url('/playlist/edit') }}/" + $(this).data('id');
+            });
+
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/playlist/edit') }}/" + value.children[0].innerText;
+                        window.location.href = "{{ url('/playlist/edit') }}/" + $(this).data('id');
                     });
                 } else {
                     swal("{{ __('Please select playlist to edit') }}", {
@@ -99,6 +103,8 @@
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
+                        var id = $(this).data('id');
+
                         swal({
                             title: "Playlist",
                             text: "{{ __('Do you really want to delete this?') }}",
@@ -107,9 +113,9 @@
                             dangerMode: true
                         }).then(function(result) {
                             if (result) {
-                                $('#id').val(value.children[0].innerText);
+                                $('#id').val(id);
 
-                                $.get('/playlist/destroy/' + value.children[0].innerText,  function (response) {
+                                $.get('/playlist/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
                                         $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Playlist", "{{ __('Playlist successfully deleted') }}", "success");

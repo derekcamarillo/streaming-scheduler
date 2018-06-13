@@ -14,8 +14,8 @@
                     <tbody>
                     <!-- class="active-tr" -->
                     @foreach($messages as $item)
-                        <tr class="tbl_row">
-                            <td style="text-align: center;" data-id="{{ $item->id }}">{{ $item->id }}</td>
+                        <tr class="tbl_row" data-id="{{ $item->id }}">
+                            <td style="text-align: center;">{{ $item->id }}</td>
                             <td><span style="width: 400px !important;">{{ $item->text }}</span></td>
                             <td>{{ Config::get('constants.message_type.'.$item->effect) }}</td>
                         </tr>
@@ -39,10 +39,14 @@
                 $(this).addClass('active-tr');
             });
 
+            $('.tbl_row').dblclick(function() {
+                window.location.href = "{{ url('/message/edit') }}/" + $(this).data('id');
+            });
+
             $('.ic-edit-project').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
-                        window.location.href = "{{ url('/message/edit') }}/" + value.children[0].innerText;
+                        window.location.href = "{{ url('/message/edit') }}/" + $(this).data('id');
                     });
                 } else {
                     swal("{{ __('Please select message to edit') }}",{
@@ -54,6 +58,7 @@
             $('.ic-delete-video').click(function () {
                 if ($('tbody>tr').hasClass('active-tr')) {
                     $('.active-tr').each(function(index, value) {
+                        var id = $(this).data('id');
                         swal({
                             title: "Message",
                             text: "{{ __('Do you really want to delete this?') }}",
@@ -64,9 +69,9 @@
                             if (result) {
                                 waitingDialog.show();
 
-                                $('#id').val(value.children[0].innerText);
+                                $('#id').val(id);
 
-                                $.get('/message/destroy/' + value.children[0].innerText,  function (response) {
+                                $.get('/message/destroy/' + id,  function (response) {
                                     waitingDialog.hide();
                                     if (response.result == 'success') {
                                         $('td[data-id="' + response.id + '"]').parent().remove();
