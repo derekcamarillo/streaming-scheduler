@@ -285,6 +285,10 @@
         requestFullScreen.call(elem);
     });
 
+    $(function() {
+        $('#videoContainer').click();
+    })
+
 </script>
 </body>
 </html>
