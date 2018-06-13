@@ -74,6 +74,13 @@
             });
         @endif
     </script>
+
+    <style type="text/css">
+        #videoContainer:-webkit-full-screen {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -270,6 +277,13 @@
         if (schedule)
             startTimer();
     @endif
+
+    $('#videoContainer').click(function() {
+        var elem = document.getElementById('videoContainer');
+        var requestFullScreen = elem.requestFullscreen || elem.msRequestFullscreen || elem.mozRequestFullScreen || elem.webkitRequestFullscreen;
+
+        requestFullScreen.call(elem);
+    });
 
 </script>
 </body>

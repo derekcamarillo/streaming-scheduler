@@ -202,6 +202,7 @@
 
     <script>
         var projects = [];
+        var hisPlaylist;
         var selProject, selPlaylist;
 
         @foreach($projects as $project)
