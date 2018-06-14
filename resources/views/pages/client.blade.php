@@ -73,6 +73,11 @@
                 }
             });
         @endif
+
+        /*
+        var gui = require('nw.gui');
+        gui.Window.get().enterKioskMode();
+        */
     </script>
 
     <style type="text/css">
@@ -284,10 +289,6 @@
 
         requestFullScreen.call(elem);
     });
-
-    $(function() {
-        $('#videoContainer').click();
-    })
 
 </script>
 </body>

@@ -249,6 +249,40 @@
             projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/index.html') }}', playlists));
         @endforeach
 
+
+        @if (isset($hisPlaylist))
+            var videoclips = [];
+            @if(isset($hisPlaylist->videoclips))
+                @foreach($hisPlaylist->videoclips as $videoclip)
+                    var message = null;
+                    @if(isset($videoclip->message))
+                        message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
+                            '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}',
+                            '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
+                            '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
+                    @endif
+
+                    videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
+                @endforeach
+            @endif
+
+            var message = null;
+            @if(isset($hisPlaylist->message))
+                message = new Message('{{ $playlist->message->id }}', '{{ $hisPlaylist->message->text }}', '{{ $hisPlaylist->message->effect }}',
+                    '{{ $hisPlaylist->message->speed }}', '{{ $hisPlaylist->message->duration }}',
+                    '{{ $hisPlaylist->message->xpos }}', '{{ $hisPlaylist->message->ypos }}', '{{ $playlist->message->fonttype }}',
+                    '{{ $hisPlaylist->message->fontsize }}', '{{ $hisPlaylist->message->fontcolor }}');
+            @endif
+
+            var schedule = null;
+            @if(isset($hisPlaylist->schedule))
+                schedule = new Schedule('{{ $hisPlaylist->schedule->id }}', '{{ $hisPlaylist->schedule->start_time }}', '{{ $hisPlaylist->schedule->end_time }}',
+                    '{{ $hisPlaylist->schedule->endless }}', '{{ $hisPlaylist->schedule->days }}', '{{ $playlist->schedule->months }}');
+            @endif
+
+            hisPlaylist = new Playlist('{{ $hisPlaylist->id }}', '{{ $hisPlaylist->title }}', videoclips, message, schedule, 0);
+        @endif
+
         function activatePlaylist() {
             if (! $('#project').val()) {
                 swal("Project", "{{ __('Please select project') }}", "error");
@@ -459,8 +493,62 @@
             var t = setTimeout(startTimer, 1000);
         }
 
+        function showHistory() {
+            $('#menu2').empty();
+
+            hisPlaylist.videoclips.forEach(function(item, index) {
+
+                ///////////////////////////   Reset video clips in video list ////////////////////////////////
+                var videoclipHtml =
+                    '<div class="col-xs-6 col-sm-6 col-md-3 wow fadeInUp">' +
+                    '<div class="video-box">' +
+                    '<video id="hisVideo%id%" class="videoclip video-js vjs-default-skin vjs-4-3" data-setup=\'%data%\'></video>' +
+                    '</div>' +
+                    '</div><!--col-3-->';
+
+                var data = {};
+                data.techOrder = [];
+                data.sources = [];
+
+                if (item.url.indexOf("youtube") !== -1) {
+                    var source = {};
+                    source.type = "video/youtube";
+                    source.src = item.url;
+
+                    data.techOrder.push("youtube");
+                    data.sources.push(source);
+                } else if (item.url.indexOf("vimeo") !== -1) {
+                    var source = {};
+                    source.type = "video/vimeo";
+                    source.src = item.url + "?autoplay=1";
+
+                    var option = {};
+                    option.color = "#fbc51b";
+                    option.controls = false;
+
+                    data.techOrder.push("vimeo");
+                    data.sources.push(source);
+                    //data.vimeo = option;
+                }
+                videoclipHtml = videoclipHtml.replace('%id%', item.id).replace('%data%', JSON.stringify(data));
+                $('#menu2').append(videoclipHtml);
+
+                if (videojs.getPlayers()['hisVideo' + item.id]) {
+                    delete videojs.getPlayers()['hisVideo' + item.id];
+                }
+
+                videojs('hisVideo' + item.id);
+
+                $('#hisVideo' + item.id).click(function () {
+                    var player = videojs.getPlayers()['hisVideo' + item.id];
+                    player.play();
+                });
+            });
+        }
+
         $(function() {
             startTimer();
+            showHistory();
 
             if (projects.length > 0) {
                 selectProject(projects[0]);
