@@ -51,6 +51,10 @@
                         <span>{{ __('Font Color') }}</span>
                         <input id="fontcolor" name="fontcolor" class="text-center colorFeild jscolor">
                     </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <span>{{ __('Back Color') }}</span>
+                        <input id="backcolor" name="backcolor" class="text-center colorFeild jscolor">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
@@ -147,7 +151,8 @@
                 contentOfMarquee: $('#text').val(),
                 position: "bottom",
                 direction: $('#effect').val(),
-                backgroundcolor: 'transparent',
+                //backgroundcolor: 'transparent',
+                backgroundcolor: "#" + $('#backcolor').val(),
                 duration: (30000 - $('#speed').val() * 1000),
                 color: "#" + $('#fontcolor').val()
             });
