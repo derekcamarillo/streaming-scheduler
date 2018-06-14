@@ -130,7 +130,7 @@
                                 message = new Message('{{ $videoclip->message->id }}', '{{ $videoclip->message->text }}', '{{ $videoclip->message->effect }}',
                                     '{{ $videoclip->message->speed }}', '{{ $videoclip->message->duration }}',
                                     '{{ $videoclip->message->xpos }}', '{{ $videoclip->message->ypos }}', '{{ $videoclip->message->fonttype }}',
-                                    '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}');
+                                    '{{ $videoclip->message->fontsize }}', '{{ $videoclip->message->fontcolor }}', '{{ $videoclip->message->backcolor }}');
                             @endif
                             videoclips.push(new Videoclip('{{ $videoclip->id }}', '{{ $videoclip->title }}', '{{ $videoclip->url }}', message));
                         @endforeach
@@ -141,7 +141,7 @@
                         message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
                             '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}',
                             '{{ $playlist->message->xpos }}', '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
-                            '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}');
+                            '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}', '{{ $videoclip->message->backcolor }}');
                     @endif
 
                     var schedule = null;

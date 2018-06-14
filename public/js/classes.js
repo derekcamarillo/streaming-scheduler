@@ -41,7 +41,7 @@ function Logo(id, url, position, xpos, ypos) {
     this.ypos = ypos;
 }
 
-function Message(id, text, effect, speed, duration, xpos, ypos, fonttype, fontsize, fontcolor) {
+function Message(id, text, effect, speed, duration, xpos, ypos, fonttype, fontsize, fontcolor, backcolor) {
     this.id = id;
     this.text = text;
     this.effect = effect;
@@ -53,4 +53,5 @@ function Message(id, text, effect, speed, duration, xpos, ypos, fonttype, fontsi
     this.fonttype = fonttype;
     this.fontsize = fontsize;
     this.fontcolor = fontcolor;
+    this.backcolor = backcolor;
 }
