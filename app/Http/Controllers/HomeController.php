@@ -35,14 +35,9 @@ class HomeController extends Controller
         $projects = $user->projects;
         $playlists = $user->playlists;
 
-        $history = History::where('isPlaying', '0')
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $histories = History::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
 
-        if (sizeof($history) > 0)
-            $hisPlaylist = Playlist::find($history->playlist_id);
-
-        return view('pages.home', compact(['projects', 'playlists', 'hisPlaylist']));
+        return view('pages.home', compact(['projects', 'playlists', 'histories']));
     }
 
     public function client($customer, $project, Request $request) {

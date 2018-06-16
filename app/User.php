@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function logos() {
         return $this->hasMany('App\Logo');
     }
+
+    public function histories() {
+        return $this->hasMany('App\History');
+    }
 }

@@ -309,6 +309,7 @@ class PlaylistController extends Controller
         $history = new History();
         $history->project_id = $request->input('project_id');
         $history->playlist_id = $request->input('playlist_id');
+        $history->user_id = Auth::user()->id;
 
         $history->save();
 
