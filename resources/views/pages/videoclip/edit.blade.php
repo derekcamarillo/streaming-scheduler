@@ -223,7 +223,11 @@
         }
 
         function pauseVideo() {
+            if (videojs.getPlayers()["my-video"]) {
+                delete videojs.getPlayers()["my-video"];
+            }
 
+            $('#videoContainer').empty();
         }
 
         function saveMessage() {
@@ -269,10 +273,6 @@
                         swal("Video Clip", "{{ __('Validation error') }}", "error");
                     }
                 });
-            });
-
-            $('.save-btn').click(function () {
-                $('#form_video').submit();
             });
 
             $('#font_color').on('change', function(e) {
