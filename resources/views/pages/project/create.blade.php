@@ -171,7 +171,10 @@
             });
 
             $('#tbl_playlist2 .tbl-row').click(function() {
-                $('#tbl_playlist1>tbody').append($(this).clone());
+                var clone = $(this).clone();
+                clone.find('td:first-child').html($('#tbl_playlist1 tr').length);
+
+                $('#tbl_playlist1>tbody').append(clone);
                 $(this).remove();
 
                 $('#tbl_playlist1 .tbl-row').click(function() {

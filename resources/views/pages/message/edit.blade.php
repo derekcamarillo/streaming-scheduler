@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Back Color') }}</span>
-                        <input id="backcolor" name="backcolor" class="text-center colorFeild jscolor">
+                        <input id="backcolor" name="backcolor" class="text-center colorFeild jscolor" value="@if(isset($message)){{ $message->backcolor }}@endif">
                     </div>
                 </div>
             </div>

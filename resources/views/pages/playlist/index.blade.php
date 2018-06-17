@@ -17,16 +17,16 @@
                     </thead>
                     <tbody>
                         <!-- class="active-tr" -->
-                        @foreach($playlists as $item)
+                        @for($i = 0; $i < sizeof($playlists); $i++)
                             @php
-                                if(isset($item->schedule)) {
-                                    $months = explode(',', $item->schedule->months);
-                                    $weekdays = explode(',', $item->schedule->days);
-                                }
+                            if(isset($playlists[$i]->schedule)) {
+                            $months = explode(',', $playlists[$i]->schedule->months);
+                            $weekdays = explode(',', $playlists[$i]->schedule->days);
+                            }
                             @endphp
-                            <tr class="tbl_row" data-id="{{ $item->id }}">
-                                <td style="text-align: center;">{{ $item->id }}</td>
-                                <td><span>{{ $item->title }}</span></td>
+                            <tr class="tbl_row" data-id="{{ $playlists[$i]->id }}">
+                                <td style="text-align: center;">{{ $i + 1 }}</td>
+                                <td><span>{{ $playlists[$i]->title }}</span></td>
                                 <td>
                                     @if(isset($months))
                                         @foreach($months as $month)
@@ -46,25 +46,25 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(isset($item->schedule))
-                                        {{ $item->schedule->start_time }}
+                                    @if(isset($playlists[$i]->schedule))
+                                        {{ $playlists[$i]->schedule->start_time }}
                                     @endif
                                 </td>
                                 <td>
                                     <span>
-                                        @if(isset($item->message))
-                                            {{ $item->message->text }}
+                                        @if(isset($playlists[$i]->message))
+                                            {{ $playlists[$i]->message->text }}
                                         @endif
                                     </span>
                                 </td>
                                 <td style="line-height: 0px;">
                                     <div class="round">
-                                        <input type="checkbox" id="endless" name="endless" @if(isset($item->schedule) and $item->schedule->endless == 1) checked @endif disabled>
+                                        <input type="checkbox" id="endless" name="endless" @if(isset($playlists[$i]->schedule) and $playlists[$i]->schedule->endless == 1) checked @endif disabled>
                                         <label for="endless"></label>
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endfor
                     </tbody>
                 </table>
             </div><!--table-responsive-->

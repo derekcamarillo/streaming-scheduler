@@ -32,16 +32,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($project->playlists as $playlist)
+                            @for($i = 0; $i < sizeof($project->playlists); $i++)
                                 @php
-                                    if(isset($playlist->schedule)) {
-                                        $months = explode(',', $playlist->schedule->months);
-                                        $weekdays = explode(',', $playlist->schedule->days);
-                                    }
+                                if(isset($project->playlists[$i]->schedule)) {
+                                    $months = explode(',', $project->playlists[$i]->schedule->months);
+                                    $weekdays = explode(',', $project->playlists[$i]->schedule->days);
+                                }
                                 @endphp
-                                <tr class="tbl-row" data-id="{{ $playlist->id }}">
-                                    <td style="width: 35px;">{{ $playlist->id }}</td>
-                                    <td>{{ $playlist->title }}</td>
+                                <tr class="tbl-row" data-id="{{ $project->playlists[$i]->id }}">
+                                    <td style="width: 35px;">{{ $i + 1 }}</td>
+                                    <td>{{ $project->playlists[$i]->title }}</td>
                                     <td>
                                         @if(isset($months))
                                             @foreach($months as $month)
@@ -61,25 +61,25 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(isset($playlist->schedule))
-                                            {{ $playlist->schedule->start_time }}
+                                        @if(isset($project->playlists[$i]->schedule))
+                                            {{ $project->playlists[$i]->schedule->start_time }}
                                         @endif
                                     </td>
                                     <td>
                                         <span>
-                                            @if(isset($playlist->message))
-                                                {{ $playlist->message->text }}
+                                            @if(isset($project->playlists[$i]->message))
+                                                {{ $project->playlists[$i]->message->text }}
                                             @endif
                                         </span>
                                     </td>
                                     <td style="line-height: 0px;">
                                         <div class="round">
-                                            <input type="checkbox" id="endless" name="endless" @if(isset($playlist->schedule) and $playlist->schedule->endless == 1) checked @endif disabled>
+                                            <input type="checkbox" id="endless" name="endless" @if(isset($project->playlists[$i]->schedule) and $project->playlists[$i]->schedule->endless == 1) checked @endif disabled>
                                             <label for="endless"></label>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endfor
                         </tbody>
                     </table>
                 </div><!--table-responsive-->
@@ -229,7 +229,10 @@
             });
 
             $('#tbl_playlist2 .tbl-row').click(function() {
-                $('#tbl_playlist1>tbody').append($(this).clone());
+                var clone = $(this).clone();
+                clone.find('td:first-child').html($('#tbl_playlist1 tr').length);
+
+                $('#tbl_playlist1>tbody').append(clone);
                 $(this).remove();
 
                 $('#tbl_playlist1 .tbl-row').click(function() {

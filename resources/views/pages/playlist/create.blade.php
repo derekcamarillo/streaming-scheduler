@@ -77,11 +77,13 @@
     </div><!--col-12-->
 
     <div class="bottom-btns">
-        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
         <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>{{ __('Add Video Clip') }}</span></a>
         <a class="del-video-btn ic-delete-video"><span>{{ __('Delete Selected Video') }}</span></a>
-        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
+    </div>
+    <div class="bottom-btns">
+        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
         <a class="move-btn ic-move-down"><span>{{ __('Move Down') }}</span></a>
+        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
     </div>
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
@@ -135,7 +137,10 @@
             $('.ic-delete-video').click(function(event){
                 if ($('#tbl_videoclip1>tbody>tr').hasClass('active-tr')) {
                     $('#tbl_videoclip1 .tbl-row.active-tr').each(function(index, value) {
-                        $('#tbl_videoclip2>tbody').append($(this).clone());
+                        var clone = $(this).clone();
+                        clone.find('td:first-child').html($('#tbl_videoclip2 tr').length);
+
+                        $('#tbl_videoclip2>tbody').append(clone);
                         $(this).remove();
                     });
                 } else {
@@ -221,7 +226,10 @@
             });
 
             $('#tbl_videoclip2 .tbl-row').click(function() {
-                $('#tbl_videoclip1>tbody').append($(this).clone());
+                var clone = $(this).clone();
+                clone.find('td:first-child').html($('#tbl_videoclip1 tr').length);
+
+                $('#tbl_videoclip1>tbody').append(clone);
                 $(this).remove();
 
                 $('#tbl_videoclip1 .tbl-row').dblclick(function() {

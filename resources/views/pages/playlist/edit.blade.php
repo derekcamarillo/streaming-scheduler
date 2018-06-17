@@ -92,13 +92,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($playlist->videoclips as $item)
-                            <tr class="tbl-row" data-id="{{ $item->id }}">
-                                <td style="text-align: center;">{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->url }}</td>
+                        @for($i = 0; $i < sizeof($playlist->videoclips); $i++)
+                            <tr class="tbl-row" data-id="{{ $playlist->videoclips[$i]->id }}">
+                                <td style="text-align: center;">{{ $i + 1 }}</td>
+                                <td>{{ $playlist->videoclips[$i]->title }}</td>
+                                <td>{{ $playlist->videoclips[$i]->url }}</td>
                             </tr>
-                        @endforeach
+                        @endfor
                     </tbody>
                 </table>
             </div><!--table-responsive-->
@@ -106,11 +106,13 @@
     </div><!--col-12-->
 
     <div class="bottom-btns">
-        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
         <a class="add-video-btn ic-add-video" data-toggle="modal" data-target="#modal_videoclip"><span>{{ __('Add Video Clip') }}</span></a>
         <a class="del-video-btn ic-delete-video"><span>{{ __('Delete Selected Video') }}</span></a>
-        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
+    </div>
+    <div class="bottom-btns">
+        <a class="move-btn ic-move-up"><span>{{ __('Move Up') }}</span></a>
         <a class="move-btn ic-move-down"><span>{{ __('Move Down') }}</span></a>
+        <a class="save-btn ic-save"><span>{{ __('Save') }}</span></a>
     </div>
 
     <!------------------------  Select Video Clip Dialog -------------------------------------->
@@ -262,7 +264,10 @@
             });
 
             $('#tbl_videoclip2 .tbl-row').click(function() {
-                $('#tbl_videoclip1>tbody').append($(this).clone());
+                var clone = $(this).clone();
+                clone.find('td:first-child').html($('#tbl_videoclip1 tr').length);
+
+                $('#tbl_videoclip1>tbody').append(clone);
                 $(this).remove();
 
                 $('#tbl_videoclip1 .tbl-row').dblclick(function() {
