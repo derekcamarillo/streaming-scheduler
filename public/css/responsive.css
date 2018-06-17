@@ -4,7 +4,7 @@
 
 	
 
-	.video-box {min-height: 200px;}
+	.video-box {min-height: 154px;}
 
 	
 
@@ -29,6 +29,8 @@
 
 
 @media (max-width: 991px) {
+
+	.video-box {min-height: 245px;}
 
 	.navbar-brand {padding-right:0px; margin-top: 20px}
 
