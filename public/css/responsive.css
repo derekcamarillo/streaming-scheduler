@@ -129,7 +129,7 @@
 
 	.tab-content {padding: 15px 0px 10px;}
 
-	.video-box {min-height: fit-content;}
+	.video-box { min-height: 190px; }
 
 	.video-box:before {width: 40px; height: 40px; left: 50%; top: 50%; margin-left: -20px;margin-top: -20px; background-size: contain;}
 
