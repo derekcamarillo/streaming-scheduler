@@ -519,7 +519,7 @@ header {
 
 .video-box {
 	border-radius: 3px;
-	/*min-height: 232px;*/
+	min-height: 191px;
 	overflow: hidden;
 	position: relative;
 	margin: 15px 0px;
