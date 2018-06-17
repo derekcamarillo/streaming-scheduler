@@ -362,22 +362,22 @@
                     ///////////////////////////   Reset video clips in the time line ////////////////////////////////
                     switch (index % 6) {
                         case 0:
-                            $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="greenbox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                         case 1:
-                            $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="Bluebox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                         case 2:
-                            $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="redbox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                         case 3:
-                            $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="orangebox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                         case 4:
-                            $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="lightbluebox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                         case 5:
-                            $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<p>sub text here</p></div>');
+                            $('#videoclips').append('<div class="greybox editorBox">' + item.title + '<!--p>sub text here</p--></div>');
                             break;
                     }
                 });
