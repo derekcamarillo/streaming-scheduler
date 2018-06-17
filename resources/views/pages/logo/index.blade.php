@@ -15,15 +15,15 @@
                     </thead>
                     <tbody>
                     <!-- class="active-tr" -->
-                    @foreach($logos as $item)
-                        <tr class="tbl_row" data-id="{{ $item->id }}">
-                            <td style="text-align: center;">{{ $item->id }}</td>
-                            <td><span>{{ $item->url }}</span></td>
-                            <td>{{ Config::get('constants.logo_type.'.$item->position) }}</td>
-                            <td>{{ $item->xpos }}</td>
-                            <td>{{ $item->ypos }}</td>
-                        </tr>
-                    @endforeach
+                        @for($i = 0; $i < sizeof($logos); $i++)
+                            <tr class="tbl_row" data-id="{{ $logos[$i]->id }}">
+                                <td style="text-align: center;">{{ $i + 1 }}</td>
+                                <td><span>{{ $logos[$i]->url }}</span></td>
+                                <td>{{ Config::get('constants.logo_type.'.$logos[$i]->position) }}</td>
+                                <td>{{ $logos[$i]->xpos }}</td>
+                                <td>{{ $logos[$i]->ypos }}</td>
+                            </tr>
+                        @endfor
                     </tbody>
                 </table>
             </div><!--table-responsive-->
