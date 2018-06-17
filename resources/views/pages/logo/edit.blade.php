@@ -43,12 +43,12 @@
                 <div class="row edit-playlist-options">
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Ofset X-Position') }}</span>
-                        <input type="text" id="xpos" name="xpos" placeholder="10" value="{{ $logo->xpos }}" class="text-center" >
+                        <input type="number" id="xpos" name="xpos" min="0" max="300" placeholder="10" value="{{ $logo->xpos }}" class="text-center" >
                     </div><!--col-3-->
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Ofset Y-Position') }}</span>
-                        <input type="text" id="ypos" name="ypos" placeholder="10" value="{{ $logo->ypos }}" class="text-center" >
+                        <input type="number" id="ypos" name="ypos" min="0" max="300" placeholder="10" value="{{ $logo->ypos }}" class="text-center" >
                     </div><!--col-3-->
                 </div><!--row | edit-playlist-options-->
             </div><!--col-12-->
