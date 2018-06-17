@@ -292,7 +292,9 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "{{ __('Playlist activated successfully') }}", "success");
+                    swal("Playlist", "{{ __('Playlist activated successfully') }}", "success").then(function(result){
+                        window.location.reload(false);
+                    });
 
                     for (var i = 0; i < projects.length; i++) {
                         if (projects[i].id == $('#project').val()) {
@@ -329,7 +331,9 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "{{ __('Playlist deactivated successfully') }}", "success");
+                    swal("Playlist", "{{ __('Playlist deactivated successfully') }}", "success").then(function(result){
+                        window.location.reload(false);
+                    });
 
                     $('#videoclips').html('');
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
