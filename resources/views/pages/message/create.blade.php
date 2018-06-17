@@ -102,6 +102,8 @@
             z-index: 9998;
             position: absolute;
             font-size: 24px !important;
+            padding-top: 6px;
+            padding-bottom: 6px;
         }
     </style>
 
@@ -164,6 +166,8 @@
                 "left: " + $('#xpos').val() + "px !important;" +
                 "bottom: " + $('#ypos').val() + "px !important;" +
                 "font-family: " + $('#fonttype').val() + "!important;" +
+                "padding-top: 6px;" +
+                "padding-bottom: 6px;" +
                 "}";
 
             $('#style_marquee').html(css);
