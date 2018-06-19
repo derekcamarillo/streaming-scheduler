@@ -292,15 +292,38 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "{{ __('Playlist activated successfully') }}", "success").then(function(result){
-                        window.location.reload(false);
-                    });
+                    swal("Playlist", "{{ __('Playlist activated successfully') }}", "success");
 
                     for (var i = 0; i < projects.length; i++) {
                         if (projects[i].id == $('#project').val()) {
                             showVideoSchedule(projects[i]);
                             break;
                         }
+                    }
+
+                    var activeButton = $('.activate-playlist-button');
+                    var deactiveButton = $('.stop-playlist-button');
+
+                    for (var i = 0; i < projects.length; i++) {
+                        var done = false;
+                        for (var j = 0; j < projects[i].playlists.length; j++) {
+                            if (projects[i].playlists[j].id == $('#playlist').val()) {
+                                projects[i].playlists[j].activated = 1;
+
+                                activeButton.css('cursor', 'not-allowed');
+                                activeButton.css('background', '#a9a9a9');
+                                deactiveButton.css('cursor', 'pointer');
+                                deactiveButton.css('background', 'linear-gradient(to right, #fb505f, #fb6a4e)');
+
+                                activeButton.off('click');
+                                deactiveButton.on('click', deactivatePlaylist);
+
+                                done = true;
+                                break;
+                            }
+                        }
+                        if (done == true)
+                            break;
                     }
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Playlist", "{{ __('Validation failed') }}", "error");
@@ -331,11 +354,34 @@
                 waitingDialog.hide();
 
                 if (response.result == '<?= Config::get('constants.status.success') ?>') {
-                    swal("Playlist", "{{ __('Playlist deactivated successfully') }}", "success").then(function(result){
-                        window.location.reload(false);
-                    });
+                    swal("Playlist", "{{ __('Playlist deactivated successfully') }}", "success");
 
                     $('#videoclips').html('');
+
+                    var activeButton = $('.activate-playlist-button');
+                    var deactiveButton = $('.stop-playlist-button');
+
+                    for (var i = 0; i < projects.length; i++) {
+                        var done = false;
+                        for (var j = 0; j < projects[i].playlists.length; j++) {
+                            if (projects[i].playlists[j].id == $('#playlist').val()) {
+                                projects[i].playlists[j].activated = 0;
+
+                                activeButton.css('cursor', 'pointer');
+                                activeButton.css('background', 'linear-gradient(to right, #08aeea, #2af598)');
+                                deactiveButton.css('cursor', 'not-allowed');
+                                deactiveButton.css('background', '#a9a9a9');
+
+                                activeButton.on('click', activatePlaylist);
+                                deactiveButton.off('click');
+
+                                done = true;
+                                break;
+                            }
+                        }
+                        if (done == true)
+                            break;
+                    }
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Playlist", "{{ __('Validation failed') }}", "error");
                 } else {
@@ -418,13 +464,17 @@
 
             if (playlist.activated == 1) {
                 activeButton.css('cursor', 'not-allowed');
+                activeButton.css('background', '#a9a9a9');
                 deactiveButton.css('cursor', 'pointer');
+                deactiveButton.css('background', 'linear-gradient(to right, #fb505f, #fb6a4e)');
 
                 activeButton.off('click');
                 deactiveButton.on('click', deactivatePlaylist);
             } else {
                 activeButton.css('cursor', 'pointer');
+                activeButton.css('background', 'linear-gradient(to right, #08aeea, #2af598)');
                 deactiveButton.css('cursor', 'not-allowed');
+                deactiveButton.css('background', '#a9a9a9');
 
                 activeButton.on('click', activatePlaylist);
                 deactiveButton.off('click');
