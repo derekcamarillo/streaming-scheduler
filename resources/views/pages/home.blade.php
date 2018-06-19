@@ -155,12 +155,12 @@
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <a class="activate-playlist-button" style="cursor: pointer;" onclick="activatePlaylist()">
+                    <a class="activate-playlist-button" style="cursor: pointer;">
                         <span>{{ __('Activate Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <a class="stop-playlist-button" style="cursor: pointer;"  onclick="deactivatePlaylist()">
+                    <a class="stop-playlist-button" style="cursor: pointer;">
                         <span>{{ __('Stop Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
@@ -408,10 +408,27 @@
         }
 
         function selectPlaylist(playlist) {
-            /*
+             /*
              $('#videoclips').empty();
              $('#menu1').empty();
              */
+
+            var activeButton = $('.activate-playlist-button');
+            var deactiveButton = $('.stop-playlist-button');
+
+            if (playlist.activated == 1) {
+                activeButton.css('cursor', 'not-allowed');
+                deactiveButton.css('cursor', 'pointer');
+
+                activeButton.off('click');
+                deactiveButton.on('click', deactivatePlaylist);
+            } else {
+                activeButton.css('cursor', 'pointer');
+                deactiveButton.css('cursor', 'not-allowed');
+
+                activeButton.on('click', activatePlaylist);
+                deactiveButton.off('click');
+            }
 
             playlist.videoclips.forEach(function(item, index) {
 
@@ -504,7 +521,6 @@
             });
 
             $('#playlist').change(function() {
-                //$('#videoclips').empty();
                 $('#menu1').empty();
 
                 for (var i = 0; i < selProject.playlists.length; i++) {
