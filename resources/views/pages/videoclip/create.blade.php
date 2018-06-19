@@ -279,6 +279,10 @@
             $('#font_color').on('change', function(e) {
                 $(this).css('background', $(this).val());
             });
+
+            $('.ic-save').on('click', function(e) {
+                $('#form_video').submit();
+            });
         });
     </script>
 @stop

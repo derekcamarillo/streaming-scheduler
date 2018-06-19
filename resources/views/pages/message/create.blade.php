@@ -128,7 +128,7 @@
             data.sources = [];
             var source = {};
             source.type = "video/youtube";
-            source.src = 'https://www.youtube.com/watch?v=sVbgz1gBAC0&Demo+clip+Lucerne+Churces=';
+            source.src = '{{ $videoclip }}';
 
             var youtube = {};
             youtube.autoplay = 1;

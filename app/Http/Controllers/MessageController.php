@@ -19,13 +19,21 @@ class MessageController extends Controller
     }
 
     public function create(Request $request) {
-        return view('pages.message.create');
+        $videoclip = "https://www.youtube.com/watch?v=mcYIu_NUbiE";
+        if (sizeof(Auth::user()->videoclips) > 0)
+            $videoclip = Auth::user()->videoclips[0]->url;
+
+        return view('pages.message.create', compact('videoclip'));
     }
 
     public function edit($id) {
         $message = Message::find($id);
 
-        return view('pages.message.edit', compact('message'));
+        $videoclip = "https://www.youtube.com/watch?v=mcYIu_NUbiE";
+        if (sizeof(Auth::user()->videoclips) > 0)
+            $videoclip = Auth::user()->videoclips[0]->url;
+
+        return view('pages.message.edit', compact(['message', 'videoclip']));
     }
 
     public function store(Request $request) {
