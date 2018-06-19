@@ -260,7 +260,7 @@
 
             $('#tbl_videoclip1 .tbl-row').dblclick(function() {
                 var id = $(this).data('id');
-                window.location.href = "http://localhost:8000/videoclip/edit/" + id;
+                window.location.href = "{{ url('/videoclip/edit') }}/" + id;
             });
 
             $('#tbl_videoclip2 .tbl-row').click(function() {
