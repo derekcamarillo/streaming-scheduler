@@ -12,14 +12,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- class="active-tr" -->
-                    @foreach($messages as $item)
-                        <tr class="tbl_row" data-id="{{ $item->id }}">
-                            <td style="text-align: center;">{{ $item->id }}</td>
-                            <td><span style="width: 400px !important;">{{ $item->text }}</span></td>
-                            <td>{{ Config::get('constants.message_type.'.$item->effect) }}</td>
+                    @for($i = 0; $i < sizeof($messages); $i++)
+                        <tr class="tbl_row" data-id="{{ $messages[$i]->id }}">
+                            <td style="text-align: center;">{{ $i + 1 }}</td>
+                            <td><span style="width: 400px !important;">{{ $messages[$i]->text }}</span></td>
+                            <td>{{ Config::get('constants.message_type.'.$messages[$i]->effect) }}</td>
                         </tr>
-                    @endforeach
+                    @endfor
                     </tbody>
                 </table>
             </div><!--table-responsive-->
