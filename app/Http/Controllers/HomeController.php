@@ -91,4 +91,28 @@ class HomeController extends Controller
             ]);
         }
     }
+
+    public function getHistory() {
+        $user = Auth::user();
+
+        $result = array();
+
+        $histories = History::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        foreach($histories as $history) {
+            $row['id'] = $history->id;
+            $row['project'] = $history->project->title;
+            $row['playlist'] = $history->playlist->title;
+            $row['schedule'] = $history->playlist->schedule->start_time;
+            $row['started'] = $history->created_at->format('Y-m-d H:m:s');
+            $row['stopped'] = $history->created_at != $history->updated_at ? $history->updated_at->format('Y-m-d H:m:s') : '';
+            $row['status'] = $history->isPlaying == 0 ? 'Off' : 'On';
+
+            array_push($result, $row);
+        }
+
+        return response()->json([
+            "result" => Config::get('constants.status.success'),
+            "data" => $result
+        ]);
+    }
 }

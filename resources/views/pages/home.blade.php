@@ -155,12 +155,12 @@
                     </select>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <a class="activate-playlist-button" style="cursor: pointer;">
+                    <a class="activate-playlist-button" style="cursor: pointer;" onclick="activatePlaylist(event)">
                         <span>{{ __('Activate Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <a class="stop-playlist-button" style="cursor: pointer;">
+                    <a class="stop-playlist-button" style="cursor: pointer;" onclick="deactivatePlaylist(event)">
                         <span>{{ __('Stop Selected Playlist') }}</span>
                     </a>
                 </div><!--col-6-->
@@ -179,10 +179,11 @@
 
             <div id="menu2" class="tab-pane fade">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="tbl_history" class="table">
                         <thead>
                         <tr>
                             <th>{{ __('Project Title') }}</th>
+                            <th>{{ __('Playlist Title') }}</th>
                             <th>{{ __('Program Start Time') }}</th>
                             <th>{{ __('Started Date/Time') }}</th>
                             <th>{{ __('Stopped Date/Time') }}</th>
@@ -193,6 +194,7 @@
                             @foreach($histories as $item)
                                 <tr class="tbl_row" data-id="{{ $item->id }}">
                                     <td>{{ $item->project->title }}</td>
+                                    <td>{{ $item->playlist->title }}</td>
                                     <td>{{ $item->playlist->schedule->start_time }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>@if($item->created_at != $item->updated_at) {{ $item->updated_at }} @endif</td>
@@ -271,7 +273,34 @@
             projects.push(new Project('{{ $project->id }}', '{{ $project->title }}', '{{ url(Auth::user()->name.'/'.$project->title.'/index.html') }}', playlists));
         @endforeach
 
-        function activatePlaylist() {
+        function updateHistory() {
+            //waitingDialog.show();
+
+            $.get('/home/getHistory', function (response) {
+                //waitingDialog.hide();
+
+                if (response.result == 'success') {
+                    $('#tbl_history>tbody').empty();
+
+                    for (var i = 0; i < response.data.length; i++) {
+                        $('#tbl_history>tbody').append(
+                                '<tr class="tbl_row" data-id="' + response.data[i].id + '">' +
+                                    '<td>' + response.data[i].project + '</td>' +
+                                    '<td>' + response.data[i].playlist + '</td>' +
+                                    '<td>' + response.data[i].schedule + '</td>' +
+                                    '<td>' + response.data[i].started + '</td>' +
+                                    '<td>' + response.data[i].stopped + '</td>' +
+                                    '<td>' + response.data[i].status + '</td>' +
+                                '</tr>');
+                    }
+                }
+            });
+        }
+
+        function activatePlaylist(e) {
+            if (e.target.className.indexOf('disabled') > 0)
+                return;
+
             if (! $('#project').val()) {
                 swal("Project", "{{ __('Please select project') }}", "error");
                 return;
@@ -311,12 +340,11 @@
                                 projects[i].playlists[j].activated = 1;
 
                                 activeButton.css('cursor', 'not-allowed');
+                                activeButton.addClass('disabled');
                                 activeButton.css('background', '#a9a9a9');
                                 deactiveButton.css('cursor', 'pointer');
+                                deactiveButton.removeClass('disabled');
                                 deactiveButton.css('background', 'linear-gradient(to right, #fb505f, #fb6a4e)');
-
-                                activeButton.off('click');
-                                deactiveButton.on('click', deactivatePlaylist);
 
                                 done = true;
                             } else {
@@ -326,6 +354,8 @@
                         if (done == true)
                             break;
                     }
+
+                    updateHistory();
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Playlist", "{{ __('Validation failed') }}", "error");
                 } else {
@@ -334,7 +364,10 @@
             });
         }
 
-        function deactivatePlaylist() {
+        function deactivatePlaylist(e) {
+            if (e.target.className.indexOf('disabled') > 0)
+                return;
+
             if (! $('#project').val()) {
                 swal("Project", "{{ __('Please select project') }}", "error");
                 return;
@@ -369,12 +402,11 @@
                                 projects[i].playlists[j].activated = 0;
 
                                 activeButton.css('cursor', 'pointer');
+                                activeButton.removeClass('disabled');
                                 activeButton.css('background', 'linear-gradient(to right, #08aeea, #2af598)');
                                 deactiveButton.css('cursor', 'not-allowed');
+                                deactiveButton.addClass('disabled');
                                 deactiveButton.css('background', '#a9a9a9');
-
-                                activeButton.on('click', activatePlaylist);
-                                deactiveButton.off('click');
 
                                 done = true;
                                 break;
@@ -383,6 +415,8 @@
                         if (done == true)
                             break;
                     }
+
+                    updateHistory();
                 } else if (response.result == '<?= Config::get('constants.status.validation') ?>') {
                     swal("Playlist", "{{ __('Validation failed') }}", "error");
                 } else {
@@ -465,20 +499,18 @@
 
             if (playlist.activated == 1) {
                 activeButton.css('cursor', 'not-allowed');
+                activeButton.addClass('disabled');
                 activeButton.css('background', '#a9a9a9');
                 deactiveButton.css('cursor', 'pointer');
+                deactiveButton.removeClass('disabled');
                 deactiveButton.css('background', 'linear-gradient(to right, #fb505f, #fb6a4e)');
-
-                activeButton.off('click');
-                deactiveButton.on('click', deactivatePlaylist);
             } else {
                 activeButton.css('cursor', 'pointer');
+                activeButton.removeClass('disabled');
                 activeButton.css('background', 'linear-gradient(to right, #08aeea, #2af598)');
                 deactiveButton.css('cursor', 'not-allowed');
+                deactiveButton.addClass('disabled');
                 deactiveButton.css('background', '#a9a9a9');
-
-                activeButton.on('click', activatePlaylist);
-                deactiveButton.off('click');
             }
 
             playlist.videoclips.forEach(function(item, index) {

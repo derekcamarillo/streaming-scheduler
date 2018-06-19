@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('pages.home');
     Route::get('/home/getProjectPlaylist/{id}', 'HomeController@getProjectPlaylist');
     Route::get('/home/getPlaylistVideoclip/{id}', 'HomeController@getPlaylistVideoclip');
+    Route::get('/home/getHistory', 'HomeController@getHistory');
 
     Route::get('/project', 'ProjectController@index');
     Route::get('/project/create', 'ProjectController@create');
