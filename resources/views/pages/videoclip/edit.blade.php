@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3 scrollspeed">
                         <!--<span>Scroll Speed</span>-->
-                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@else 1 @endif" />
+                        <input id="speed" name="speed" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="@if(isset($videoclip->message)){{ $videoclip->message->speed }}@endif" />
                     </div>
 
                     <div class="col-xs-6 col-sm-3 col-md-3">
@@ -62,7 +62,11 @@
                         <span>{{ __('Font Type') }}</span>
                         <select class="form-control fontInput" id="fonttype" name="fonttype">
                             @foreach(Config::get('constants.font_type') as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
+                                @if(isset($videoclip->message) and $videoclip->message->fonttype == $item)
+                                    <option value="{{ $item }}" selected>{{ $item }}</option>
+                                @else
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -76,14 +80,14 @@
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-3">
                         <span>{{ __('Back Color') }}</span>
-                        <input id="backcolor" name="backcolor" class="text-center colorFeild jscolor">
+                        <input id="backcolor" name="backcolor" class="text-center colorFeild jscolor" value="@if(isset($videoclip->message)){{ $videoclip->message->backcolor }}@endif">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 select-box">
                 <input type="text" id="text" name="text" placeholder="{{ __('Message Content') }}" class="input" value="@if(isset($videoclip->message)){{ $videoclip->message->text }}@endif">
             </div>
-            <input type="hidden" id="videoclip_id" name="videoclip_id" value="0">
+            <input type="hidden" id="videoclip_id" name="videoclip_id" value="{{ $videoclip->id }}">
         </form>
 
         <div class="col-sm-12 bottom-btns logo-overlay-video-btns">
@@ -244,7 +248,7 @@
 
                 waitingDialog.show();
 
-                $.post('/videoclip/store', $(this).serializeArray(), function (response) {
+                $.post('/videoclip/update/{{ $videoclip->id }}', $(this).serializeArray(), function (response) {
                     waitingDialog.hide();
 
                     if (response.result == '<?= Config::get('constants.status.success') ?>') {
