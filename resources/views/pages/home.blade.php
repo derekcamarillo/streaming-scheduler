@@ -319,7 +319,8 @@
                                 deactiveButton.on('click', deactivatePlaylist);
 
                                 done = true;
-                                break;
+                            } else {
+                                projects[i].playlists[j].activated = 0;
                             }
                         }
                         if (done == true)

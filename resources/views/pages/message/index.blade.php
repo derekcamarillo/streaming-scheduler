@@ -73,7 +73,7 @@
                                 $.get('/message/destroy/' + id,  function (response) {
                                     waitingDialog.hide();
                                     if (response.result == 'success') {
-                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Message", "{{ __('Message successfully deleted') }}", "success");
                                     } else {
                                         swal("Message", "{{ __('Deleting Message failed') }}", "error");

@@ -76,7 +76,7 @@
 
                                 $.get('/logo/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
-                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Logo", "{{ __('Logo successfully deleted') }}", "success");
                                     } else {
                                         swal("Logo", "{{ __('Deleting logo failed') }}", "error");

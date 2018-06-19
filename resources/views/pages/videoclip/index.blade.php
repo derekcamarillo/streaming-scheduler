@@ -142,7 +142,7 @@
 
                                 $.get('/videoclip/destroy/' + id,  function (response) {
                                     if (response.result == 'success') {
-                                        $('td[data-id="' + response.id + '"]').parent().remove();
+                                        $('tr[data-id="' + response.id + '"]').remove();
                                         swal("Video Clip", "Video clip successfully deleted", "success");
                                     } else {
                                         swal("Video Clip", "Deleting video clip failed", "error");
