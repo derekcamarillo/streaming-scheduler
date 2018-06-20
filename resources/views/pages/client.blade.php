@@ -71,6 +71,8 @@
                         videojs.getPlayers()[key].dispose();
                         delete videojs.getPlayers()[key];
                     }
+
+                    $('#videoContainer').empty();
                 }
             });
         @endif
