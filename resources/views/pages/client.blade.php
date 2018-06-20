@@ -60,10 +60,13 @@
             var channel = pusher.subscribe('{{ $project->url }}');
             channel.bind('onCommand', function(data) {
                 if (data.command == "start") {
+                    /*
                     playlist = data.playlist;
                     logo = data.logo;
 
                     startTimer();
+                    */
+                    location.reload(true);
                 } else if (data.command = "stop") {
                     swal("Server", "{{ __('Server is not streaming now') }}", "error", { buttons: false, timer: 3000});
 

@@ -171,6 +171,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#menu1">{{ __('Playlist Video Clips') }}</a></li>
             <li><a data-toggle="tab" href="#menu2">Playlist History</a></li>
+            <li style="float: right;"><a onclick="clearHistory()">Clear History</a></li>
         </ul><!--nav nav-tabs-->
         <div class="tab-content table-section">
             <div id="menu1" class="tab-pane fade in active">
@@ -274,11 +275,7 @@
         @endforeach
 
         function updateHistory() {
-            //waitingDialog.show();
-
             $.get('/home/getHistory', function (response) {
-                //waitingDialog.hide();
-
                 if (response.result == 'success') {
                     $('#tbl_history>tbody').empty();
 
@@ -294,6 +291,18 @@
                                 '</tr>');
                     }
                 }
+            });
+        }
+
+        function clearHistory() {
+            waitingDialog.show();
+
+            $.get('/home/clearHistory', function (response) {
+                if (response.result == "success") {
+                    $('#tbl_history>tbody').empty();
+                }
+
+                waitingDialog.hide();
             });
         }
 

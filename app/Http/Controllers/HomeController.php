@@ -115,6 +115,19 @@ class HomeController extends Controller
             "data" => $result
         ]);
     }
+
+    public function clearHistory() {
+        $user = Auth::user();
+
+        $histories = $user->histories;
+        foreach ($histories as $history) {
+            History::destroy($history->id);
+        }
+
+        return response()->json([
+            "result" => "success"
+        ]);
+    }
 }
 
 

@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home/getProjectPlaylist/{id}', 'HomeController@getProjectPlaylist');
     Route::get('/home/getPlaylistVideoclip/{id}', 'HomeController@getPlaylistVideoclip');
     Route::get('/home/getHistory', 'HomeController@getHistory');
+    Route::get('/home/clearHistory', 'HomeController@clearHistory');
 
     Route::get('/project', 'ProjectController@index');
     Route::get('/project/create', 'ProjectController@create');
