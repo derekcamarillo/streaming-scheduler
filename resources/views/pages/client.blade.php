@@ -68,7 +68,7 @@
                     swal("Server", "{{ __('Server is not streaming now') }}", "error", { buttons: false, timer: 3000});
 
                     for (var key in videojs.getPlayers()) {
-                        videojs.getPlayers()[key].dispose();
+                        //videojs.getPlayers()[key].dispose();
                         delete videojs.getPlayers()[key];
                     }
 
@@ -100,6 +100,8 @@
         z-index: 9998;
         position: absolute;
         font-size: 24px !important;
+        padding-top: 6px;
+        padding-bottom: 6px;
     }
 </style>
 
@@ -145,9 +147,11 @@
                 ".vjs-emre-marquee {" +
                 "width: 100%; overflow: hidden; z-index: 9998;position: absolute;" +
                 "font-size:" + message.fontsize + "px !important;" +
-                //"left: " + message.xpos + "px !important;" +
+                "left: " + message.xpos + "px !important;" +
                 "bottom: " + message.ypos + "px !important;" +
                 "font-family: " + message.fonttype + "!important;" +
+                "padding-top: 6px;" +
+                "padding-bottom: 6px;" +
                 "}";
 
         $('#style_marquee').html(css);
@@ -163,12 +167,13 @@
         var data = {};
         data.techOrder = [];
         data.sources = [];
+        data.autoplay = true;
+        data.preload = "auto";
 
         if (item.url.indexOf("youtube") !== -1) {
             var source = {};
             source.type = "video/youtube";
             source.src = item.url;
-
             var youtube = {};
             youtube.autoplay = 1;
             youtube.controls = 0;
@@ -184,6 +189,7 @@
             var option = {};
             //option.color = "#fbc51b";
             option.controls = false;
+            option.autoplay = 1;
 
             data.techOrder.push("vimeo");
             data.sources.push(source);
