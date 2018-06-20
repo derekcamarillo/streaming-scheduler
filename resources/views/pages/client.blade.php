@@ -268,7 +268,7 @@
             message = new Message('{{ $playlist->message->id }}', '{{ $playlist->message->text }}', '{{ $playlist->message->effect }}',
                 '{{ $playlist->message->speed }}', '{{ $playlist->message->duration }}', '{{ $playlist->message->xpos }}',
                 '{{ $playlist->message->ypos }}', '{{ $playlist->message->fonttype }}',
-                '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}', '{{ $videoclip->message->backcolor }}');
+                '{{ $playlist->message->fontsize }}', '{{ $playlist->message->fontcolor }}', '{{ $playlist->message->backcolor }}');
         @endif
 
         var schedule = null;
