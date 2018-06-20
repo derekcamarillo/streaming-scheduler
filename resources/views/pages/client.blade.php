@@ -68,7 +68,7 @@
                     swal("Server", "{{ __('Server is not streaming now') }}", "error", { buttons: false, timer: 3000});
 
                     for (var key in videojs.getPlayers()) {
-                        //videojs.getPlayers()[key].dispose();
+                        videojs.getPlayers()[key].dispose();
                         delete videojs.getPlayers()[key];
                     }
                 }
