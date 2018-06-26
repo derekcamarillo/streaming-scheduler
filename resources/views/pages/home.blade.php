@@ -307,8 +307,10 @@
         }
 
         function activatePlaylist(e) {
+            /*
             if (e.target.className == "")
                 return;
+            */
 
             if (e.target.className.indexOf('disabled') > 0)
                 return;
@@ -377,8 +379,10 @@
         }
 
         function deactivatePlaylist(e) {
+            /*
             if (e.target.className == "")
                 return;
+            */
 
             if (e.target.className.indexOf('disabled') > 0)
                 return;
