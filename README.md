@@ -1,40 +1,30 @@
-# Laravel 5.4 for Laravel Shift
+# Streaming Scheduler
 
-This repository contains the latest version of Laravel 5.4. It is used as a reference by [Laravel Shift - the automated way to upgrade Laravel applications](https://laravelshift.com).
+![logo](https://github.com/topskilldev/streaming-scheduler/blob/master/public/images/logo.png?raw=true)
 
-## Laravel Shift
-*Laravel Shift* focuses on providing automated and [human services](https://laravelshift.com/human-services) for upgrading and improving your Laravel applications.
+<p>Simplifies the effort of operating a 24/7 streaming channel</p>
 
-Shifts for *Laravel* include:
+### [Demo Available](https://www.suisse-video.ch/)
 
-- [Laravel 5.0 Shift - upgrade from Laravel 4.2 to 5.0](https://laravelshift.com/upgrade-laravel-4.2-to-laravel-5.0)
-- [Laravel 5.1 Shift - upgrade from Laravel 5.0 to 5.1](https://laravelshift.com/upgrade-laravel-5.0-to-laravel-5.1) 
-- [Laravel 5.2 Shift - upgrade from Laravel 5.1 to 5.2](https://laravelshift.com/upgrade-laravel-5.1-to-laravel-5.2) 
-- [Laravel 5.3 Shift - upgrade from Laravel 5.2 to 5.3](https://laravelshift.com/upgrade-laravel-5.2-to-laravel-5.3)
-- [Laravel 5.4 Shift - upgrade from Laravel 5.3 to 5.4](https://laravelshift.com/upgrade-laravel-5.3-to-laravel-5.4)
-- [Laravel 5.5 Shift - upgrade from Laravel 5.4 to 5.5](https://laravelshift.com/upgrade-laravel-5.4-to-laravel-5.5)
-- [Laravel 5.6 Shift - upgrade from Laravel 5.5 to 5.6](https://laravelshift.com/upgrade-laravel-5.5-to-laravel-5.6)
-- [Laravel Tests Shift - upgrade tests from BrowserKit](https://laravelshift.com/upgrade-laravel-5.3-tests-to-laravel-5.4-tests)
-- [Laravel Linter - detect lint in your Laravel project](https://laravelshift.com/laravel-linter) 
-- [Consolidate Namespace Shift - condense custom namespaces with Laravel](https://laravelshift.com/laravel-consolidate-custom-namespaces)
+## Main Features
 
-Shifts for *Lumen* include:
+### Home
+![home](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/home.png?raw=true)
 
-- [Lumen 5.1 Shift - upgrade from Lumen 5.0 to 5.1](https://laravelshift.com/upgrade-lumen-5.0-to-lumen-5.1) 
-- [Lumen 5.2 Shift - upgrade from Lumen 5.1 to 5.2](https://laravelshift.com/upgrade-lumen-5.1-to-lumen-5.2) 
-- [Lumen 5.3 Shift - upgrade from Lumen 5.2 to 5.3](https://laravelshift.com/upgrade-lumen-5.2-to-lumen-5.3)
+### Create Video Clip From Youtube or Vimeo
+![Add Video](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/add%20video.png?raw=true)
+- Select your video clips from your YouTube or Vimeo channel
+- Make a list of all video clips (a text editor or similar)
 
-Shifts for *Laravel Packages* include:
+### Create a Video List and add to Playlist
+![Video Clip List](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/video%20clips.png?raw=true)
 
-- [Laravel Package 5.1 Shift - upgrade from Laravel 5.0 to 5.1](https://laravelshift.com/upgrade-laravel-package-5.0-to-5.1)
-- [Laravel Package 5.2 Shift - upgrade from Laravel 5.1 to 5.2](https://laravelshift.com/upgrade-laravel-package-5.1-to-5.2)
-- [Laravel Package 5.3 Shift - upgrade from Laravel 5.2 to 5.3](https://laravelshift.com/upgrade-laravel-package-5.2-to-5.3)
+![Video List](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/video%20list.png?raw=true)
 
-Shifts for *PHP* include:
+### Create Subtitle or Transcript
+![Subtitles](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/subtitles.png?raw=true)
 
-- [PHP 5.5 Shift - upgrade from PHP 5.x to 5.5](https://laravelshift.com/upgrade-php5-to-php5.5)
-- [PHP 5.6 Shift - upgrade from PHP 5.5 to 5.6](https://laravelshift.com/upgrade-php-5.5-to-php-5.6)
-- [PHP 7.0 Shift - upgrade from PHP 5.6 to 7.0](https://laravelshift.com/upgrade-php-5.6-to-php-7.0)
-- [PSR-2 - adopt the PSR-2 code style](https://laravelshift.com/upgrade-psr2-code-style-standard)
-- [PSR-4 - upgrade from PSR-0 to PSR-4](https://laravelshift.com/upgrade-namespace-psr0-psr4)
-- [Mysqli Shift - covert mysql to mysqli](https://laravelshift.com/upgrade-mysql-mysqli)
+### Create Project from Playlist and schedule streaming
+![Subtitles](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/project.png?raw=true)
+
+![Subtitles](https://github.com/topskilldev/streaming-scheduler/blob/master/screenshots/scheduler.png?raw=true)
